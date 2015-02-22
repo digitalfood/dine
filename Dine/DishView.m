@@ -28,7 +28,7 @@
 -(id) initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
         
-        self.dishImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 143, 200)];
+        self.dishImage = [[UIImageView alloc] initWithFrame:frame];
         
         [self addSubview:self.dishImage];
         

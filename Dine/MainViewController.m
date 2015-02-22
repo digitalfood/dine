@@ -17,18 +17,22 @@
 #import "Parse/Parse.h"
 
 float const ANIMATION_DURATION = 0.5;
+float const LIST_VIEW_EXPAND_BUFFER = 10;
 
 @interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewYOffset;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewXOffset;
 
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
 @property (nonatomic, strong) DishDetailViewController *ddvc;
 
 @property (nonatomic, strong) Restaurant *restaurant;
-
+@property (nonatomic, assign) CGPoint originalConstant;
+@property (nonatomic, assign) BOOL shrinkX;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveTransition;
@@ -54,7 +58,7 @@ typedef enum {
     
     self.lvc = [[ListViewController alloc] init];
     self.lvc.delegate = self;
-    self.lvc.view.frame = self.listView.frame;
+    [self.lvc setFrame:self.listView.frame];
     [self.view addSubview:self.lvc.view];
 }
 
@@ -91,6 +95,7 @@ typedef enum {
     rdvc.restaurant = restaurant;
     rdvc.modalPresentationStyle = UIModalPresentationCustom;
     rdvc.transitioningDelegate = self;
+    rdvc.view.frame = self.view.frame;
     [self presentViewController:rdvc animated:YES completion:nil];
 }
 
@@ -105,25 +110,21 @@ typedef enum {
 }
 
 - (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer {
-    self.disableInteractiveTransition = NO;
-    CGPoint translation = [panGestureRecognizer translationInView:self.listView];
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.listView];
+    CGPoint translation = [panGestureRecognizer translationInView:self.view];
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        self.ddvc = [[DishDetailViewController alloc] init];
-        self.ddvc.modalPresentationStyle = UIModalPresentationCustom;
-        self.ddvc.transitioningDelegate = self;
-        [self presentViewController:self.ddvc animated:YES completion:nil];
+        self.shrinkX = ([panGestureRecognizer locationInView:self.view].x > [[UIScreen mainScreen] bounds].size.width / 2);
+        self.originalConstant = CGPointMake(self.listViewXOffset.constant, self.listViewYOffset.constant);
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat progress = - translation.y / 50;
-        NSLog(@"progress: %f", progress);
-        [self.interactiveTransition updateInteractiveTransition:progress];
-    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        if (velocity.y < 0) {
-            [self.interactiveTransition finishInteractiveTransition];
-        } else {
-            [self.interactiveTransition cancelInteractiveTransition];
-            [self.ddvc dismissViewControllerAnimated:NO completion:nil];
+        CGFloat deltaX = self.originalConstant.x + translation.y;
+        CGFloat deltaY = self.originalConstant.y + translation.y;
+        if (self.shrinkX && deltaX <= 0 && deltaX >= -[[UIScreen mainScreen] bounds].size.width - LIST_VIEW_EXPAND_BUFFER) {
+            self.listViewXOffset.constant = self.originalConstant.x + translation.y;
         }
+        if (deltaY <= 0 && deltaY >= -self.sectionView.frame.size.height - LIST_VIEW_EXPAND_BUFFER) {
+            self.listViewYOffset.constant = self.originalConstant.y + translation.y;
+        }
+        [self.lvc setFrame:self.listView.frame];
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
     }
 }
 
@@ -279,22 +280,18 @@ typedef enum {
     
     if (self.isPresenting) {
         [containerView addSubview:toViewController.view];
-        toViewController.view.alpha = 0;
         toViewController.view.center = CGPointMake(toViewController.view.center.x, self.sectionView.frame.size.height / 2);
         toViewController.view.transform = CGAffineTransformMakeScale(1, yRatio);
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             toViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
-            toViewController.view.alpha = 1;
             toViewController.view.transform = CGAffineTransformMakeScale(1, 1);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
         }];
     } else {
-        fromViewController.view.alpha = 1;
         fromViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             fromViewController.view.center = CGPointMake(toViewController.view.center.x, self.sectionView.frame.size.height / 2);
-            fromViewController.view.alpha = 0;
             fromViewController.view.transform = CGAffineTransformMakeScale(1, yRatio);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];

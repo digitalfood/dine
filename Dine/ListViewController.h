@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern float const DISH_RATIO;
+
 @protocol ListViewControllerDelegate <NSObject>
 
 - (void)tapOnDish;
@@ -18,5 +20,7 @@
 @interface ListViewController : UIViewController
 
 @property (nonatomic, weak) id<ListViewControllerDelegate> delegate;
+
+- (void)setFrame:(CGRect)frame;
 
 @end

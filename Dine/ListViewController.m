@@ -9,12 +9,13 @@
 #import "ListViewController.h"
 #import "DishView.h"
 
-int const DISH_WIDTH = 143;
+float const DISH_RATIO = 0.5625;
 
 @interface ListViewController () <UIScrollViewDelegate, DishViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property (nonatomic, assign) CGFloat dishWidth;
 @property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
 @property (nonatomic, strong) NSMutableArray *contrainstArray;
 @property (nonatomic, assign) BOOL pageOpened;
@@ -28,7 +29,7 @@ int const DISH_WIDTH = 143;
     [super viewDidLoad];
 
     [self configureScrollView];
-    [self updateUI];
+//    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,7 +52,16 @@ int const DISH_WIDTH = 143;
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
+    // make sure scrollview still works
+//    [panGestureRecognizer
+//     requireGestureRecognizerToFail:self.scrollView.panGestureRecognizer];
     [self.scrollView addGestureRecognizer:panGestureRecognizer];
+}
+
+- (void)setFrame:(CGRect)frame {
+    self.view.frame = frame;
+    self.dishWidth = frame.size.height * DISH_RATIO;
+    [self updateUI];
 }
 
 - (void)updateUI {
@@ -62,9 +72,8 @@ int const DISH_WIDTH = 143;
     NSInteger numberOfViews = 10;
     
     for (int i = 0; i < numberOfViews; i++) {
-
-        CGFloat xOrigin = i * DISH_WIDTH;
-        CGRect dishFrame = CGRectMake(xOrigin, 0, DISH_WIDTH, self.view.frame.size.height);
+        CGFloat xOrigin = i * self.dishWidth;
+        CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
         DishView *dishView = [[DishView alloc] initWithFrame:dishFrame];
 
         dishView.delegate = self;
@@ -75,7 +84,7 @@ int const DISH_WIDTH = 143;
         
         [self.scrollView addSubview:dishView];
     }
-    self.scrollView.contentSize = CGSizeMake(DISH_WIDTH * numberOfViews, self.view.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.dishWidth * numberOfViews, self.view.frame.size.height);
 }
 
 - (void)tapOnDish {
