@@ -22,9 +22,12 @@
     self.restaurantImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.restaurantImageView setClipsToBounds:YES];
     
-    // handle tap gesture
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
     [self.view addGestureRecognizer:panGestureRecognizer];
+
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+
     self.view.userInteractionEnabled = YES;
     
     [self updateUI];
@@ -40,8 +43,8 @@
     
     __weak RestaurantDetailViewController *this = self;
     [self.restaurantImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        RestaurantDetailViewController *stronlyRetainedView = this;
-        [UIView transitionWithView:stronlyRetainedView.restaurantImageView duration:1.0f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{ stronlyRetainedView.restaurantImageView.image = image;
+        RestaurantDetailViewController *stronglyRetainedView = this;
+        [UIView transitionWithView:stronglyRetainedView.restaurantImageView duration:1.0f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{ stronglyRetainedView.restaurantImageView.image = image;
         } completion:nil];
     } failure:nil];
     
@@ -50,6 +53,10 @@
 #pragma mark - Gesture methods
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

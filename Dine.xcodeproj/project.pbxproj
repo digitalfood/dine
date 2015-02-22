@@ -31,8 +31,12 @@
 		675F53B81A99698400101FE4 /* grayStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 675F53B51A99698400101FE4 /* grayStar.png */; };
 		675F53B91A99698400101FE4 /* redStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 675F53B61A99698400101FE4 /* redStar.png */; };
 		675F53BB1A9969B000101FE4 /* tea.gif in Resources */ = {isa = PBXBuildFile; fileRef = 675F53BA1A9969B000101FE4 /* tea.gif */; };
+		675F53BF1A99722F00101FE4 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 675F53BD1A99722F00101FE4 /* ListViewController.m */; };
+		675F53C01A99722F00101FE4 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 675F53BE1A99722F00101FE4 /* ListViewController.xib */; };
+		675F53C41A99888900101FE4 /* DishDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 675F53C21A99888900101FE4 /* DishDetailViewController.m */; };
+		675F53C51A99888900101FE4 /* DishDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 675F53C31A99888900101FE4 /* DishDetailViewController.xib */; };
+		675F53C81A99A17C00101FE4 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 675F53C71A99A17C00101FE4 /* Dish.m */; };
 		6771F1E11A996593009EB77C /* DishView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1DF1A996593009EB77C /* DishView.m */; };
-		6771F1E21A996593009EB77C /* DishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771F1E01A996593009EB77C /* DishView.xib */; };
 		6771F1E61A99659F009EB77C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1E41A99659F009EB77C /* MainViewController.m */; };
 		6771F1E71A99659F009EB77C /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771F1E51A99659F009EB77C /* MainViewController.xib */; };
 		6771F1F71A9965AF009EB77C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1E91A9965AF009EB77C /* Restaurant.m */; };
@@ -44,6 +48,9 @@
 		6771F1FD1A9965AF009EB77C /* TipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1F31A9965AF009EB77C /* TipViewController.m */; };
 		6771F1FE1A9965AF009EB77C /* TipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771F1F41A9965AF009EB77C /* TipViewController.xib */; };
 		6771F1FF1A9965AF009EB77C /* YelpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1F61A9965AF009EB77C /* YelpClient.m */; };
+		A5D1926E1A99895D00380766 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D1926D1A99895D00380766 /* camera.png */; };
+		A5D192721A998C6400380766 /* FoodComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D192701A998C6400380766 /* FoodComposeViewController.m */; };
+		A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D192711A998C6400380766 /* FoodComposeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,9 +92,16 @@
 		675F53B51A99698400101FE4 /* grayStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayStar.png; sourceTree = "<group>"; };
 		675F53B61A99698400101FE4 /* redStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redStar.png; sourceTree = "<group>"; };
 		675F53BA1A9969B000101FE4 /* tea.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tea.gif; sourceTree = "<group>"; };
+		675F53BC1A99722F00101FE4 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		675F53BD1A99722F00101FE4 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		675F53BE1A99722F00101FE4 /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
+		675F53C11A99888900101FE4 /* DishDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishDetailViewController.h; sourceTree = "<group>"; };
+		675F53C21A99888900101FE4 /* DishDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishDetailViewController.m; sourceTree = "<group>"; };
+		675F53C31A99888900101FE4 /* DishDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishDetailViewController.xib; sourceTree = "<group>"; };
+		675F53C61A99A17C00101FE4 /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
+		675F53C71A99A17C00101FE4 /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dish.m; sourceTree = "<group>"; };
 		6771F1DE1A996593009EB77C /* DishView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishView.h; sourceTree = "<group>"; };
 		6771F1DF1A996593009EB77C /* DishView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishView.m; sourceTree = "<group>"; };
-		6771F1E01A996593009EB77C /* DishView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishView.xib; sourceTree = "<group>"; };
 		6771F1E31A99659F009EB77C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		6771F1E41A99659F009EB77C /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		6771F1E51A99659F009EB77C /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
@@ -106,6 +120,10 @@
 		6771F1F41A9965AF009EB77C /* TipViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipViewController.xib; sourceTree = "<group>"; };
 		6771F1F51A9965AF009EB77C /* YelpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YelpClient.h; sourceTree = "<group>"; };
 		6771F1F61A9965AF009EB77C /* YelpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YelpClient.m; sourceTree = "<group>"; };
+		A5D1926D1A99895D00380766 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		A5D1926F1A998C6400380766 /* FoodComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodComposeViewController.h; sourceTree = "<group>"; };
+		A5D192701A998C6400380766 /* FoodComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodComposeViewController.m; sourceTree = "<group>"; };
+		A5D192711A998C6400380766 /* FoodComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodComposeViewController.xib; sourceTree = "<group>"; };
 		A6914E8EA7D1A421B6D40296 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B8E261B084513E7BE803EFDF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF324F7A546329AFC767EA7E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -210,6 +228,7 @@
 		675F53B31A99696B00101FE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5D1926D1A99895D00380766 /* camera.png */,
 				675F53BA1A9969B000101FE4 /* tea.gif */,
 				675F53B41A99698400101FE4 /* add.png */,
 				675F53B51A99698400101FE4 /* grayStar.png */,
@@ -232,6 +251,8 @@
 			children = (
 				6771F1E81A9965AF009EB77C /* Restaurant.h */,
 				6771F1E91A9965AF009EB77C /* Restaurant.m */,
+				675F53C61A99A17C00101FE4 /* Dish.h */,
+				675F53C71A99A17C00101FE4 /* Dish.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -243,7 +264,6 @@
 				6771F1EE1A9965AF009EB77C /* RestaurantView.m */,
 				6771F1DE1A996593009EB77C /* DishView.h */,
 				6771F1DF1A996593009EB77C /* DishView.m */,
-				6771F1E01A996593009EB77C /* DishView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -263,6 +283,15 @@
 				6771F1E31A99659F009EB77C /* MainViewController.h */,
 				6771F1E41A99659F009EB77C /* MainViewController.m */,
 				6771F1E51A99659F009EB77C /* MainViewController.xib */,
+				675F53BC1A99722F00101FE4 /* ListViewController.h */,
+				675F53BD1A99722F00101FE4 /* ListViewController.m */,
+				675F53BE1A99722F00101FE4 /* ListViewController.xib */,
+				675F53C11A99888900101FE4 /* DishDetailViewController.h */,
+				675F53C21A99888900101FE4 /* DishDetailViewController.m */,
+				675F53C31A99888900101FE4 /* DishDetailViewController.xib */,
+				A5D1926F1A998C6400380766 /* FoodComposeViewController.h */,
+				A5D192701A998C6400380766 /* FoodComposeViewController.m */,
+				A5D192711A998C6400380766 /* FoodComposeViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -382,14 +411,17 @@
 			files = (
 				675F53BB1A9969B000101FE4 /* tea.gif in Resources */,
 				673A8C611A9964F900A21F8A /* LaunchScreen.xib in Resources */,
+				675F53C01A99722F00101FE4 /* ListViewController.xib in Resources */,
 				673A8C5E1A9964F900A21F8A /* Images.xcassets in Resources */,
 				6771F1FC1A9965AF009EB77C /* SectionViewController.xib in Resources */,
 				675F53B71A99698400101FE4 /* add.png in Resources */,
 				675F53B81A99698400101FE4 /* grayStar.png in Resources */,
-				6771F1E21A996593009EB77C /* DishView.xib in Resources */,
+				675F53C51A99888900101FE4 /* DishDetailViewController.xib in Resources */,
 				6771F1F91A9965AF009EB77C /* RestaurantDetailViewController.xib in Resources */,
 				6771F1FE1A9965AF009EB77C /* TipViewController.xib in Resources */,
 				6771F1E71A99659F009EB77C /* MainViewController.xib in Resources */,
+				A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */,
+				A5D1926E1A99895D00380766 /* camera.png in Resources */,
 				675F53B91A99698400101FE4 /* redStar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,8 +473,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				675F53C81A99A17C00101FE4 /* Dish.m in Sources */,
+				A5D192721A998C6400380766 /* FoodComposeViewController.m in Sources */,
 				673A8C561A9964F900A21F8A /* AppDelegate.m in Sources */,
 				6771F1FD1A9965AF009EB77C /* TipViewController.m in Sources */,
+				675F53BF1A99722F00101FE4 /* ListViewController.m in Sources */,
+				675F53C41A99888900101FE4 /* DishDetailViewController.m in Sources */,
 				6771F1F71A9965AF009EB77C /* Restaurant.m in Sources */,
 				6771F1FA1A9965AF009EB77C /* RestaurantView.m in Sources */,
 				673A8C531A9964F900A21F8A /* main.m in Sources */,

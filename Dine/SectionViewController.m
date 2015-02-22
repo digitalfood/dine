@@ -73,8 +73,6 @@ float const METERS_PER_MILE = 1609.344;
     self.sectionWidth = [[UIScreen mainScreen] bounds].size.width;
     self.sectionHeight = self.view.frame.size.height;
     
-    [self.view setFrame:CGRectMake(0, 0, self.sectionWidth, self.sectionHeight)];
-    
     self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = YES;
     
@@ -123,8 +121,8 @@ float const METERS_PER_MILE = 1609.344;
 
 #pragma mark - Restaurant View Delegate methods
 
-- (void)tapOnRestaurant:(Restaurant *)restaurant {
-    [self.delegate tapOnRestaurant:restaurant];
+- (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
+    [self.delegate tapOnRestaurant:restaurant withGesture:tapGestureRecognizer];
 }
 
 #pragma mark - private methods

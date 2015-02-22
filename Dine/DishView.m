@@ -9,7 +9,10 @@
 #import "DishView.h"
 
 @interface DishView ()
-@property (strong, nonatomic) IBOutlet DishView *contentView;
+
+@property (strong, nonatomic) IBOutlet UIImageView *dishImage;
+@property (assign, nonatomic) NSInteger dishRating;
+
 @end
 
 
@@ -24,6 +27,16 @@
 
 -(id) initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
+        
+        self.dishImage = [[UIImageView alloc] initWithFrame:frame];
+        
+        [self addSubview:self.dishImage];
+        
+        self.dishName = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 143, 60)];
+        self.dishName.text = @"A Dish";
+        
+        [self addSubview:self.dishName];
+        
         [self setup];
     }
     return self;
@@ -38,13 +51,22 @@
 */
 
 - (void) setup {
-    UINib *nib = [UINib nibWithNibName:@"DishView" bundle:nil];
-    NSArray *objects = [nib instantiateWithOwner:self options:nil];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+    [self addGestureRecognizer:tapGestureRecognizer];
     
-    self.contentView.frame = self.bounds;
-    self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self addSubview:self.contentView];
-    
+//    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
+//    [self addGestureRecognizer:panGestureRecognizer];
+}
+
+#pragma mark - interaction methods
+- (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    // TODO: pass dish data model to finish data binding in DishDetailViewController
+    [self.delegate tapOnDish];
+}
+
+- (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
+    // TODO: pass dish data model to finish data binding in DishDetailViewController
+//    [self.delegate panOnDish:panGestureRecognizer];
 }
 
 @end
