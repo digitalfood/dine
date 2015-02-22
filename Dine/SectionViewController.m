@@ -58,7 +58,6 @@ float const METERS_PER_MILE = 1609.344;
         self.locationManager.distanceFilter = 100.0f;
         self.locationManager.headingFilter = 5;
         if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-            NSLog(@"requesting access");
             [self.locationManager requestWhenInUseAuthorization];
         }
         if ([CLLocationManager locationServicesEnabled]){
@@ -134,7 +133,6 @@ float const METERS_PER_MILE = 1609.344;
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (self.location != nil) {
         NSString *currentLocation = [NSString stringWithFormat:@"%+.6f,%+.6f",self.location.coordinate.latitude, self.location.coordinate.longitude];
-        NSLog(@"current location:%@", self.location);
         [params setObject:currentLocation forKey:@"ll"];
     
         [self.client searchWithTerm:@"Restaurants" params:params success:^(AFHTTPRequestOperation *operation, id response) {
