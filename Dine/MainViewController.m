@@ -80,7 +80,7 @@ typedef enum {
     [query whereKey:@"restaurantId" equalTo:@"thai-square-restaurant-cupertino"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.lvc.dishes = [NSMutableArray arrayWithArray:objects];
-    }];    
+    }];
 }
 
 - (void)createFood:(PFObject *)food {
