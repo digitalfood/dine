@@ -7,6 +7,8 @@
 //
 
 #import "TipViewController.h"
+#import "CheckSplitViewController.h"
+#import "TipSettingsViewController.h"
 
 @interface TipViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *billTextField;
@@ -17,6 +19,7 @@
 
 @property (nonatomic, assign) CGPoint initialCenter;
 @property (nonatomic, assign) double billAmount;
+@property (weak, nonatomic) IBOutlet UIButton *tipValueBtn;
 
 - (void)updateUI;
 
@@ -24,18 +27,17 @@
 
 @implementation TipViewController
 
+
+
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
+
+    // Add Pan Gesture recognizer to the viewHandle
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
-    
     [self.viewHandle addGestureRecognizer:panGestureRecognizer];
 
     
-    
-    [super viewDidLoad];
-    
-    
-    //Adds a shadow to sampleView
+    //Adds shadow to Checkout View
     CALayer *layer = self.view.layer;
     layer.shadowOffset = CGSizeMake(1, 1);
     layer.shadowColor = [[UIColor blackColor] CGColor];
@@ -77,6 +79,13 @@
     [self updateUI];
     
     return YES;
+}
+
+
+
+- (IBAction)onTipValueBtn:(id)sender {
+    TipSettingsViewController *splitVC = [[TipSettingsViewController alloc] init];
+    [self presentViewController:splitVC animated:YES completion:nil];
 }
 
 

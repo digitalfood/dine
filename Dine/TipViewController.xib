@@ -9,6 +9,7 @@
                 <outlet property="billTextField" destination="kdT-RR-dFQ" id="V5t-V8-Vcm"/>
                 <outlet property="tipControl" destination="K14-qi-YfC" id="lVU-cR-0ls"/>
                 <outlet property="tipLabel" destination="ld9-Xc-v1y" id="Ksq-h9-Dfn"/>
+                <outlet property="tipValueBtn" destination="Dwd-Ty-o2V" id="qlH-Oq-jhD"/>
                 <outlet property="totalLabel" destination="Vne-wW-yZn" id="Tby-KL-ug8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewHandle" destination="Rbl-gZ-NMr" id="CbY-TZ-jbQ"/>
@@ -127,6 +128,9 @@
                             <state key="normal" title="15%">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="onTipValueBtn:" destination="-1" eventType="touchUpInside" id="Kj6-f8-CQC"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.99733664772727271" green="0.99733664772727271" blue="0.99733664772727271" alpha="1" colorSpace="calibratedRGB"/>
