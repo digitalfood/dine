@@ -10,4 +10,7 @@
 
 @interface TipViewController : UIViewController
 
+- (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
+
+
 @end

@@ -13,7 +13,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tipControl;
+@property (weak, nonatomic) IBOutlet UIView *viewHandle;
 
+@property (nonatomic, assign) CGPoint initialCenter;
 @property (nonatomic, assign) double billAmount;
 
 - (void)updateUI;
@@ -23,8 +25,26 @@
 @implementation TipViewController
 
 - (void)viewDidLoad {
+    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
+    
+    [self.viewHandle addGestureRecognizer:panGestureRecognizer];
+
+    
+    
     [super viewDidLoad];
+    
+    //Adds a shadow to sampleView
+    CALayer *layer = self.view.layer;
+    layer.shadowOffset = CGSizeMake(1, 1);
+    layer.shadowColor = [[UIColor blackColor] CGColor];
+    layer.shadowRadius = 4.0f;
+    layer.shadowOpacity = 0.20f;
+    layer.shadowPath = [[UIBezierPath bezierPathWithRect:layer.bounds] CGPath];
+    
+    
     self.billAmount = 0;
+    [self.billTextField becomeFirstResponder];
     self.billTextField.delegate = self;
     [self updateUI];
     
@@ -57,5 +77,42 @@
     
     return YES;
 }
+
+
+- (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
+    
+    CGPoint translation = [panGestureRecognizer translationInView:self.view];
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    CGPoint center;
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        
+        self.initialCenter = self.view.center;
+        
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        
+        self.view.center = CGPointMake(self.initialCenter.x, self.initialCenter.y + translation.y);
+        
+    } else if ( panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        
+        if (velocity.y > 0){
+            center = CGPointMake(self.initialCenter.x, 600);
+
+        } else {
+            center = CGPointMake(self.initialCenter.x, self.initialCenter.y);
+        }
+        
+        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:5 options:0 animations:^{
+            self.view.center = center;
+        } completion:^(BOOL finished) {
+            if (velocity.y > 0){
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+        
+        
+    }
+}
+
 
 @end
