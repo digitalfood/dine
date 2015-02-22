@@ -266,9 +266,7 @@ typedef enum {
     DishView *previousDish = nil;
     
     for (NSInteger i = 0; i < 10; i++) {
-        CGRect dishFrame = self.view.frame;
-        dishFrame.size.width = 143;
-        dishFrame.size.height = 253;
+        CGRect dishFrame = CGRectMake(0 + i * 143, self.sectionView.frame.size.height + 1, 143, 253);
         
         DishView *dish = [[DishView alloc] initWithFrame:dishFrame];
         [dish setTag:i];

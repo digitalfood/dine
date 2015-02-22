@@ -58,6 +58,7 @@ float const METERS_PER_MILE = 1609.344;
         self.locationManager.distanceFilter = 100.0f;
         self.locationManager.headingFilter = 5;
         if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            NSLog(@"requesting access");
             [self.locationManager requestWhenInUseAuthorization];
         }
         if ([CLLocationManager locationServicesEnabled]){
@@ -125,8 +126,6 @@ float const METERS_PER_MILE = 1609.344;
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant {
     [self.delegate tapOnRestaurant:restaurant];
-    // TODO: display restaurant detail page
-    NSLog(@"you've tapped on a restaurant!!");
 }
 
 #pragma mark - private methods
