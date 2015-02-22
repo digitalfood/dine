@@ -10,6 +10,7 @@
 #import "SectionViewController.h"
 #import "DishView.h"
 #import "RestaurantDetailViewController.h"
+#import "TipViewController.h"
 #import "Parse/Parse.h"
 
 float const ANIMATION_DURATION = 0.5;
@@ -18,6 +19,7 @@ float const ANIMATION_DURATION = 0.5;
 
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
+- (IBAction)onCheckout:(id)sender;
 
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, assign) BOOL isPresenting;
@@ -81,6 +83,17 @@ typedef enum {
     rdvc.transitioningDelegate = self;
     [self presentViewController:rdvc animated:YES completion:nil];
 }
+
+
+
+- (IBAction)onCheckout:(id)sender {
+    
+    TipViewController *checkoutVC = [[TipViewController alloc] init];
+    checkoutVC.modalPresentationStyle = UIModalPresentationCustom;
+    checkoutVC.transitioningDelegate = self;
+    [self presentViewController:checkoutVC animated:YES completion:nil];
+}
+
 
 #pragma mark - UIViewControllerTransitioningDelegate methods
 
