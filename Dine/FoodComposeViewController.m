@@ -35,6 +35,8 @@
     // Setup navigation items
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancelButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButton)];
+    
+    self.commentsField.borderStyle = UITextBorderStyleRoundedRect;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +51,31 @@
 }
 
 - (void) onSaveButton {
+    if ([self.nameField.text isEqualToString:@""]) {
+        [self.nameField becomeFirstResponder];
+        
+        UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Empty Food Name" message:@"Please input food name" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [theAlert show];
+        return;
+    }
+    
+    PFObject *food = [PFObject objectWithClassName:@"Food"];
+    food[@"name"] = self.nameField.text;
+    food[@"comments"] = self.commentsField.text;
+    food[@"ratings"] = [self getRatings];
+    food[@"restaurantId"] = self.restaurant.id;
+    
+    NSData *imageData = UIImagePNGRepresentation(self.thumbnailImage);
+    PFFile *imageFile = [PFFile fileWithData:imageData];
+    food[@"thumbnail"] = imageFile;
+    
+    [food saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self.delegate createFood:food];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
+
+- (NSNumber*) getRatings {
     UIButton *button;
     NSNumber *ratings = 0;
     BOOL selected = YES;
@@ -61,21 +88,8 @@
             selected = NO;
         }
     }
-    
-    PFObject *food = [PFObject objectWithClassName:@"Food"];
-    food[@"name"] = self.nameField.text;
-    food[@"comments"] = self.commentsField.text;
-    food[@"ratings"] = ratings;
-    food[@"restaurantId"] = self.restaurant.id;
-    
-    NSData *imageData = UIImagePNGRepresentation(self.thumbnailImage);
-    PFFile *imageFile = [PFFile fileWithData:imageData];
-    food[@"thumbnail"] = imageFile;
-    
-    [food saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self.delegate createFood:food];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+
+    return ratings;
 }
 
 

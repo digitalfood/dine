@@ -25,6 +25,7 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (weak, nonatomic) IBOutlet UIView *listView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewYOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewXOffset;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
@@ -60,6 +61,8 @@ typedef enum {
     self.lvc.delegate = self;
     [self.lvc setFrame:self.listView.frame];
     [self.view addSubview:self.lvc.view];
+
+    [self.view bringSubviewToFront:self.cameraButton];
 }
 
 - (void)didReceiveMemoryWarning {
