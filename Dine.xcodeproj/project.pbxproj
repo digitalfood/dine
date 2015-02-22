@@ -48,6 +48,9 @@
 		6771F1FD1A9965AF009EB77C /* TipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1F31A9965AF009EB77C /* TipViewController.m */; };
 		6771F1FE1A9965AF009EB77C /* TipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771F1F41A9965AF009EB77C /* TipViewController.xib */; };
 		6771F1FF1A9965AF009EB77C /* YelpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1F61A9965AF009EB77C /* YelpClient.m */; };
+		A5D1926E1A99895D00380766 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D1926D1A99895D00380766 /* camera.png */; };
+		A5D192721A998C6400380766 /* FoodComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D192701A998C6400380766 /* FoodComposeViewController.m */; };
+		A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D192711A998C6400380766 /* FoodComposeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +120,10 @@
 		6771F1F41A9965AF009EB77C /* TipViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipViewController.xib; sourceTree = "<group>"; };
 		6771F1F51A9965AF009EB77C /* YelpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YelpClient.h; sourceTree = "<group>"; };
 		6771F1F61A9965AF009EB77C /* YelpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YelpClient.m; sourceTree = "<group>"; };
+		A5D1926D1A99895D00380766 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		A5D1926F1A998C6400380766 /* FoodComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodComposeViewController.h; sourceTree = "<group>"; };
+		A5D192701A998C6400380766 /* FoodComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodComposeViewController.m; sourceTree = "<group>"; };
+		A5D192711A998C6400380766 /* FoodComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodComposeViewController.xib; sourceTree = "<group>"; };
 		A6914E8EA7D1A421B6D40296 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B8E261B084513E7BE803EFDF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF324F7A546329AFC767EA7E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -221,6 +228,7 @@
 		675F53B31A99696B00101FE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5D1926D1A99895D00380766 /* camera.png */,
 				675F53BA1A9969B000101FE4 /* tea.gif */,
 				675F53B41A99698400101FE4 /* add.png */,
 				675F53B51A99698400101FE4 /* grayStar.png */,
@@ -281,6 +289,9 @@
 				675F53C11A99888900101FE4 /* DishDetailViewController.h */,
 				675F53C21A99888900101FE4 /* DishDetailViewController.m */,
 				675F53C31A99888900101FE4 /* DishDetailViewController.xib */,
+				A5D1926F1A998C6400380766 /* FoodComposeViewController.h */,
+				A5D192701A998C6400380766 /* FoodComposeViewController.m */,
+				A5D192711A998C6400380766 /* FoodComposeViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -409,6 +420,8 @@
 				6771F1F91A9965AF009EB77C /* RestaurantDetailViewController.xib in Resources */,
 				6771F1FE1A9965AF009EB77C /* TipViewController.xib in Resources */,
 				6771F1E71A99659F009EB77C /* MainViewController.xib in Resources */,
+				A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */,
+				A5D1926E1A99895D00380766 /* camera.png in Resources */,
 				675F53B91A99698400101FE4 /* redStar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				675F53C81A99A17C00101FE4 /* Dish.m in Sources */,
+				A5D192721A998C6400380766 /* FoodComposeViewController.m in Sources */,
 				673A8C561A9964F900A21F8A /* AppDelegate.m in Sources */,
 				6771F1FD1A9965AF009EB77C /* TipViewController.m in Sources */,
 				675F53BF1A99722F00101FE4 /* ListViewController.m in Sources */,
