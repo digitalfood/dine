@@ -19,7 +19,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" red="0.43609266730000001" green="0.018394056240000001" blue="0.71910511359999996" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="ie7-b9-XMp" secondAttribute="bottom" id="KWa-vF-aXC"/>
                 <constraint firstItem="ie7-b9-XMp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jEE-sR-sEG"/>

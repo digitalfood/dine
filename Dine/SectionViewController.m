@@ -78,12 +78,20 @@ float const METERS_PER_MILE = 1609.344;
     
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.scrollView.frame.size.height);
 
     self.scrollView.delegate = self;
     
     self.pageControl.hidden = YES;
     
     [self reloadData];
+}
+
+- (void)setFrame:(CGRect)frame {
+    self.scrollView.frame = frame;
+    self.sectionWidth = frame.size.width;
+    self.sectionHeight = frame.size.height;
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.sectionHeight);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,7 +174,7 @@ float const METERS_PER_MILE = 1609.344;
         [self.scrollView addSubview:restaurantView];
     }
     self.scrollView.contentSize = CGSizeMake(self.sectionWidth * numberOfViews, self.sectionHeight);
-
+    [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage]];
 }
 
 @end

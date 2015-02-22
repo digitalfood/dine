@@ -8,6 +8,7 @@
 
 #import "ListViewController.h"
 #import "DishView.h"
+#import "Parse/Parse.h"
 
 float const DISH_RATIO = 0.5625;
 
@@ -64,14 +65,30 @@ float const DISH_RATIO = 0.5625;
     [self updateUI];
 }
 
+- (void)setDishes:(NSMutableArray *)dishes {
+    _dishes = dishes;
+    
+    [self updateUI];
+}
+
+- (void)resizeSubframes {
+    int i = 0;
+    for(UIView *subview in [self.scrollView subviews]) {
+        CGFloat xOrigin = i * self.dishWidth;
+        CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
+        subview.frame = dishFrame;
+        i++;
+    }
+    self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);
+}
+
 - (void)updateUI {
     for(UIView *subview in [self.scrollView subviews]) {
         [subview removeFromSuperview];
     }
     
-    NSInteger numberOfViews = 10;
-    
-    for (int i = 0; i < numberOfViews; i++) {
+    int i = 0;
+    for (PFObject *dish in self.dishes) {
         CGFloat xOrigin = i * self.dishWidth;
         CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
         DishView *dishView = [[DishView alloc] initWithFrame:dishFrame];
@@ -79,12 +96,21 @@ float const DISH_RATIO = 0.5625;
         dishView.delegate = self;
         dishView.backgroundColor = [UIColor colorWithRed:0.5/i green:0.5 blue:0.5 alpha:1];
         
+        i++;
+        
         dishView.translatesAutoresizingMaskIntoConstraints = NO;
-        dishView.dishName.text = [NSString stringWithFormat:@"%ld", (long)i];
+        dishView.dishName.text = dish[@"name"];
+        
+        PFFile *userImageFile = dish[@"thumbnail"];
+        [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+            if (!error) {
+                dishView.dishImage.image = [UIImage imageWithData:imageData];
+            }
+        }];
         
         [self.scrollView addSubview:dishView];
     }
-    self.scrollView.contentSize = CGSizeMake(self.dishWidth * numberOfViews, self.view.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);
 }
 
 - (void)tapOnDish {

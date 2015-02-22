@@ -19,5 +19,6 @@
 
 @property (nonatomic, weak) id<DishViewDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UILabel *dishName;
+@property (strong, nonatomic) IBOutlet UIImageView *dishImage;
 
 @end
