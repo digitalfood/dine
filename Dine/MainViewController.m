@@ -33,6 +33,7 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
 @property (nonatomic, strong) DishDetailViewController *ddvc;
+@property (weak, nonatomic) IBOutlet UIView *customNavBar;
 
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, assign) CGPoint originalConstant;
@@ -64,7 +65,12 @@ typedef enum {
     self.lvc.delegate = self;
     [self.lvc setFrame:self.listView.frame];
     [self.view addSubview:self.lvc.view];
+
+    [self.view bringSubviewToFront: self.customNavBar ];
+
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -110,7 +116,10 @@ typedef enum {
     TipViewController *checkoutVC = [[TipViewController alloc] init];
     checkoutVC.modalPresentationStyle = UIModalPresentationCustom;
     checkoutVC.transitioningDelegate = self;
-    [self presentViewController:checkoutVC animated:YES completion:nil];
+
+    [self presentViewController:checkoutVC animated:YES completion:^{
+        [self.customNavBar setAlpha: 0];
+    }];
 }
 
 #pragma mark - ListViewControllerDelegate methods
@@ -158,17 +167,10 @@ typedef enum {
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     self.isPresenting = NO;
+    [self.customNavBar setAlpha:1];
     return self;
 }
 
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-    if (self.disableInteractiveTransition) {
-        return nil;
-    }
-    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
-    self.interactiveTransition.completionSpeed = 0.99;
-    return self.interactiveTransition;
-}
 
 //- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
 //    
