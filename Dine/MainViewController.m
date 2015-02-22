@@ -29,6 +29,7 @@ float const ANIMATION_DURATION = 0.5;
 @property (nonatomic, strong) NSMutableArray *contrainstArray;
 @property (nonatomic, assign) BOOL pageOpened;
 @property (nonatomic, assign) CGRect originalScrollViewFrame;
+@property (nonatomic, strong) NSArray *dishArray;
 
 @end
 
@@ -47,6 +48,7 @@ typedef enum {
     self.svc.view.frame = self.sectionView.frame;
     [self.sectionView addSubview:self.svc.view];
     
+    self.dishArray = [[NSArray alloc] init];
     [self configureScrollView];
     [self adjustDishes];
 
@@ -60,15 +62,15 @@ typedef enum {
 #pragma mark - SectionViewControllerDelegate methods
 
 - (void)swipeToRestaurant:(Restaurant *)restaurant {
+    NSLog(@"restaurant: %@", restaurant.id);
     NSLog(@"swiped to : %@", restaurant.name);
     
     // Joanna please update food menu view controller accordingly
     PFQuery *query = [PFQuery queryWithClassName:@"Food"];
     [query whereKey:@"parent" equalTo:[PFObject objectWithoutDataWithClassName:@"Restaurant" objectId:@"eS2FBIaZ4s"]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        for (PFObject *food in objects) {
-            NSLog(@"%@", food);
-        }
+        self.dishArray = objects;
+        [self adjustDishes];
     }];
     
 }
@@ -200,6 +202,7 @@ typedef enum {
 
 - (void)configureScrollView
 {
+    
     _contrainstArray = [[NSMutableArray alloc] init];
     
     _scrollView = [UIScrollView new];
@@ -263,15 +266,26 @@ typedef enum {
 
 - (void)adjustDishes
 {
-    DishView *previousDish = nil;
+    NSArray *viewsToRemove = [_scrollView subviews];
+    for (UIView *v in viewsToRemove) {
+        [v removeFromSuperview];
+    }
     
-    for (NSInteger i = 0; i < 10; i++) {
+    NSArray *origSVC = _scrollView.constraints;
+    for (NSLayoutConstraint *constraint in origSVC) {
+        [_scrollView removeConstraint:constraint];
+    }
+    
+    DishView *previousDish = nil;
+    int i = 0;
+    for (PFObject *food in self.dishArray) {
         CGRect dishFrame = CGRectMake(0 + i * 143, self.sectionView.frame.size.height + 1, 143, 253);
         
         DishView *dish = [[DishView alloc] initWithFrame:dishFrame];
         [dish setTag:i];
+        i++;
         
-        dish.dishName.text = [NSString stringWithFormat:@"%d", i];
+        dish.dishName.text = food[@"name"];
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
         [dish addGestureRecognizer:tapGestureRecognizer];
@@ -340,13 +354,16 @@ typedef enum {
         previousDish = dish;
     }
     
-    [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:previousDish
+    if(previousDish){
+        [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:previousDish
                                                             attribute:NSLayoutAttributeRight
                                                             relatedBy:NSLayoutRelationEqual
                                                                toItem:_scrollView
                                                             attribute:NSLayoutAttributeRight
                                                            multiplier:1.0
                                                              constant:0]];
+    }
+    
 }
 
 
