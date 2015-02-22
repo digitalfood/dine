@@ -70,6 +70,7 @@ typedef enum {
     [query whereKey:@"parent" equalTo:[PFObject objectWithoutDataWithClassName:@"Restaurant" objectId:@"eS2FBIaZ4s"]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.dishArray = objects;
+        NSLog(@"%@", objects);
         [self adjustDishes];
     }];
     
