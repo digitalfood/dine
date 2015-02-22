@@ -25,8 +25,6 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
 
-- (IBAction)onCheckout:(id)sender;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewYOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewXOffset;
 
@@ -111,17 +109,6 @@ typedef enum {
 
 
 
-- (IBAction)onCheckout:(id)sender {
-    
-    TipViewController *checkoutVC = [[TipViewController alloc] init];
-    checkoutVC.modalPresentationStyle = UIModalPresentationCustom;
-    checkoutVC.transitioningDelegate = self;
-
-    [self presentViewController:checkoutVC animated:YES completion:^{
-        [self.customNavBar setAlpha: 0];
-    }];
-}
-
 #pragma mark - ListViewControllerDelegate methods
 
 - (void)tapOnDish {
@@ -197,6 +184,22 @@ typedef enum {
             break;
     }
 }
+
+
+#pragma mark - Check Out
+
+- (IBAction)onCheckoutButton:(id)sender {
+    
+    TipViewController *checkoutVC = [[TipViewController alloc] init];
+    checkoutVC.modalPresentationStyle = UIModalPresentationCustom;
+    checkoutVC.transitioningDelegate = self;
+    
+    [self presentViewController:checkoutVC animated:YES completion:^{
+        [self.customNavBar setAlpha: 0];
+    }];
+}
+
+
 
 #pragma mark - Add Food Item
 
