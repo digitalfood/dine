@@ -7,14 +7,16 @@
 //
 
 #import "MainViewController.h"
-#import "SectionViewController.h"
-#import "DishView.h"
-#import "RestaurantDetailViewController.h"
 #import "Parse/Parse.h"
+#import "Restaurant.h"
+#import "DishView.h"
+#import "FoodComposeViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "SectionViewController.h"
 
 float const ANIMATION_DURATION = 0.5;
 
-@interface MainViewController () <UIScrollViewDelegate, SectionViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+@interface MainViewController () <UIScrollViewDelegate, SectionViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
@@ -24,6 +26,7 @@ float const ANIMATION_DURATION = 0.5;
 @property (nonatomic, assign) int animationType;
 
 //dish
+@property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
 @property (nonatomic, strong) NSMutableArray *contrainstArray;
@@ -62,9 +65,11 @@ typedef enum {
 - (void)swipeToRestaurant:(Restaurant *)restaurant {
     NSLog(@"swiped to : %@", restaurant.name);
     
+    self.restaurant = restaurant;
+    
     // Joanna please update food menu view controller accordingly
     PFQuery *query = [PFQuery queryWithClassName:@"Food"];
-    [query whereKey:@"parent" equalTo:[PFObject objectWithoutDataWithClassName:@"Restaurant" objectId:@"eS2FBIaZ4s"]];
+    [query whereKey:@"restaurantId" equalTo:@"restaurant-3000-menlo-park"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         for (PFObject *food in objects) {
             NSLog(@"%@", food);
@@ -72,6 +77,11 @@ typedef enum {
     }];
     
 }
+
+- (void)createFood:(PFObject *)food {
+    // Joanna please update food menu accordingly
+}
+
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant {
     // TODO: display restaurant detail page
@@ -128,6 +138,38 @@ typedef enum {
         default:
             break;
     }
+}
+
+#pragma mark - Add Food Item
+
+- (IBAction)onCameraButton:(id)sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)imagePicker {
+    [imagePicker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)imagePicker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    FoodComposeViewController *vc = [[FoodComposeViewController alloc] init];
+    vc.delegate = self;
+    vc.thumbnailImage = info[UIImagePickerControllerOriginalImage];
+    vc.restaurant = self.restaurant;
+
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [imagePicker dismissViewControllerAnimated:YES completion:^{
+        [self presentViewController:nvc animated:YES completion:nil];
+    }];
 }
 
 #pragma mark - private methods
