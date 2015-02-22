@@ -121,8 +121,8 @@ float const METERS_PER_MILE = 1609.344;
 
 #pragma mark - Restaurant View Delegate methods
 
-- (void)tapOnRestaurant:(Restaurant *)restaurant {
-    [self.delegate tapOnRestaurant:restaurant];
+- (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
+    [self.delegate tapOnRestaurant:restaurant withGesture:tapGestureRecognizer];
 }
 
 #pragma mark - private methods

@@ -89,7 +89,7 @@
 
 #pragma mark - onTap methods
 - (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
-    [self.delegate tapOnRestaurant:self.restaurant];
+    [self.delegate tapOnRestaurant:self.restaurant withGesture:tapGestureRecognizer];
 }
 
 @end

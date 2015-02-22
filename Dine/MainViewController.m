@@ -32,6 +32,7 @@ float const ANIMATION_DURATION = 0.5;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveTransition;
+@property (nonatomic, assign) BOOL disableInteractiveTransition;
 
 @end
 
@@ -84,7 +85,8 @@ typedef enum {
 }
 
 
-- (void)tapOnRestaurant:(Restaurant *)restaurant {
+- (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
+    self.disableInteractiveTransition = YES;
     RestaurantDetailViewController *rdvc = [[RestaurantDetailViewController alloc] init];
     rdvc.restaurant = restaurant;
     rdvc.modalPresentationStyle = UIModalPresentationCustom;
@@ -95,13 +97,15 @@ typedef enum {
 #pragma mark - ListViewControllerDelegate methods
 
 - (void)tapOnDish {
+    self.disableInteractiveTransition = YES;
     DishDetailViewController *ddvc = [[DishDetailViewController alloc] init];
     ddvc.modalPresentationStyle = UIModalPresentationCustom;
-    ddvc.transitioningDelegate = self;
+    ddvc.transitioningDelegate = self;;
     [self presentViewController:ddvc animated:YES completion:nil];
 }
 
 - (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer {
+    self.disableInteractiveTransition = NO;
     CGPoint translation = [panGestureRecognizer translationInView:self.listView];
     CGPoint velocity = [panGestureRecognizer velocityInView:self.listView];
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -142,11 +146,14 @@ typedef enum {
     return self;
 }
 
-//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-//    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
-//    self.interactiveTransition.completionSpeed = 0.99;
-//    return self.interactiveTransition;
-//}
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+    if (self.disableInteractiveTransition) {
+        return nil;
+    }
+    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
+    self.interactiveTransition.completionSpeed = 0.99;
+    return self.interactiveTransition;
+}
 
 //- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
 //    
@@ -246,7 +253,7 @@ typedef enum {
     if (self.isPresenting) {
         [containerView addSubview:toViewController.view];
         toViewController.view.alpha = 0;
-        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+        [UIView animateWithDuration:ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             toViewController.view.alpha = 1;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];

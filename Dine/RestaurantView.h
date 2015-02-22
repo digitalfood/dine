@@ -11,7 +11,7 @@
 
 @protocol RestaurantViewDelegate <NSObject>
 
-- (void)tapOnRestaurant:(Restaurant *)restaurant;
+- (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer;
 
 @end
 

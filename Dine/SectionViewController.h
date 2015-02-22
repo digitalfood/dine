@@ -13,7 +13,7 @@
 @protocol SectionViewControllerDelegate <NSObject>
 
 - (void)swipeToRestaurant:(Restaurant *)restaurant;
-- (void)tapOnRestaurant:(Restaurant *)restaurant;
+- (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer;
 
 @end
 
