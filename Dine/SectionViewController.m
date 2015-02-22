@@ -73,8 +73,6 @@ float const METERS_PER_MILE = 1609.344;
     self.sectionWidth = [[UIScreen mainScreen] bounds].size.width;
     self.sectionHeight = self.view.frame.size.height;
     
-    [self.view setFrame:CGRectMake(0, 0, self.sectionWidth, self.sectionHeight)];
-    
     self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = YES;
     

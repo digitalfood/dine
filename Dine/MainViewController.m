@@ -8,27 +8,25 @@
 
 #import "MainViewController.h"
 #import "SectionViewController.h"
-#import "DishView.h"
+#import "ListViewController.h"
 #import "RestaurantDetailViewController.h"
+#import "DishDetailViewController.h"
 #import "Parse/Parse.h"
 
 float const ANIMATION_DURATION = 0.5;
 
-@interface MainViewController () <UIScrollViewDelegate, SectionViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+@interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
 
 @property (nonatomic, strong) SectionViewController *svc;
+@property (nonatomic, strong) ListViewController *lvc;
+@property (nonatomic, strong) DishDetailViewController *ddvc;
+
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
-
-//dish
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
-@property (nonatomic, strong) NSMutableArray *contrainstArray;
-@property (nonatomic, assign) BOOL pageOpened;
-@property (nonatomic, assign) CGRect originalScrollViewFrame;
+@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveTransition;
 
 @end
 
@@ -36,7 +34,8 @@ float const ANIMATION_DURATION = 0.5;
 
 typedef enum {
     ANIMATION_TYPE_BUBBLE,
-    ANIMATION_TYPE_EXPAND
+    ANIMATION_TYPE_DOWNWARDEXPAND,
+    ANIMATION_TYPE_UPWARDEXPAND
 } ANIMATION_TYPE;
 
 - (void)viewDidLoad {
@@ -45,11 +44,12 @@ typedef enum {
     self.svc = [[SectionViewController alloc] init];
     self.svc.delegate = self;
     self.svc.view.frame = self.sectionView.frame;
-    [self.sectionView addSubview:self.svc.view];
+    [self.view addSubview:self.svc.view];
     
-    [self configureScrollView];
-    [self adjustDishes];
-
+    self.lvc = [[ListViewController alloc] init];
+    self.lvc.delegate = self;
+    self.lvc.view.frame = self.listView.frame;
+    [self.view addSubview:self.lvc.view];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +62,6 @@ typedef enum {
 - (void)swipeToRestaurant:(Restaurant *)restaurant {
     NSLog(@"swiped to : %@", restaurant.name);
     
-    // Joanna please update food menu view controller accordingly
     PFQuery *query = [PFQuery queryWithClassName:@"Food"];
     [query whereKey:@"parent" equalTo:[PFObject objectWithoutDataWithClassName:@"Restaurant" objectId:@"eS2FBIaZ4s"]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -74,7 +73,6 @@ typedef enum {
 }
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant {
-    // TODO: display restaurant detail page
     RestaurantDetailViewController *rdvc = [[RestaurantDetailViewController alloc] init];
     rdvc.restaurant = restaurant;
     rdvc.modalPresentationStyle = UIModalPresentationCustom;
@@ -82,11 +80,44 @@ typedef enum {
     [self presentViewController:rdvc animated:YES completion:nil];
 }
 
+#pragma mark - ListViewControllerDelegate methods
+
+- (void)tapOnDish {
+    DishDetailViewController *ddvc = [[DishDetailViewController alloc] init];
+    ddvc.modalPresentationStyle = UIModalPresentationCustom;
+    ddvc.transitioningDelegate = self;
+    [self presentViewController:ddvc animated:YES completion:nil];
+}
+
+- (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint translation = [panGestureRecognizer translationInView:self.listView];
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.listView];
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        self.ddvc = [[DishDetailViewController alloc] init];
+        self.ddvc.modalPresentationStyle = UIModalPresentationCustom;
+        self.ddvc.transitioningDelegate = self;
+        [self presentViewController:self.ddvc animated:YES completion:nil];
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        CGFloat progress = - translation.y / 50;
+        NSLog(@"progress: %f", progress);
+        [self.interactiveTransition updateInteractiveTransition:progress];
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        if (velocity.y < 0) {
+            [self.interactiveTransition finishInteractiveTransition];
+        } else {
+            [self.interactiveTransition cancelInteractiveTransition];
+            [self.ddvc dismissViewControllerAnimated:NO completion:nil];
+        }
+    }
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate methods
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if ([presented isKindOfClass:[RestaurantDetailViewController class]]) {
-        self.animationType = ANIMATION_TYPE_EXPAND;
+        self.animationType = ANIMATION_TYPE_DOWNWARDEXPAND;
+    } else if ([presented isKindOfClass:[DishDetailViewController class]]) {
+        self.animationType = ANIMATION_TYPE_UPWARDEXPAND;
     } else {
         self.animationType = ANIMATION_TYPE_BUBBLE;
     }
@@ -99,15 +130,13 @@ typedef enum {
     return self;
 }
 
-//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-//    
-//}
-//
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
+    self.interactiveTransition.completionSpeed = 0.99;
+    return self.interactiveTransition;
+}
+
 //- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
-//    
-//}
-//
-//- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source NS_AVAILABLE_IOS(8_0) {
 //    
 //}
 
@@ -119,8 +148,11 @@ typedef enum {
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     switch (self.animationType) {
-        case ANIMATION_TYPE_EXPAND:
-            [self tansitionInExpandForContext:transitionContext];
+        case ANIMATION_TYPE_DOWNWARDEXPAND:
+            [self tansitionInDownwardExpandForContext:transitionContext];
+            break;
+        case ANIMATION_TYPE_UPWARDEXPAND:
+            [self tansitionInUpwardExpandForContext:transitionContext];
             break;
         case ANIMATION_TYPE_BUBBLE:
             [self tansitionInBubbleForContext:transitionContext];
@@ -162,7 +194,7 @@ typedef enum {
     }
 }
 
-- (void)tansitionInExpandForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
+- (void)tansitionInDownwardExpandForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
     UIView *containerView = [transitionContext containerView];
     
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -196,231 +228,38 @@ typedef enum {
     }
 }
 
-//dishes
-
-- (void)configureScrollView
-{
-    _contrainstArray = [[NSMutableArray alloc] init];
+- (void)tansitionInUpwardExpandForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
+    UIView *containerView = [transitionContext containerView];
     
-    _scrollView = [UIScrollView new];
-    [_scrollView setDelegate:self];
-    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_scrollView];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
-                                                          attribute:NSLayoutAttributeLeft
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeLeft
-                                                         multiplier:1.0
-                                                           constant:0]];
+    CGFloat scale = [[UIScreen mainScreen] bounds].size.height / self.listView.frame.size.height;
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
-                                                          attribute:NSLayoutAttributeRight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeRight
-                                                         multiplier:1.0
-                                                           constant:0]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeWidth
-                                                         multiplier:1.0
-                                                           constant:0]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
-                                                          attribute:NSLayoutAttributeTrailing
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeTrailing
-                                                         multiplier:1.0
-                                                           constant:0]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:0]];
-    
-    _constraintHeight = [NSLayoutConstraint constraintWithItem:_scrollView
-                                                     attribute:NSLayoutAttributeHeight
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:nil
-                                                     attribute:NSLayoutAttributeNotAnAttribute
-                                                    multiplier:1.0
-                                                      constant:253];
-    
-    [self.view addConstraint:_constraintHeight];
-    self.originalScrollViewFrame = _scrollView.frame;
-    
-}
-
-
-- (void)adjustDishes
-{
-    DishView *previousDish = nil;
-    
-    for (NSInteger i = 0; i < 10; i++) {
-        CGRect dishFrame = CGRectMake(0 + i * 143, self.sectionView.frame.size.height + 1, 143, 253);
-        
-        DishView *dish = [[DishView alloc] initWithFrame:dishFrame];
-        [dish setTag:i];
-        
-        dish.dishName.text = [NSString stringWithFormat:@"%d", i];
-        
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
-        [dish addGestureRecognizer:tapGestureRecognizer];
-        
-        dish.translatesAutoresizingMaskIntoConstraints = NO;
-        [_scrollView addSubview:dish];
-        
-        // Default constraints
-        
-        [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:dish
-                                                                attribute:NSLayoutAttributeTop
-                                                                relatedBy:NSLayoutRelationEqual
-                                                                   toItem:_scrollView
-                                                                attribute:NSLayoutAttributeTop
-                                                               multiplier:1.0
-                                                                 constant:0]];
-        
-        [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:dish
-                                                                attribute:NSLayoutAttributeBottom
-                                                                relatedBy:NSLayoutRelationEqual
-                                                                   toItem:_scrollView
-                                                                attribute:NSLayoutAttributeBottom
-                                                               multiplier:1.0
-                                                                 constant:0]];
-        
-        NSLayoutConstraint *storyWidthConstraint = [NSLayoutConstraint constraintWithItem:dish
-                                                                                attribute:NSLayoutAttributeWidth
-                                                                                relatedBy:NSLayoutRelationEqual
-                                                                                   toItem:nil
-                                                                                attribute:NSLayoutAttributeNotAnAttribute
-                                                                               multiplier:1.0
-                                                                                 constant:143];
-        
-        [_scrollView addConstraint:storyWidthConstraint];
-        [_contrainstArray addObject:storyWidthConstraint];
-        
-        [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:dish
-                                                                attribute:NSLayoutAttributeHeight
-                                                                relatedBy:NSLayoutRelationEqual
-                                                                   toItem:_scrollView
-                                                                attribute:NSLayoutAttributeHeight
-                                                               multiplier:1.0
-                                                                 constant:0]];
-        
-        if (!previousDish) {
-            
-            [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:dish
-                                                                    attribute:NSLayoutAttributeLeft
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_scrollView
-                                                                    attribute:NSLayoutAttributeLeft
-                                                                   multiplier:1.0
-                                                                     constant:0]];
-            
-        } else {
-            
-            [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:dish
-                                                                    attribute:NSLayoutAttributeLeft
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:previousDish
-                                                                    attribute:NSLayoutAttributeRight
-                                                                   multiplier:1.0
-                                                                     constant:0]];
-            
-        }
-        previousDish = dish;
-    }
-    
-    [_scrollView addConstraint:[NSLayoutConstraint constraintWithItem:previousDish
-                                                            attribute:NSLayoutAttributeRight
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:_scrollView
-                                                            attribute:NSLayoutAttributeRight
-                                                           multiplier:1.0
-                                                             constant:0]];
-}
-
-
-- (void)handleTapFrom:(UITapGestureRecognizer *)sender
-{
-    NSInteger element = sender.view.tag;
-    NSLog(@"selected element: %ld", (long)element);
-    CGRect frame = _originalScrollViewFrame;
-    frame.origin.x = _pageOpened ? 143 * element : self.view.frame.size.width * element;
-    //[_scrollView scrollRectToVisible:frame animated:YES];
-    [_scrollView setContentOffset:CGPointMake(frame.origin.x, 0) animated:YES];
-    
-    if (!_pageOpened) {
-        
-        [self.view removeConstraint:_constraintHeight];
-        _constraintHeight = [NSLayoutConstraint constraintWithItem:_scrollView
-                                                         attribute:NSLayoutAttributeHeight
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:self.view
-                                                         attribute:NSLayoutAttributeHeight
-                                                        multiplier:1.0
-                                                          constant:0];
-        [self.view addConstraint:_constraintHeight];
-        [self increaseStoriesSize];
-        
-    
+    if (self.isPresenting) {
+        [containerView addSubview:toViewController.view];
+        toViewController.view.alpha = 0;
+        fromViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            fromViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
+            fromViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+        } completion:^(BOOL finished) {
+            fromViewController.view.alpha = 0;
+            toViewController.view.alpha = 1;
+            [transitionContext completeTransition:YES];
+        }];
     } else {
-        
-        [self.view removeConstraint:_constraintHeight];
-        _constraintHeight = [NSLayoutConstraint constraintWithItem:_scrollView
-                                                         attribute:NSLayoutAttributeHeight
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:nil
-                                                         attribute:NSLayoutAttributeNotAnAttribute
-                                                        multiplier:1.0
-                                                          constant:253];
-        [self.view addConstraint:_constraintHeight];
-        [self decreaseStoriesSize];
-        
-    }
-    
-    
-    [_scrollView setPagingEnabled:!_pageOpened];
-    
-    [self.view setNeedsUpdateConstraints];
-    [_scrollView setNeedsUpdateConstraints];
-    
-    [UIView animateWithDuration:0.6 animations:^{
-        
-        [self.view layoutIfNeeded];
-        [_scrollView layoutIfNeeded];
-        
-    } completion:^(BOOL finished) {
-        _pageOpened = !_pageOpened;
-    }];
-    
-     
-}
-
-
-- (void)increaseStoriesSize
-{
-    for (NSLayoutConstraint *constraint in _contrainstArray) {
-        [constraint setConstant:self.view.frame.size.width];
+        fromViewController.view.alpha = 0;
+        toViewController.view.alpha = 1;
+        toViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
+        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            toViewController.view.center = CGPointMake(toViewController.view.center.x, self.listView.frame.size.height / 2);
+            toViewController.view.transform = CGAffineTransformMakeScale(1, 1 / scale);
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [fromViewController.view removeFromSuperview];
+        }];
     }
 }
-
-
-- (void)decreaseStoriesSize
-{
-    for (NSLayoutConstraint *constraint in _contrainstArray) {
-        [constraint setConstant:143];
-    }
-}
-
 
 @end

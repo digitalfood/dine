@@ -21,20 +21,23 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        
+        [self setup];
     }
     return self;
 }
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        // handle tap gesture
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
-        [self addGestureRecognizer:tapGestureRecognizer];
-        self.userInteractionEnabled = YES;
-
+        [self setup];
     }
     return self;
+}
+
+- (void)setup {
+    // handle tap gesture
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+    [self addGestureRecognizer:tapGestureRecognizer];
+    self.userInteractionEnabled = YES;
 }
 
 - (void)setRestaurant:(Restaurant *)restaurant {
