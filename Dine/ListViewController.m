@@ -101,6 +101,13 @@ float const DISH_RATIO = 0.5625;
         dishView.translatesAutoresizingMaskIntoConstraints = NO;
         dishView.dishName.text = dish[@"name"];
         
+        PFFile *userImageFile = dish[@"thumbnail"];
+        [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+            if (!error) {
+                dishView.dishImage.image = [UIImage imageWithData:imageData];
+            }
+        }];
+        
         [self.scrollView addSubview:dishView];
     }
     self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);

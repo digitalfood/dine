@@ -10,7 +10,6 @@
 
 @interface DishView ()
 
-@property (strong, nonatomic) IBOutlet UIImageView *dishImage;
 @property (assign, nonatomic) NSInteger dishRating;
 
 @end

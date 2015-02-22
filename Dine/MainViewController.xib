@@ -21,7 +21,7 @@
             <subviews>
                 <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="bXK-oP-VqT">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
-                    <color key="backgroundColor" red="0.71577491130000004" green="0.77616679909999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="bXK-oP-VqT" secondAttribute="height" multiplier="1:1" id="VHt-EU-A3e"/>
                     </constraints>
@@ -41,7 +41,6 @@
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fn-eI-FpI">
                     <rect key="frame" x="0.0" y="320" width="320" height="248"/>
-                    <color key="backgroundColor" red="0.90244239270000004" green="0.90244239270000004" blue="0.90244239270000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

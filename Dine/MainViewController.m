@@ -55,7 +55,7 @@ typedef enum {
     
     self.svc = [[SectionViewController alloc] init];
     self.svc.delegate = self;
-    self.svc.view.frame = self.sectionView.frame;
+    [self.svc setFrame:self.sectionView.frame];
     [self.view addSubview:self.svc.view];
     
     self.lvc = [[ListViewController alloc] init];

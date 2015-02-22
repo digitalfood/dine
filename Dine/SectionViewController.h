@@ -21,4 +21,6 @@
 
 @property (nonatomic, weak) id<SectionViewControllerDelegate> delegate;
 
+- (void)setFrame:(CGRect)frame;
+
 @end
