@@ -134,8 +134,6 @@
             button.selected = (i < rating);
         }
     }
-    
-    
 }
 
 @end
