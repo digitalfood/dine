@@ -166,7 +166,7 @@ float const METERS_PER_MILE = 1609.344;
         [self.scrollView addSubview:restaurantView];
     }
     self.scrollView.contentSize = CGSizeMake(self.sectionWidth * numberOfViews, self.sectionHeight);
-
+    [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage]];
 }
 
 @end

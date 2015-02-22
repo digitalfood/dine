@@ -38,6 +38,8 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveTransition;
 @property (nonatomic, assign) BOOL disableInteractiveTransition;
 
+@property (nonatomic, strong) NSMutableArray *dishes;
+
 @end
 
 @implementation MainViewController
@@ -70,18 +72,12 @@ typedef enum {
 #pragma mark - SectionViewControllerDelegate methods
 
 - (void)swipeToRestaurant:(Restaurant *)restaurant {
-    NSLog(@"swiped to : %@", restaurant.name);
-    
     self.restaurant = restaurant;
-    
     PFQuery *query = [PFQuery queryWithClassName:@"Food"];
-    [query whereKey:@"restaurantId" equalTo:@"restaurant-3000-menlo-park"];
+    [query whereKey:@"restaurantId" equalTo:@"thai-square-restaurant-cupertino"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        for (PFObject *food in objects) {
-            NSLog(@"%@", food);
-        }
-    }];
-    
+        self.lvc.dishes = [NSMutableArray arrayWithArray:objects];
+    }];    
 }
 
 - (void)createFood:(PFObject *)food {
