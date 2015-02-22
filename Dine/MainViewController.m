@@ -142,11 +142,11 @@ typedef enum {
     return self;
 }
 
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
-    self.interactiveTransition.completionSpeed = 0.99;
-    return self.interactiveTransition;
-}
+//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+//    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
+//    self.interactiveTransition.completionSpeed = 0.99;
+//    return self.interactiveTransition;
+//}
 
 //- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
 //    
@@ -240,6 +240,30 @@ typedef enum {
 
 - (void)tansitionInDownwardExpandForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
     UIView *containerView = [transitionContext containerView];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    
+    if (self.isPresenting) {
+        [containerView addSubview:toViewController.view];
+        toViewController.view.alpha = 0;
+        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            toViewController.view.alpha = 1;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    } else {
+        fromViewController.view.alpha = 1;
+        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            fromViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [fromViewController.view removeFromSuperview];
+        }];
+    }
+}
+
+- (void)tansitionInUpwardExpandForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
+    UIView *containerView = [transitionContext containerView];
     
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -265,40 +289,6 @@ typedef enum {
             fromViewController.view.center = CGPointMake(toViewController.view.center.x, self.sectionView.frame.size.height / 2);
             fromViewController.view.alpha = 0;
             fromViewController.view.transform = CGAffineTransformMakeScale(1, yRatio);
-        } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
-            [fromViewController.view removeFromSuperview];
-        }];
-    }
-}
-
-- (void)tansitionInUpwardExpandForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
-    UIView *containerView = [transitionContext containerView];
-    
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    CGFloat scale = [[UIScreen mainScreen] bounds].size.height / self.listView.frame.size.height;
-    
-    if (self.isPresenting) {
-        [containerView addSubview:toViewController.view];
-        toViewController.view.alpha = 0;
-        fromViewController.view.transform = CGAffineTransformMakeScale(1, 1);
-        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-            fromViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
-            fromViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        } completion:^(BOOL finished) {
-            fromViewController.view.alpha = 0;
-            toViewController.view.alpha = 1;
-            [transitionContext completeTransition:YES];
-        }];
-    } else {
-        fromViewController.view.alpha = 0;
-        toViewController.view.alpha = 1;
-        toViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
-        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-            toViewController.view.center = CGPointMake(toViewController.view.center.x, self.listView.frame.size.height / 2);
-            toViewController.view.transform = CGAffineTransformMakeScale(1, 1 / scale);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
             [fromViewController.view removeFromSuperview];

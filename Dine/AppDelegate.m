@@ -28,16 +28,14 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     // Initiate Parse
-//    [ParseCrashReporting enable];
     [Parse setApplicationId:kApplicationId clientKey:kClientKey];
-//    [PFAnalytics trackAppOpenedWithLaunchOptions:nil];
     [PFFacebookUtils initializeFacebook];
     
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
         [self signedIn];
     } else {
-                [self signedIn];
+        [self signedIn];
 //        [self notSignedIn];
     }
     
@@ -105,7 +103,7 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
                                                         context:nil];
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 150, textLabelRect.size.width, textLabelRect.size.height)];
     textLabel.font = font;
-    textLabel.text = @"Dine.";
+    textLabel.text = title;
     textLabel.textColor = [UIColor whiteColor];
     [overlay addSubview:textLabel];
     [logInController.view addSubview:overlay];
