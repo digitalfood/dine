@@ -7,11 +7,11 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "TipViewController.h"
+#import "CheckoutViewController.h"
 #import "CheckSplitViewController.h"
 #import "TipSettingsViewController.h"
 
-@interface TipViewController () <UITextFieldDelegate>
+@interface CheckoutViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *billTextField;
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation TipViewController
+@implementation CheckoutViewController
 
 
 
@@ -42,16 +42,16 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
     [self.viewHandle addGestureRecognizer:panGestureRecognizer];
 
-    self.tipValueBtn.layer.cornerRadius = 6.0;
-//    self.tipValueBtn.backgroundColor = [UIColor grayColor];
-    [[self.tipValueBtn layer] setBorderWidth:1.6f];
-    [[self.tipValueBtn layer] setBorderColor:[UIColor grayColor].CGColor];
-    
-    
-    self.splitBtn.layer.cornerRadius = 6.0;
-//    self.splitBtn.backgroundColor = [UIColor grayColor];
-    [[self.splitBtn layer] setBorderWidth:1.4f];
-    [[self.tipValueBtn layer] setBorderColor:[UIColor grayColor].CGColor];
+//    self.tipValueBtn.layer.cornerRadius = 6.0;
+////    self.tipValueBtn.backgroundColor = [UIColor grayColor];
+//    [[self.tipValueBtn layer] setBorderWidth:1.6f];
+//    [[self.tipValueBtn layer] setBorderColor:[UIColor grayColor].CGColor];
+//    
+//    
+//    self.splitBtn.layer.cornerRadius = 6.0;
+////    self.splitBtn.backgroundColor = [UIColor grayColor];
+//    [[self.splitBtn layer] setBorderWidth:1.4f];
+//    [[self.tipValueBtn layer] setBorderColor:[UIColor grayColor].CGColor];
 
     
 //    Adds shadow to Checkout View

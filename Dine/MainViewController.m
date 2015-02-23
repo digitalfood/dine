@@ -11,7 +11,7 @@
 #import "ListViewController.h"
 #import "FoodComposeViewController.h"
 #import "RestaurantDetailViewController.h"
-#import "TipViewController.h"
+#import "CheckoutViewController.h"
 #import "SettingsViewController.h"
 #import "DishView.h"
 #import "Restaurant.h"
@@ -180,7 +180,7 @@ typedef enum {
 
 - (IBAction)onCheckoutButton:(id)sender {
     
-    TipViewController *checkoutVC = [[TipViewController alloc] init];
+    CheckoutViewController *checkoutVC = [[CheckoutViewController alloc] init];
     checkoutVC.modalPresentationStyle = UIModalPresentationCustom;
     checkoutVC.transitioningDelegate = self;
     

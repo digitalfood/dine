@@ -83,7 +83,7 @@
                 </textField>
                 <button opaque="NO" alpha="0.44999999999999962" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee7-Fk-ME7">
                     <rect key="frame" x="280" y="268" width="24" height="24"/>
-                    <state key="normal" image="contacts.png">
+                    <state key="normal" image="address.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -96,7 +96,7 @@
         </view>
     </objects>
     <resources>
-        <image name="contacts.png" width="32" height="32"/>
+        <image name="address.png" width="64" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

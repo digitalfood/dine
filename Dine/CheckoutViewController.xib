@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TipViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckoutViewController">
             <connections>
                 <outlet property="billTextField" destination="kdT-RR-dFQ" id="V5t-V8-Vcm"/>
                 <outlet property="splitBtn" destination="d2E-JO-oTM" id="Tmx-2k-pPf"/>
@@ -141,14 +141,14 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2E-JO-oTM">
-                            <rect key="frame" x="202" y="260.5" width="100" height="26"/>
+                            <rect key="frame" x="208" y="260" width="100" height="26"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="UOz-sl-GhL"/>
                                 <constraint firstAttribute="height" constant="26" id="hAa-oC-pNA"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                             <state key="normal" title="Split the bill">
-                                <color key="titleColor" red="0.67874053030000003" green="0.67874053030000003" blue="0.67874053030000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.043137254901960784" green="0.37647058823529411" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -167,7 +167,7 @@
                         <constraint firstAttribute="centerX" secondItem="gYy-mr-NAB" secondAttribute="centerX" id="J2C-DA-b9o"/>
                         <constraint firstItem="K14-qi-YfC" firstAttribute="top" secondItem="HJj-Ac-fTH" secondAttribute="bottom" constant="14" id="MEr-Bs-HGq"/>
                         <constraint firstItem="G6z-xl-lQz" firstAttribute="leading" secondItem="Oc8-gO-70b" secondAttribute="leading" constant="25" id="PIl-Lm-WMa"/>
-                        <constraint firstAttribute="trailing" secondItem="d2E-JO-oTM" secondAttribute="trailing" constant="18" id="PuC-A9-mzD"/>
+                        <constraint firstAttribute="trailing" secondItem="d2E-JO-oTM" secondAttribute="trailing" constant="12" id="PuC-A9-mzD"/>
                         <constraint firstItem="K9c-uf-tqx" firstAttribute="top" secondItem="ld9-Xc-v1y" secondAttribute="bottom" constant="20" id="U45-9Y-4hi"/>
                         <constraint firstItem="5Fi-os-EOq" firstAttribute="centerY" secondItem="Vne-wW-yZn" secondAttribute="centerY" id="UXl-LN-gh5"/>
                         <constraint firstAttribute="trailing" secondItem="ld9-Xc-v1y" secondAttribute="trailing" constant="20" id="VNX-Ga-FkF"/>
