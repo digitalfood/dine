@@ -12,6 +12,7 @@
                 <outlet property="listViewXOffset" destination="5HU-hZ-5I2" id="28Y-au-Gpe"/>
                 <outlet property="listViewYOffset" destination="VHc-ib-MBd" id="cQX-0B-C7S"/>
                 <outlet property="panGestureRecognizer" destination="nqn-EJ-MPK" id="ykt-q6-XaY"/>
+                <outlet property="searchButton" destination="WYd-VJ-zMn" id="Utx-Qt-iQy"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

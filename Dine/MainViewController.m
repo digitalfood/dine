@@ -29,6 +29,7 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewXOffset;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
@@ -74,6 +75,7 @@ typedef enum {
     
     [self.view bringSubviewToFront:self.cameraButton];
     [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.panGestureRecognizer];
+    [self.view bringSubviewToFront:self.searchButton];
 }
 
 - (void)didReceiveMemoryWarning {
