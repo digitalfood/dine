@@ -27,6 +27,11 @@
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.tableView.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor purpleColor] CGColor], (id)[[UIColor blueColor] CGColor], nil];
+    [self.tableView.layer insertSublayer:gradient atIndex:0];
 }
 
 - (void)didReceiveMemoryWarning {
