@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
 #import "Parse/Parse.h"
 #import <ParseUI/ParseUI.h>
 //#import <ParseCrashReporting/ParseCrashReporting.h>
@@ -35,8 +36,7 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
     if (currentUser) {
         [self signedIn];
     } else {
-        [self signedIn];
-//        [self notSignedIn];
+        [self notSignedIn];
     }
     
     [self.window makeKeyAndVisible];
@@ -62,7 +62,7 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[PFFacebookUtils session] close];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
@@ -74,7 +74,7 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
     PFLogInViewController *logInController = [[PFLogInViewController alloc] init];
     logInController.delegate = self;
     logInController.fields = (PFLogInFieldsFacebook);
-    
+    [logInController setFacebookPermissions:[NSArray arrayWithObjects:@"public_profile", @"email", @"user_friends", nil]];
     CGFloat width = [[UIScreen mainScreen] bounds].size.width;
     CGFloat height = [[UIScreen mainScreen] bounds].size.height;
     
@@ -118,7 +118,25 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
 }
 
 - (void)signedIn {
+    FBRequest *request = [FBRequest requestForMe];
+    
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            NSDictionary *userData = (NSDictionary *)result;
+            PFUser *user = [PFUser currentUser];
+            user[@"fullname"] = userData[@"name"];
+            user[@"profileImageUrl"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", userData[@"id"]];
+        }
+    }];
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    MainViewController *vc = [[MainViewController alloc] init];
+    self.window.rootViewController = vc;
+}
+
+- (void)logInViewController:(PFLogInViewController *)controller
+               didLogInUser:(PFUser *)user {
     MainViewController *vc = [[MainViewController alloc] init];
     self.window.rootViewController = vc;
 }
