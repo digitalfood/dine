@@ -9,6 +9,7 @@
                 <outlet property="amountLabel" destination="RfG-yZ-jiO" id="xQT-cz-ysU"/>
                 <outlet property="countLabel" destination="6nO-pR-Z90" id="NcK-yH-A8h"/>
                 <outlet property="countStepper" destination="gG3-S5-q2V" id="7bz-Dv-Upt"/>
+                <outlet property="emailTextField" destination="iLn-Xe-ybh" id="bFj-M2-OJK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -85,6 +86,9 @@
                     <state key="normal" title="contacts">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onContactsBtn:" destination="-1" eventType="touchUpInside" id="S5E-Nd-1U8"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

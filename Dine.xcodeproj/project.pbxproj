@@ -55,6 +55,8 @@
 		D6629A4A1A9A8589009A4E0D /* CheckSplitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6629A481A9A8589009A4E0D /* CheckSplitViewController.xib */; };
 		D6629A4E1A9A864F009A4E0D /* TipSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6629A4C1A9A864F009A4E0D /* TipSettingsViewController.m */; };
 		D6629A4F1A9A864F009A4E0D /* TipSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6629A4D1A9A864F009A4E0D /* TipSettingsViewController.xib */; };
+		D6629A521A9ACF23009A4E0D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A501A9ACF23009A4E0D /* AddressBook.framework */; };
+		D6629A531A9ACF23009A4E0D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +138,8 @@
 		D6629A4B1A9A864F009A4E0D /* TipSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipSettingsViewController.h; sourceTree = "<group>"; };
 		D6629A4C1A9A864F009A4E0D /* TipSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipSettingsViewController.m; sourceTree = "<group>"; };
 		D6629A4D1A9A864F009A4E0D /* TipSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipSettingsViewController.xib; sourceTree = "<group>"; };
+		D6629A501A9ACF23009A4E0D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		EF324F7A546329AFC767EA7E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +148,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6629A521A9ACF23009A4E0D /* AddressBook.framework in Frameworks */,
+				D6629A531A9ACF23009A4E0D /* AddressBookUI.framework in Frameworks */,
 				675F53B21A9967C800101FE4 /* libsqlite3.dylib in Frameworks */,
 				675F53B01A9967C000101FE4 /* libz.dylib in Frameworks */,
 				675F53AE1A9967B500101FE4 /* libstdc++.6.dylib in Frameworks */,
@@ -324,6 +330,8 @@
 		ED242FE2EBE7363BADDEE60D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D6629A501A9ACF23009A4E0D /* AddressBook.framework */,
+				D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */,
 				675F53B11A9967C800101FE4 /* libsqlite3.dylib */,
 				675F53AF1A9967C000101FE4 /* libz.dylib */,
 				675F53AD1A9967B500101FE4 /* libstdc++.6.dylib */,

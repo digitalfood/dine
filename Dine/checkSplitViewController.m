@@ -7,11 +7,15 @@
 //
 
 #import "CheckSplitViewController.h"
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 
-@interface CheckSplitViewController ()
+@interface CheckSplitViewController () <UINavigationControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *countLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 @property (weak, nonatomic) IBOutlet UIStepper *countStepper;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @property (nonatomic, assign) float splitAmount;
 
@@ -49,9 +53,6 @@
 }
 
 
-- (IBAction)onDoneBtn:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (IBAction)onRequestBtn:(id)sender {
     
@@ -85,6 +86,44 @@
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
 }
+
+
+
+- (IBAction)onContactsBtn:(id)sender {
+    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+    
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker didSelectPerson:(ABRecordRef)person {
+    [self displayPerson:person];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)displayPerson:(ABRecordRef)person {
+
+    NSString* email = nil;
+    ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+    
+    if ( emails && ABMultiValueGetCount(emails) > 0) {
+        email = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emails, 0);
+    } else {
+        email = @" - contact has no email - ";
+    }
+    self.emailTextField.text = email;
+}
+
+
+
+
+- (IBAction)onDoneBtn:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 
 @end
