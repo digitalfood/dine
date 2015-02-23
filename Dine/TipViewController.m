@@ -51,8 +51,8 @@
     self.splitBtn.layer.cornerRadius = 6.0;
 //    self.splitBtn.backgroundColor = [UIColor grayColor];
     [[self.splitBtn layer] setBorderWidth:1.4f];
-    [[self.splitBtn layer] setBorderColor:[UIColor colorWithRed:118/255.0 green:181/255.0 blue:235/255.0 alpha:1.0].CGColor;
-    
+    [[self.tipValueBtn layer] setBorderColor:[UIColor grayColor].CGColor];
+
     
 //    Adds shadow to Checkout View
     CALayer *layer = self.view.layer;

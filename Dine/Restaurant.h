@@ -21,7 +21,7 @@
 @property (nonatomic, assign) CGFloat distance;
 @property (nonatomic, assign) CLLocationCoordinate2D theCoordinate;
 
-+ (NSArray *)businessesWithDictionaries:(NSArray *)dictionaries;
++ (NSArray *)restaurantsWithDictionaries:(NSArray *)dictionaries;
 - (MKMapItem*)mapItem;
 
 @end

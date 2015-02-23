@@ -10,15 +10,11 @@
 #import "RestaurantView.h"
 #import "YelpClient.h"
 #import "Parse/Parse.h"
+#import "LocationManager.h"
 
-NSString * const K_YELP_CCONSUMER_KEY = @"vxKwwcR_NMQ7WaEiQBK_CA";
-NSString * const K_YELP_CONSUMER_SECRET = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
-NSString * const K_YELP_TOKEN = @"uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV";
-NSString * const K_YELP_TOKEN_SECRET = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 float const METERS_PER_MILE = 1609.344;
 
-@interface SectionViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, RestaurantViewDelegate>
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@interface SectionViewController () <UIScrollViewDelegate, LocationManagerDelegate, RestaurantViewDelegate>
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @property (nonatomic, assign) CGFloat sectionWidth;
@@ -26,8 +22,7 @@ float const METERS_PER_MILE = 1609.344;
 
 @property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, strong) YelpClient *client;
-@property (nonatomic, strong) NSMutableArray *restaurants;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) LocationManager *locationManager;
 
 @end
 
@@ -37,32 +32,9 @@ float const METERS_PER_MILE = 1609.344;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.client = [[YelpClient alloc] initWithConsumerKey:K_YELP_CCONSUMER_KEY consumerSecret:K_YELP_CONSUMER_SECRET accessToken:K_YELP_TOKEN accessSecret:K_YELP_TOKEN_SECRET];
-        
-        if (![CLLocationManager locationServicesEnabled]){
-            NSLog(@"location services are disabled");
-        }
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-            NSLog(@"location services are blocked by the user");
-        }
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-            NSLog(@"location services are enabled");
-        }
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
-            NSLog(@"about to show a dialog requesting permission");
-        }
-        
-        self.locationManager = [[CLLocationManager alloc] init];
+        self.client = [YelpClient sharedInstance];
+        self.locationManager = [LocationManager sharedInstance];
         self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        self.locationManager.distanceFilter = 100.0f;
-        self.locationManager.headingFilter = 5;
-        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-            [self.locationManager requestWhenInUseAuthorization];
-        }
-        if ([CLLocationManager locationServicesEnabled]){
-            [self.locationManager startUpdatingLocation];
-        }
     }
     return self;
 }
@@ -78,12 +50,18 @@ float const METERS_PER_MILE = 1609.344;
     
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.scrollView.frame.size.height);
 
     self.scrollView.delegate = self;
     
     self.pageControl.hidden = YES;
-    
-    [self reloadData];
+}
+
+- (void)setFrame:(CGRect)frame {
+    self.scrollView.frame = frame;
+    self.sectionWidth = frame.size.width;
+    self.sectionHeight = frame.size.height;
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.sectionHeight);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,27 +80,21 @@ float const METERS_PER_MILE = 1609.344;
     self.pageControl.currentPage = page;// this displays the white dot as current page
 }
 
-#pragma mark - Core Location Manager Delegate methods
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-        NSLog(@"User has denied location services");
-    } else {
-        NSLog(@"Location manager did fail with error: %@", error.localizedFailureReason);
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations {
-    self.location = [locations lastObject];
-    [self reloadData];
-}
-
 #pragma mark - Restaurant View Delegate methods
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self.delegate tapOnRestaurant:restaurant withGesture:tapGestureRecognizer];
+}
+
+#pragma mark - Location Manager Delegate methods
+
+- (void)didUpdateLocation:(CLLocation *)location {
+    if (self.location == nil) {
+        self.location = location;
+        [self reloadData];
+    } else {
+        self.location = location;
+    }
 }
 
 #pragma mark - private methods
@@ -135,9 +107,9 @@ float const METERS_PER_MILE = 1609.344;
     
         [self.client searchWithTerm:@"Restaurants" params:params success:^(AFHTTPRequestOperation *operation, id response) {
             NSArray *restaurantsDictionary = response[@"businesses"];
-            NSArray *restaurants = [Restaurant businessesWithDictionaries:restaurantsDictionary];
+            NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
             self.restaurants = [NSMutableArray arrayWithArray:restaurants];
-            [self updateUI];
+            [self updateUI: 0];
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error: %@", [error description]);
@@ -145,7 +117,7 @@ float const METERS_PER_MILE = 1609.344;
     }
 }
 
-- (void)updateUI {
+- (void)updateUI: (NSInteger) currentPage {
     // remove existing restua from
     for(UIView *subview in [self.scrollView subviews]) {
         [subview removeFromSuperview];
@@ -154,7 +126,7 @@ float const METERS_PER_MILE = 1609.344;
     NSInteger numberOfViews = self.restaurants.count;
     
     self.pageControl.numberOfPages = numberOfViews;
-    self.pageControl.currentPage = 0;
+    self.pageControl.currentPage = currentPage;
     
     for (int i = 0; i < numberOfViews; i++) {
         CGFloat xOrigin = i * self.sectionWidth;
@@ -166,7 +138,14 @@ float const METERS_PER_MILE = 1609.344;
         [self.scrollView addSubview:restaurantView];
     }
     self.scrollView.contentSize = CGSizeMake(self.sectionWidth * numberOfViews, self.sectionHeight);
+    [self.scrollView scrollRectToVisible:CGRectMake(self.sectionWidth * currentPage, 0, self.sectionWidth, self.sectionHeight) animated:NO];
+    [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage]];
+}
 
+- (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index {
+    self.restaurants = restaurants;
+    [self updateUI: index];
+    
 }
 
 @end
