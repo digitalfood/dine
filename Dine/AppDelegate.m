@@ -131,6 +131,7 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
             PFUser *user = [PFUser currentUser];
             user[@"fullname"] = userData[@"name"];
             user[@"profileImageUrl"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", userData[@"id"]];
+            [user saveInBackground];
         }
     }];
     
