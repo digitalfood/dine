@@ -98,7 +98,7 @@
             
             [self.client searchWithTerm:searchString params:params success:^(AFHTTPRequestOperation *operation, id response) {
                 NSArray *restaurantsDictionary = response[@"businesses"];
-                NSArray *restaurants = [Restaurant businessesWithDictionaries:restaurantsDictionary];
+                NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
                 self.restaurants = [NSMutableArray arrayWithArray:restaurants];
                 [controller.searchResultsTableView reloadData];
                 

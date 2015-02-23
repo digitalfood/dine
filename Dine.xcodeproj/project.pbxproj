@@ -142,7 +142,6 @@
 		A5658EF21A9A7C07002DBE45 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
 		A5658EF31A9A7C07002DBE45 /* SettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		A5658EF61A9AA41C002DBE45 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
->>>>>>> af28dfdd805058bf17474bd0a25d5b390cf792e5
 		A5D1926D1A99895D00380766 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		A5D1926F1A998C6400380766 /* FoodComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodComposeViewController.h; sourceTree = "<group>"; };
 		A5D192701A998C6400380766 /* FoodComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodComposeViewController.m; sourceTree = "<group>"; };

@@ -36,7 +36,8 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
     if (currentUser) {
         [self signedIn];
     } else {
-        [self notSignedIn];
+        [self signedIn];
+//        [self notSignedIn];
     }
     
     [self.window makeKeyAndVisible];
