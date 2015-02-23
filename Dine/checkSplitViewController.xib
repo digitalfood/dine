@@ -28,26 +28,26 @@
                     </connections>
                 </button>
                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="gG3-S5-q2V">
-                    <rect key="frame" x="113" y="169" width="94" height="29"/>
+                    <rect key="frame" x="113" y="150" width="94" height="29"/>
                     <color key="tintColor" red="0.36450441919999998" green="0.36450441919999998" blue="0.36450441919999998" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="stepperValueChanged:" destination="-1" eventType="valueChanged" id="2iP-UZ-i5h"/>
                     </connections>
                 </stepper>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6nO-pR-Z90">
-                    <rect key="frame" x="112" y="108" width="97" height="51"/>
+                    <rect key="frame" x="112" y="89" width="97" height="51"/>
                     <color key="textColor" red="0.36450441919999998" green="0.36450441919999998" blue="0.36450441919999998" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="51"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Split among :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LI-4b-7hp">
-                    <rect key="frame" x="112" y="74" width="102" height="21"/>
+                    <rect key="frame" x="112" y="62" width="102" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.67874053030000003" green="0.67874053030000003" blue="0.67874053030000003" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YmQ-FV-Bti">
-                    <rect key="frame" x="35" y="342" width="108" height="30"/>
+                    <rect key="frame" x="35" y="309" width="108" height="30"/>
                     <state key="normal" title="Request money">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -56,7 +56,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJe-gw-Sno">
-                    <rect key="frame" x="174" y="342" width="112" height="30"/>
+                    <rect key="frame" x="174" y="309" width="112" height="30"/>
                     <state key="normal" title="Send your share">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -65,25 +65,25 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$27.34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfG-yZ-jiO">
-                    <rect key="frame" x="19" y="209" width="282" height="58"/>
+                    <rect key="frame" x="19" y="190" width="282" height="58"/>
                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                     <color key="textColor" red="0.36450441919999998" green="0.36450441919999998" blue="0.36450441919999998" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Per person" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXH-Yy-86S">
-                    <rect key="frame" x="116" y="266" width="84" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Per person" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXH-Yy-86S">
+                    <rect key="frame" x="116" y="233" width="84" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.67874053030000003" green="0.67874053030000003" blue="0.67874053030000003" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iLn-Xe-ybh">
-                    <rect key="frame" x="16" y="304" width="198" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Adress" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iLn-Xe-ybh">
+                    <rect key="frame" x="19" y="265" width="251" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee7-Fk-ME7">
-                    <rect key="frame" x="237" y="303" width="60" height="30"/>
-                    <state key="normal" title="contacts">
+                <button opaque="NO" alpha="0.44999999999999962" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee7-Fk-ME7">
+                    <rect key="frame" x="280" y="268" width="24" height="24"/>
+                    <state key="normal" image="contacts.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -95,6 +95,9 @@
             <point key="canvasLocation" x="212" y="367"/>
         </view>
     </objects>
+    <resources>
+        <image name="contacts.png" width="32" height="32"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

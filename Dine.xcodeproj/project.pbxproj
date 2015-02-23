@@ -51,6 +51,7 @@
 		A5D1926E1A99895D00380766 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D1926D1A99895D00380766 /* camera.png */; };
 		A5D192721A998C6400380766 /* FoodComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D192701A998C6400380766 /* FoodComposeViewController.m */; };
 		A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D192711A998C6400380766 /* FoodComposeViewController.xib */; };
+		D610B7E51A9AEC8100B9C169 /* contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = D610B7E41A9AEC8100B9C169 /* contacts.png */; };
 		D6629A491A9A8589009A4E0D /* CheckSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6629A471A9A8589009A4E0D /* CheckSplitViewController.m */; };
 		D6629A4A1A9A8589009A4E0D /* CheckSplitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6629A481A9A8589009A4E0D /* CheckSplitViewController.xib */; };
 		D6629A4E1A9A864F009A4E0D /* TipSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6629A4C1A9A864F009A4E0D /* TipSettingsViewController.m */; };
@@ -132,6 +133,7 @@
 		A5D192711A998C6400380766 /* FoodComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodComposeViewController.xib; sourceTree = "<group>"; };
 		A6914E8EA7D1A421B6D40296 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B8E261B084513E7BE803EFDF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D610B7E41A9AEC8100B9C169 /* contacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contacts.png; sourceTree = "<group>"; };
 		D6629A461A9A8589009A4E0D /* CheckSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckSplitViewController.h; sourceTree = "<group>"; };
 		D6629A471A9A8589009A4E0D /* CheckSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckSplitViewController.m; sourceTree = "<group>"; };
 		D6629A481A9A8589009A4E0D /* CheckSplitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckSplitViewController.xib; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 		675F53B31A99696B00101FE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D610B7E41A9AEC8100B9C169 /* contacts.png */,
 				A5D1926D1A99895D00380766 /* camera.png */,
 				675F53BA1A9969B000101FE4 /* tea.gif */,
 				675F53B41A99698400101FE4 /* add.png */,
@@ -443,6 +446,7 @@
 				675F53B81A99698400101FE4 /* grayStar.png in Resources */,
 				675F53C51A99888900101FE4 /* DishDetailViewController.xib in Resources */,
 				6771F1F91A9965AF009EB77C /* RestaurantDetailViewController.xib in Resources */,
+				D610B7E51A9AEC8100B9C169 /* contacts.png in Resources */,
 				6771F1FE1A9965AF009EB77C /* TipViewController.xib in Resources */,
 				D6629A4F1A9A864F009A4E0D /* TipSettingsViewController.xib in Resources */,
 				6771F1E71A99659F009EB77C /* MainViewController.xib in Resources */,

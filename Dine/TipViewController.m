@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Yahoo!, inc. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "TipViewController.h"
 #import "CheckSplitViewController.h"
 #import "TipSettingsViewController.h"
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tipControl;
 @property (weak, nonatomic) IBOutlet UIView *viewHandle;
+@property (weak, nonatomic) IBOutlet UIButton *splitBtn;
 
 
 @property (nonatomic, assign) float totalAmount;
@@ -40,8 +42,19 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
     [self.viewHandle addGestureRecognizer:panGestureRecognizer];
 
+    self.tipValueBtn.layer.cornerRadius = 6.0;
+//    self.tipValueBtn.backgroundColor = [UIColor grayColor];
+    [[self.tipValueBtn layer] setBorderWidth:1.6f];
+    [[self.tipValueBtn layer] setBorderColor:[UIColor grayColor].CGColor];
     
-    //Adds shadow to Checkout View
+    
+    self.splitBtn.layer.cornerRadius = 6.0;
+//    self.splitBtn.backgroundColor = [UIColor grayColor];
+    [[self.splitBtn layer] setBorderWidth:1.4f];
+    [[self.splitBtn layer] setBorderColor:[UIColor colorWithRed:118/255.0 green:181/255.0 blue:235/255.0 alpha:1.0].CGColor;
+    
+    
+//    Adds shadow to Checkout View
     CALayer *layer = self.view.layer;
     layer.shadowOffset = CGSizeMake(1, 1);
     layer.shadowColor = [[UIColor blackColor] CGColor];
