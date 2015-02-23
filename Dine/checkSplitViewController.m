@@ -70,7 +70,21 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
 }
 
-
+- (IBAction)onSentBtn:(id)sender {
+    
+    NSString *recipientEmail = @"fabian.uribe@gmail.com";
+    NSString *serviceEmail = @"cash@square.com";
+    
+    NSString *recipients = [NSString stringWithFormat:@"mailto:%@?cc=%@&subject=$%.02f",recipientEmail, serviceEmail, self.splitAmount];
+    
+    NSString *body = [NSString stringWithFormat:@"&body=Here is my share of $%0.2f to cover the bill ($%0.2f) from %@", self.splitAmount, self.amount, self.restaurant.name];
+    
+    NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
+    
+    email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+}
 
 
 @end
