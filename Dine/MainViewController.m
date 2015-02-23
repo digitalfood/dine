@@ -197,6 +197,7 @@ typedef enum {
     
     self.disableInteractiveTransition = YES;
     SearchViewController *rdvc = [[SearchViewController alloc] init];
+    rdvc.restaurants = self.svc.restaurants;
     rdvc.modalPresentationStyle = UIModalPresentationCustom;
     rdvc.transitioningDelegate = self;
     rdvc.delegate = self;
@@ -206,7 +207,6 @@ typedef enum {
 }
 
 - (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index {
-    NSLog(@"search callback %ld", (long)index);
     [self.svc reloadDataForResult:restaurants atRestaurant:index];
 }
 

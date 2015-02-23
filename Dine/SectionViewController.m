@@ -22,7 +22,6 @@ float const METERS_PER_MILE = 1609.344;
 
 @property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, strong) YelpClient *client;
-@property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
@@ -121,7 +120,7 @@ float const METERS_PER_MILE = 1609.344;
     NSInteger numberOfViews = self.restaurants.count;
     
     self.pageControl.numberOfPages = numberOfViews;
-    self.pageControl.currentPage = 0;
+    self.pageControl.currentPage = currentPage;
     
     for (int i = 0; i < numberOfViews; i++) {
         CGFloat xOrigin = i * self.sectionWidth;
@@ -133,6 +132,7 @@ float const METERS_PER_MILE = 1609.344;
         [self.scrollView addSubview:restaurantView];
     }
     self.scrollView.contentSize = CGSizeMake(self.sectionWidth * numberOfViews, self.sectionHeight);
+    [self.scrollView scrollRectToVisible:CGRectMake(self.sectionWidth * currentPage, 0, self.sectionWidth, self.sectionHeight) animated:NO];
     [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage]];
 }
 

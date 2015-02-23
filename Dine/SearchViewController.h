@@ -19,6 +19,7 @@
 
 @interface SearchViewController : UIViewController
 
+@property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, weak) id<SearchViewControllerDelegate> delegate;
 
 @end
