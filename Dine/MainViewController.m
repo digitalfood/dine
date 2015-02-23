@@ -9,11 +9,11 @@
 #import "MainViewController.h"
 #import "SectionViewController.h"
 #import "ListViewController.h"
-#import "DishDetailViewController.h"
 #import "FoodComposeViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "DishView.h"
 #import "Restaurant.h"
+#import "Dish.h"
 #import "Parse/Parse.h"
 
 float const ANIMATION_DURATION = 0.5;
@@ -28,10 +28,10 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
-@property (nonatomic, strong) DishDetailViewController *ddvc;
 
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, assign) CGPoint originalConstant;
+@property (nonatomic, assign) CGFloat xCompliment;
 @property (nonatomic, assign) BOOL shrinkX;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
@@ -46,8 +46,7 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 
 typedef enum {
     ANIMATION_TYPE_BUBBLE,
-    ANIMATION_TYPE_DOWNWARDEXPAND,
-    ANIMATION_TYPE_UPWARDEXPAND
+    ANIMATION_TYPE_DOWNWARDEXPAND
 } ANIMATION_TYPE;
 
 - (void)viewDidLoad {
@@ -76,7 +75,8 @@ typedef enum {
     PFQuery *query = [PFQuery queryWithClassName:@"Food"];
     [query whereKey:@"restaurantId" equalTo:@"thai-square-restaurant-cupertino"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.lvc.dishes = [NSMutableArray arrayWithArray:objects];
+        NSMutableArray *dishes = [Dish dishWithDictionaries:objects];
+        self.lvc.dishes = [NSMutableArray arrayWithArray:dishes];
     }];    
 }
 
@@ -98,27 +98,26 @@ typedef enum {
 #pragma mark - ListViewControllerDelegate methods
 
 - (void)tapOnDish {
-    self.disableInteractiveTransition = YES;
-    DishDetailViewController *ddvc = [[DishDetailViewController alloc] init];
-    ddvc.modalPresentationStyle = UIModalPresentationCustom;
-    ddvc.transitioningDelegate = self;;
-    [self presentViewController:ddvc animated:YES completion:nil];
 }
 
 - (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer {
     CGPoint translation = [panGestureRecognizer translationInView:self.view];
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        self.shrinkX = ([panGestureRecognizer locationInView:self.view].x > [[UIScreen mainScreen] bounds].size.width / 2);
+        // x-compliment to simulate scaling up while the horizontal center being the initial location of the gesture
+        self.xCompliment = 2 * ([panGestureRecognizer locationInView:self.view].x / [[UIScreen mainScreen] bounds].size.width);
         self.originalConstant = CGPointMake(self.listViewXOffset.constant, self.listViewYOffset.constant);
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat deltaX = self.originalConstant.x + translation.y;
-        CGFloat deltaY = self.originalConstant.y + translation.y;
-        if (self.shrinkX && deltaX <= 0 && deltaX >= -[[UIScreen mainScreen] bounds].size.width - LIST_VIEW_EXPAND_BUFFER) {
-            self.listViewXOffset.constant = self.originalConstant.x + translation.y;
+        CGFloat scale = translation.y * 3;
+        CGFloat deltaX = self.originalConstant.x + translation.x + scale * DISH_RATIO * self.xCompliment;
+        CGFloat deltaY = self.originalConstant.y + scale;
+        
+        if (deltaY > 0) {
+            // over-compression can be performed at reduced rate
+            deltaY /= 5;
+            deltaX /= 5;
         }
-        if (deltaY <= 0 && deltaY >= -self.sectionView.frame.size.height - LIST_VIEW_EXPAND_BUFFER) {
-            self.listViewYOffset.constant = self.originalConstant.y + translation.y;
-        }
+        self.listViewXOffset.constant = deltaX;
+        self.listViewYOffset.constant = deltaY;
         [self.lvc setFrame:self.listView.frame];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
     }
@@ -129,8 +128,6 @@ typedef enum {
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if ([presented isKindOfClass:[RestaurantDetailViewController class]]) {
         self.animationType = ANIMATION_TYPE_DOWNWARDEXPAND;
-    } else if ([presented isKindOfClass:[DishDetailViewController class]]) {
-        self.animationType = ANIMATION_TYPE_UPWARDEXPAND;
     } else {
         self.animationType = ANIMATION_TYPE_BUBBLE;
     }
@@ -143,19 +140,6 @@ typedef enum {
     return self;
 }
 
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-    if (self.disableInteractiveTransition) {
-        return nil;
-    }
-    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
-    self.interactiveTransition.completionSpeed = 0.99;
-    return self.interactiveTransition;
-}
-
-//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
-//    
-//}
-
 #pragma mark - UIViewControllerAnimatedTransitioning methods
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
@@ -166,9 +150,6 @@ typedef enum {
     switch (self.animationType) {
         case ANIMATION_TYPE_DOWNWARDEXPAND:
             [self tansitionInDownwardExpandForContext:transitionContext];
-            break;
-        case ANIMATION_TYPE_UPWARDEXPAND:
-            [self tansitionInUpwardExpandForContext:transitionContext];
             break;
         case ANIMATION_TYPE_BUBBLE:
             [self tansitionInBubbleForContext:transitionContext];
@@ -259,36 +240,6 @@ typedef enum {
         fromViewController.view.alpha = 1;
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             fromViewController.view.alpha = 0;
-        } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
-            [fromViewController.view removeFromSuperview];
-        }];
-    }
-}
-
-- (void)tansitionInUpwardExpandForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
-    UIView *containerView = [transitionContext containerView];
-    
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    CGFloat yRatio = self.sectionView.frame.size.height / [[UIScreen mainScreen] bounds].size.height;
-    
-    if (self.isPresenting) {
-        [containerView addSubview:toViewController.view];
-        toViewController.view.center = CGPointMake(toViewController.view.center.x, self.sectionView.frame.size.height / 2);
-        toViewController.view.transform = CGAffineTransformMakeScale(1, yRatio);
-        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-            toViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
-            toViewController.view.transform = CGAffineTransformMakeScale(1, 1);
-        } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
-        }];
-    } else {
-        fromViewController.view.center = CGPointMake(toViewController.view.center.x, [[UIScreen mainScreen] bounds].size.height / 2);
-        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-            fromViewController.view.center = CGPointMake(toViewController.view.center.x, self.sectionView.frame.size.height / 2);
-            fromViewController.view.transform = CGAffineTransformMakeScale(1, yRatio);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
             [fromViewController.view removeFromSuperview];

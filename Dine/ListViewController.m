@@ -8,7 +8,8 @@
 
 #import "ListViewController.h"
 #import "DishView.h"
-#import "Parse/Parse.h"
+#import "Dish.h"
+
 
 float const DISH_RATIO = 0.5625;
 
@@ -62,21 +63,24 @@ float const DISH_RATIO = 0.5625;
 - (void)setFrame:(CGRect)frame {
     self.view.frame = frame;
     self.dishWidth = frame.size.height * DISH_RATIO;
-    [self updateUI];
+    [self resizeSubframes];
 }
 
 - (void)setDishes:(NSMutableArray *)dishes {
     _dishes = dishes;
-    
     [self updateUI];
 }
 
 - (void)resizeSubframes {
     int i = 0;
-    for(UIView *subview in [self.scrollView subviews]) {
-        CGFloat xOrigin = i * self.dishWidth;
+    for(DishView *subview in [self.scrollView subviews]) {
+        CGFloat xOrigin = i * (self.dishWidth + 1);
         CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
         subview.frame = dishFrame;
+        if (subview.class == [DishView class]) {
+            subview.contentView.frame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
+            [subview layoutIfNeeded];
+        }
         i++;
     }
     self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);
@@ -87,30 +91,19 @@ float const DISH_RATIO = 0.5625;
         [subview removeFromSuperview];
     }
     
-    int i = 0;
-    for (PFObject *dish in self.dishes) {
-        CGFloat xOrigin = i * self.dishWidth;
-        CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
+    for (int i = 0; i < self.dishes.count; i++) {
+        CGRect dishFrame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
         DishView *dishView = [[DishView alloc] initWithFrame:dishFrame];
+        [dishView setDish:self.dishes[i]];
 
         dishView.delegate = self;
-        dishView.backgroundColor = [UIColor colorWithRed:0.5/i green:0.5 blue:0.5 alpha:1];
-        
-        i++;
-        
-        dishView.translatesAutoresizingMaskIntoConstraints = NO;
-        dishView.dishName.text = dish[@"name"];
-        
-        PFFile *userImageFile = dish[@"thumbnail"];
-        [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-            if (!error) {
-                dishView.dishImage.image = [UIImage imageWithData:imageData];
-            }
-        }];
+//        dishView.backgroundColor = [UIColor colorWithRed:0.5/i green:0.5 blue:0.5 alpha:1];
         
         [self.scrollView addSubview:dishView];
     }
     self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);
+    
+    [self resizeSubframes];
 }
 
 - (void)tapOnDish {

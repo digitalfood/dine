@@ -123,8 +123,12 @@ float const METERS_PER_MILE = 1609.344;
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
-    self.location = [locations lastObject];
-    [self reloadData];
+    if (self.location == nil) {
+        self.location = [locations lastObject];
+        [self reloadData];
+    } else {
+        self.location = [locations lastObject];
+    }
 }
 
 #pragma mark - Restaurant View Delegate methods
@@ -143,7 +147,7 @@ float const METERS_PER_MILE = 1609.344;
     
         [self.client searchWithTerm:@"Restaurants" params:params success:^(AFHTTPRequestOperation *operation, id response) {
             NSArray *restaurantsDictionary = response[@"businesses"];
-            NSArray *restaurants = [Restaurant businessesWithDictionaries:restaurantsDictionary];
+            NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
             self.restaurants = [NSMutableArray arrayWithArray:restaurants];
             [self updateUI];
 

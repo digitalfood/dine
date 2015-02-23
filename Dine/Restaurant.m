@@ -60,7 +60,7 @@ float const MILES_PER_METER = 0.000621371;
     return self;
 }
 
-+ (NSArray *)businessesWithDictionaries:(NSArray *)dictionaries {
++ (NSArray *)restaurantsWithDictionaries:(NSArray *)dictionaries {
     NSMutableArray *businesses = [NSMutableArray array];
     
     for (NSDictionary *dictionary in dictionaries) {
