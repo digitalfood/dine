@@ -7,9 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parse/Parse.h"
 
 @interface Dish : NSObject
 
-@property (nonatomic, strong) NSData *backgroundColor;
+@property (nonatomic, strong) PFFile *image;
+@property (nonatomic, strong) NSString *name;
+
++ (NSMutableArray *)dishWithDictionaries:(NSArray *)dictionaries;
 
 @end

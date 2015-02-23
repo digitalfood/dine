@@ -7,6 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Dish.h"
+
+@protocol DishViewDelegate <NSObject>
+
+- (void)tapOnDish;
+//- (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer;
+
+@end
 
 @protocol DishViewDelegate <NSObject>
 
@@ -17,7 +25,11 @@
 
 @interface DishView : UIView
 
-@property (nonatomic, weak) id<DishViewDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet UILabel *dishName;
+@property (strong, nonatomic) IBOutlet UIImageView *dishImage;
+
+@property (nonatomic, weak) id<DishViewDelegate> delegate;
+@property (nonatomic, strong) Dish *dish;
 
 @end

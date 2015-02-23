@@ -10,22 +10,19 @@
 
 @interface DishView ()
 
-@property (strong, nonatomic) IBOutlet UIImageView *dishImage;
-@property (assign, nonatomic) NSInteger dishRating;
-
 @end
 
 
 @implementation DishView
 
-- (id) initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder]){
         [self setup];
     }
     return self;
 }
 
--(id) initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
         
         self.dishImage = [[UIImageView alloc] initWithFrame:frame];
@@ -42,20 +39,35 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 - (void) setup {
+    UINib *nib = [UINib nibWithNibName:@"DishView" bundle:[NSBundle mainBundle]];
+    [nib instantiateWithOwner:self options:nil];
+    
+    self.contentView.frame = self.frame;
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self addSubview:self.contentView];
+
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [self addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (void)setDish:(Dish *)dish {
+    _dish = dish;
     
-//    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
-//    [self addGestureRecognizer:panGestureRecognizer];
+    self.dishName.text = self.dish.name;
+    
+    [self.dish.image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            self.dishImage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            self.dishImage.image = [UIImage imageWithData:imageData];
+        }
+    }];
+    
+    self.dishImage.layer.cornerRadius = 3.0;
+    [self.dishImage setClipsToBounds:YES];
+    
+    [self bringSubviewToFront:self.dishName];
 }
 
 #pragma mark - interaction methods

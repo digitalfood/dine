@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
                 <outlet property="customNavBar" destination="Pbe-v4-KAs" id="yFG-JH-Och"/>
+                <outlet property="cameraButton" destination="ZHK-iQ-qF0" id="KGV-7c-Kor"/>
                 <outlet property="listView" destination="7fn-eI-FpI" id="vjy-js-ryE"/>
                 <outlet property="listViewXOffset" destination="5HU-hZ-5I2" id="28Y-au-Gpe"/>
                 <outlet property="listViewYOffset" destination="VHc-ib-MBd" id="cQX-0B-C7S"/>
+                <outlet property="panGestureRecognizer" destination="nqn-EJ-MPK" id="ykt-q6-XaY"/>
+                <outlet property="searchButton" destination="WYd-VJ-zMn" id="Utx-Qt-iQy"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,7 +25,7 @@
             <subviews>
                 <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="bXK-oP-VqT">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
-                    <color key="backgroundColor" red="0.71577491130000004" green="0.77616679909999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="bXK-oP-VqT" secondAttribute="height" multiplier="1:1" id="VHt-EU-A3e"/>
                     </constraints>
@@ -31,63 +34,65 @@
                     <rect key="frame" x="0.0" y="320" width="320" height="248"/>
                     <color key="backgroundColor" red="0.90244239270000004" green="0.90244239270000004" blue="0.90244239270000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pbe-v4-KAs">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHK-iQ-qF0">
-                            <rect key="frame" x="276" y="20" width="24" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="24" id="mF5-zp-V5I"/>
-                                <constraint firstAttribute="height" constant="24" id="ney-qX-CM8"/>
-                            </constraints>
-                            <state key="normal" image="camera.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="onCameraButton:" destination="-1" eventType="touchUpInside" id="h3D-GP-C1K"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QsQ-vl-Xmc">
-                            <rect key="frame" x="186" y="17" width="80" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="mqB-v6-vn4"/>
-                            </constraints>
-                            <state key="normal" title="Check">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="onCheckoutButton:" destination="-1" eventType="touchUpInside" id="Q9c-aX-yXM"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYd-VJ-zMn" userLabel="SearchButton">
+                    <rect key="frame" x="256" y="8" width="24" height="24"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="55" id="HsJ-LD-4yB"/>
-                        <constraint firstItem="QsQ-vl-Xmc" firstAttribute="centerY" secondItem="ZHK-iQ-qF0" secondAttribute="centerY" id="OUh-oJ-5LR"/>
-                        <constraint firstAttribute="trailing" secondItem="ZHK-iQ-qF0" secondAttribute="trailing" constant="20" id="PJu-mP-a9z"/>
-                        <constraint firstItem="ZHK-iQ-qF0" firstAttribute="top" secondItem="Pbe-v4-KAs" secondAttribute="top" constant="20" id="Xam-LF-tW4"/>
-                        <constraint firstItem="ZHK-iQ-qF0" firstAttribute="leading" secondItem="QsQ-vl-Xmc" secondAttribute="trailing" constant="10" id="ZFT-nl-uvG"/>
+                        <constraint firstAttribute="width" constant="24" id="LxE-x2-wZ8"/>
+                        <constraint firstAttribute="height" constant="24" id="mjb-Vk-wKy"/>
                     </constraints>
-                </view>
+                    <state key="normal" image="search">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onSearchButton:" destination="-1" eventType="touchUpInside" id="eZ8-Yw-wSb"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHK-iQ-qF0">
+                    <rect key="frame" x="288" y="8" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="mF5-zp-V5I"/>
+                        <constraint firstAttribute="height" constant="24" id="ney-qX-CM8"/>
+                    </constraints>
+                    <state key="normal" image="camera.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onCameraButton:" destination="-1" eventType="touchUpInside" id="h3D-GP-C1K"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
+                <constraint firstItem="ZHK-iQ-qF0" firstAttribute="leading" secondItem="WYd-VJ-zMn" secondAttribute="trailing" constant="8" id="3fs-aR-md2"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
+                <constraint firstAttribute="trailing" secondItem="ZHK-iQ-qF0" secondAttribute="trailing" constant="8" id="R8r-B8-scI"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="VHc-ib-MBd"/>
                 <constraint firstItem="Pbe-v4-KAs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Zmh-Ib-Zyc"/>
                 <constraint firstItem="Pbe-v4-KAs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="b44-XF-WTi"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hjW-eG-Fl5"/>
                 <constraint firstAttribute="trailing" secondItem="Pbe-v4-KAs" secondAttribute="trailing" id="hlq-O8-Fk7"/>
+                <constraint firstItem="WYd-VJ-zMn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="jPJ-iv-5fv"/>
                 <constraint firstAttribute="trailing" secondItem="7fn-eI-FpI" secondAttribute="trailing" id="sLT-wM-Env"/>
                 <constraint firstAttribute="trailing" secondItem="bXK-oP-VqT" secondAttribute="trailing" id="tW8-eC-zcf"/>
+                <constraint firstItem="ZHK-iQ-qF0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="wV4-5f-XRT"/>
                 <constraint firstAttribute="bottom" secondItem="7fn-eI-FpI" secondAttribute="bottom" id="zT6-Xs-rZo"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="nqn-EJ-MPK" appends="YES" id="R5L-Rl-kRI"/>
+            </connections>
             <point key="canvasLocation" x="413" y="314"/>
         </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="nqn-EJ-MPK">
+            <connections>
+                <action selector="onPanGesture:" destination="-1" id="0FB-0Z-WFC"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="camera.png" width="24" height="24"/>
+        <image name="search" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

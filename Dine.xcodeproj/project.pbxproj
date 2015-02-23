@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		10D7591BC3D12C450D79863B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E261B084513E7BE803EFDF /* libPods.a */; };
+		597F6BF01A9A5F330079C584 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BEE1A9A5F330079C584 /* SearchViewController.m */; };
+		597F6BF11A9A5F330079C584 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 597F6BEF1A9A5F330079C584 /* SearchViewController.xib */; };
+		597F6BF51A9A6AF30079C584 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BF31A9A6AF30079C584 /* SearchCell.m */; };
+		597F6BF61A9A6AF30079C584 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 597F6BF41A9A6AF30079C584 /* SearchCell.xib */; };
+		597F6BFA1A9A96880079C584 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BF91A9A96880079C584 /* LocationManager.m */; };
 		673A8C531A9964F900A21F8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A8C521A9964F900A21F8A /* main.m */; };
 		673A8C561A9964F900A21F8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A8C551A9964F900A21F8A /* AppDelegate.m */; };
 		673A8C5E1A9964F900A21F8A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 673A8C5D1A9964F900A21F8A /* Images.xcassets */; };
@@ -33,8 +38,6 @@
 		675F53BB1A9969B000101FE4 /* tea.gif in Resources */ = {isa = PBXBuildFile; fileRef = 675F53BA1A9969B000101FE4 /* tea.gif */; };
 		675F53BF1A99722F00101FE4 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 675F53BD1A99722F00101FE4 /* ListViewController.m */; };
 		675F53C01A99722F00101FE4 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 675F53BE1A99722F00101FE4 /* ListViewController.xib */; };
-		675F53C41A99888900101FE4 /* DishDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 675F53C21A99888900101FE4 /* DishDetailViewController.m */; };
-		675F53C51A99888900101FE4 /* DishDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 675F53C31A99888900101FE4 /* DishDetailViewController.xib */; };
 		675F53C81A99A17C00101FE4 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 675F53C71A99A17C00101FE4 /* Dish.m */; };
 		6771F1E11A996593009EB77C /* DishView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1DF1A996593009EB77C /* DishView.m */; };
 		6771F1E61A99659F009EB77C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1E41A99659F009EB77C /* MainViewController.m */; };
@@ -48,15 +51,21 @@
 		6771F1FD1A9965AF009EB77C /* TipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1F31A9965AF009EB77C /* TipViewController.m */; };
 		6771F1FE1A9965AF009EB77C /* TipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771F1F41A9965AF009EB77C /* TipViewController.xib */; };
 		6771F1FF1A9965AF009EB77C /* YelpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6771F1F61A9965AF009EB77C /* YelpClient.m */; };
-		A5D1926E1A99895D00380766 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D1926D1A99895D00380766 /* camera.png */; };
-		A5D192721A998C6400380766 /* FoodComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D192701A998C6400380766 /* FoodComposeViewController.m */; };
-		A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D192711A998C6400380766 /* FoodComposeViewController.xib */; };
 		D6629A491A9A8589009A4E0D /* CheckSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6629A471A9A8589009A4E0D /* CheckSplitViewController.m */; };
 		D6629A4A1A9A8589009A4E0D /* CheckSplitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6629A481A9A8589009A4E0D /* CheckSplitViewController.xib */; };
 		D6629A4E1A9A864F009A4E0D /* TipSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6629A4C1A9A864F009A4E0D /* TipSettingsViewController.m */; };
 		D6629A4F1A9A864F009A4E0D /* TipSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6629A4D1A9A864F009A4E0D /* TipSettingsViewController.xib */; };
 		D6629A521A9ACF23009A4E0D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A501A9ACF23009A4E0D /* AddressBook.framework */; };
 		D6629A531A9ACF23009A4E0D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */; };
+		679B182C1A9A6CEB00503FD6 /* DishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679B182B1A9A6CEB00503FD6 /* DishView.xib */; };
+		A5658EEF1A9A78C4002DBE45 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5658EED1A9A78C4002DBE45 /* SettingsViewController.m */; };
+		A5658EF01A9A78C4002DBE45 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5658EEE1A9A78C4002DBE45 /* SettingsViewController.xib */; };
+		A5658EF41A9A7C07002DBE45 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5658EF21A9A7C07002DBE45 /* SettingCell.m */; };
+		A5658EF51A9A7C07002DBE45 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5658EF31A9A7C07002DBE45 /* SettingCell.xib */; };
+		A5658EF71A9AA41C002DBE45 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = A5658EF61A9AA41C002DBE45 /* logout.png */; };
+		A5D1926E1A99895D00380766 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D1926D1A99895D00380766 /* camera.png */; };
+		A5D192721A998C6400380766 /* FoodComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D192701A998C6400380766 /* FoodComposeViewController.m */; };
+		A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D192711A998C6400380766 /* FoodComposeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +79,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		597F6BED1A9A5F330079C584 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		597F6BEE1A9A5F330079C584 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		597F6BEF1A9A5F330079C584 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		597F6BF21A9A6AF30079C584 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
+		597F6BF31A9A6AF30079C584 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
+		597F6BF41A9A6AF30079C584 /* SearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
+		597F6BF81A9A96880079C584 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		597F6BF91A9A96880079C584 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		673A8C4D1A9964F900A21F8A /* Dine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		673A8C511A9964F900A21F8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		673A8C521A9964F900A21F8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -101,9 +118,6 @@
 		675F53BC1A99722F00101FE4 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		675F53BD1A99722F00101FE4 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		675F53BE1A99722F00101FE4 /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
-		675F53C11A99888900101FE4 /* DishDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishDetailViewController.h; sourceTree = "<group>"; };
-		675F53C21A99888900101FE4 /* DishDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishDetailViewController.m; sourceTree = "<group>"; };
-		675F53C31A99888900101FE4 /* DishDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishDetailViewController.xib; sourceTree = "<group>"; };
 		675F53C61A99A17C00101FE4 /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
 		675F53C71A99A17C00101FE4 /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dish.m; sourceTree = "<group>"; };
 		6771F1DE1A996593009EB77C /* DishView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishView.h; sourceTree = "<group>"; };
@@ -126,6 +140,14 @@
 		6771F1F41A9965AF009EB77C /* TipViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipViewController.xib; sourceTree = "<group>"; };
 		6771F1F51A9965AF009EB77C /* YelpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YelpClient.h; sourceTree = "<group>"; };
 		6771F1F61A9965AF009EB77C /* YelpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YelpClient.m; sourceTree = "<group>"; };
+		679B182B1A9A6CEB00503FD6 /* DishView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishView.xib; sourceTree = "<group>"; };
+		A5658EEC1A9A78C4002DBE45 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		A5658EED1A9A78C4002DBE45 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		A5658EEE1A9A78C4002DBE45 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		A5658EF11A9A7C07002DBE45 /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
+		A5658EF21A9A7C07002DBE45 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
+		A5658EF31A9A7C07002DBE45 /* SettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
+		A5658EF61A9AA41C002DBE45 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		A5D1926D1A99895D00380766 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		A5D1926F1A998C6400380766 /* FoodComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodComposeViewController.h; sourceTree = "<group>"; };
 		A5D192701A998C6400380766 /* FoodComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodComposeViewController.m; sourceTree = "<group>"; };
@@ -178,6 +200,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		597F6BF71A9A96680079C584 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				597F6BF81A9A96880079C584 /* LocationManager.h */,
+				597F6BF91A9A96880079C584 /* LocationManager.m */,
+			);
+			name = Lib;
+			sourceTree = "<group>";
+		};
 		673A8C441A9964F900A21F8A = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				6771F2011A9965C1009EB77C /* Model */,
+				597F6BF71A9A96680079C584 /* Lib */,
 				6771F2021A9965D2009EB77C /* View */,
 				6771F2031A9965EF009EB77C /* ViewController */,
 				675F53B31A99696B00101FE4 /* Resources */,
@@ -244,6 +276,7 @@
 		675F53B31A99696B00101FE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5658EF61A9AA41C002DBE45 /* logout.png */,
 				A5D1926D1A99895D00380766 /* camera.png */,
 				675F53BA1A9969B000101FE4 /* tea.gif */,
 				675F53B41A99698400101FE4 /* add.png */,
@@ -280,6 +313,14 @@
 				6771F1EE1A9965AF009EB77C /* RestaurantView.m */,
 				6771F1DE1A996593009EB77C /* DishView.h */,
 				6771F1DF1A996593009EB77C /* DishView.m */,
+				679B182B1A9A6CEB00503FD6 /* DishView.xib */,
+				A5658EF11A9A7C07002DBE45 /* SettingCell.h */,
+				A5658EF21A9A7C07002DBE45 /* SettingCell.m */,
+				A5658EF31A9A7C07002DBE45 /* SettingCell.xib */,
+				6771F1E01A996593009EB77C /* DishView.xib */,
+				597F6BF21A9A6AF30079C584 /* SearchCell.h */,
+				597F6BF31A9A6AF30079C584 /* SearchCell.m */,
+				597F6BF41A9A6AF30079C584 /* SearchCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -302,18 +343,21 @@
 				675F53BC1A99722F00101FE4 /* ListViewController.h */,
 				675F53BD1A99722F00101FE4 /* ListViewController.m */,
 				675F53BE1A99722F00101FE4 /* ListViewController.xib */,
-				675F53C11A99888900101FE4 /* DishDetailViewController.h */,
-				675F53C21A99888900101FE4 /* DishDetailViewController.m */,
-				675F53C31A99888900101FE4 /* DishDetailViewController.xib */,
-				A5D1926F1A998C6400380766 /* FoodComposeViewController.h */,
-				A5D192701A998C6400380766 /* FoodComposeViewController.m */,
-				A5D192711A998C6400380766 /* FoodComposeViewController.xib */,
 				D6629A461A9A8589009A4E0D /* CheckSplitViewController.h */,
 				D6629A471A9A8589009A4E0D /* CheckSplitViewController.m */,
 				D6629A481A9A8589009A4E0D /* CheckSplitViewController.xib */,
 				D6629A4B1A9A864F009A4E0D /* TipSettingsViewController.h */,
 				D6629A4C1A9A864F009A4E0D /* TipSettingsViewController.m */,
 				D6629A4D1A9A864F009A4E0D /* TipSettingsViewController.xib */,
+				A5D1926F1A998C6400380766 /* FoodComposeViewController.h */,
+				A5D192701A998C6400380766 /* FoodComposeViewController.m */,
+				A5D192711A998C6400380766 /* FoodComposeViewController.xib */,
+				A5658EEC1A9A78C4002DBE45 /* SettingsViewController.h */,
+				A5658EED1A9A78C4002DBE45 /* SettingsViewController.m */,
+				A5658EEE1A9A78C4002DBE45 /* SettingsViewController.xib */,
+				597F6BED1A9A5F330079C584 /* SearchViewController.h */,
+				597F6BEE1A9A5F330079C584 /* SearchViewController.m */,
+				597F6BEF1A9A5F330079C584 /* SearchViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -434,20 +478,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				675F53BB1A9969B000101FE4 /* tea.gif in Resources */,
+				597F6BF61A9A6AF30079C584 /* SearchCell.xib in Resources */,
 				673A8C611A9964F900A21F8A /* LaunchScreen.xib in Resources */,
 				675F53C01A99722F00101FE4 /* ListViewController.xib in Resources */,
-				673A8C5E1A9964F900A21F8A /* Images.xcassets in Resources */,
 				D6629A4A1A9A8589009A4E0D /* CheckSplitViewController.xib in Resources */,
-				6771F1FC1A9965AF009EB77C /* SectionViewController.xib in Resources */,
+				597F6BF11A9A5F330079C584 /* SearchViewController.xib in Resources */,
+				673A8C5E1A9964F900A21F8A /* Images.xcassets in Resources */,
+				A5658EF01A9A78C4002DBE45 /* SettingsViewController.xib in Resources */,
 				675F53B71A99698400101FE4 /* add.png in Resources */,
+				A5658EF71A9AA41C002DBE45 /* logout.png in Resources */,
 				675F53B81A99698400101FE4 /* grayStar.png in Resources */,
-				675F53C51A99888900101FE4 /* DishDetailViewController.xib in Resources */,
+				679B182C1A9A6CEB00503FD6 /* DishView.xib in Resources */,
 				6771F1F91A9965AF009EB77C /* RestaurantDetailViewController.xib in Resources */,
 				6771F1FE1A9965AF009EB77C /* TipViewController.xib in Resources */,
 				D6629A4F1A9A864F009A4E0D /* TipSettingsViewController.xib in Resources */,
 				6771F1E71A99659F009EB77C /* MainViewController.xib in Resources */,
 				A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */,
 				A5D1926E1A99895D00380766 /* camera.png in Resources */,
+				A5658EF51A9A7C07002DBE45 /* SettingCell.xib in Resources */,
 				675F53B91A99698400101FE4 /* redStar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,12 +554,17 @@
 				6771F1FD1A9965AF009EB77C /* TipViewController.m in Sources */,
 				675F53BF1A99722F00101FE4 /* ListViewController.m in Sources */,
 				675F53C41A99888900101FE4 /* DishDetailViewController.m in Sources */,
+				A5658EF41A9A7C07002DBE45 /* SettingCell.m in Sources */,
 				6771F1F71A9965AF009EB77C /* Restaurant.m in Sources */,
 				6771F1FA1A9965AF009EB77C /* RestaurantView.m in Sources */,
+				597F6BFA1A9A96880079C584 /* LocationManager.m in Sources */,
 				673A8C531A9964F900A21F8A /* main.m in Sources */,
 				6771F1E11A996593009EB77C /* DishView.m in Sources */,
 				6771F1F81A9965AF009EB77C /* RestaurantDetailViewController.m in Sources */,
 				6771F1FB1A9965AF009EB77C /* SectionViewController.m in Sources */,
+				A5658EEF1A9A78C4002DBE45 /* SettingsViewController.m in Sources */,
+				597F6BF01A9A5F330079C584 /* SearchViewController.m in Sources */,
+				597F6BF51A9A6AF30079C584 /* SearchCell.m in Sources */,
 				6771F1FF1A9965AF009EB77C /* YelpClient.m in Sources */,
 				6771F1E61A99659F009EB77C /* MainViewController.m in Sources */,
 				D6629A491A9A8589009A4E0D /* CheckSplitViewController.m in Sources */,
