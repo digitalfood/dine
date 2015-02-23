@@ -9,10 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+@protocol LocationManagerDelegate <NSObject>
+
+- (void)didUpdateLocation:(CLLocation *)location;
+
+@end
+
 @interface LocationManager : NSObject
 
 @property (nonatomic, strong) CLLocation* location;
+@property (nonatomic, weak) id<LocationManagerDelegate> delegate;
 
-+ (CLLocationManager *)sharedInstance;
++ (LocationManager *)sharedInstance;
 
 @end

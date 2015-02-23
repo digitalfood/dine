@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, weak) id<SectionViewControllerDelegate> delegate;
 
+@property (nonatomic, strong) NSMutableArray *restaurants;
+
 - (void)setFrame:(CGRect)frame;
+- (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index;
 
 @end

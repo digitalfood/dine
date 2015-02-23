@@ -13,6 +13,7 @@
 //#import <ParseCrashReporting/ParseCrashReporting.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "MainViewController.h"
+#import "LocationManager.h"
 
 NSString *kApplicationId = @"3Ssnj0MqibVZKYWW8YhycgeEt1u9PYcJtu3GN1YL";
 NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
@@ -36,7 +37,8 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
     if (currentUser) {
         [self signedIn];
     } else {
-        [self notSignedIn];
+        [self signedIn];
+//        [self notSignedIn];
     }
     
     [self.window makeKeyAndVisible];
@@ -118,6 +120,9 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
 }
 
 - (void)signedIn {
+    // initiate location manager
+    [LocationManager sharedInstance];
+    
     FBRequest *request = [FBRequest requestForMe];
     
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {

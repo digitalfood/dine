@@ -13,12 +13,11 @@
 
 @interface SearchViewController () <UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) LocationManager *locationManager;
 @property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, strong) YelpClient *client;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplay;
-@property (nonatomic, strong) NSMutableArray *restaurants;
 
 @end
 
@@ -39,7 +38,18 @@
     
     self.searchDisplay.searchResultsTableView.rowHeight = UITableViewAutomaticDimension;
     
+    [self.searchDisplay.searchResultsTableView reloadData];
     self.title = @"Search";
+    
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
+    
+    [self.searchBar becomeFirstResponder];
+    self.searchBar.text = @"Restaurants";
+    [self.searchDisplay.searchResultsTableView reloadData];
     
 }
 
@@ -54,7 +64,6 @@
 
 -(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView {
     [tableView registerNib:[UINib nibWithNibName:@"SearchCell" bundle:nil] forCellReuseIdentifier:@"SearchCell"];
-    //tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -81,20 +90,22 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     NSLog(@"shouldReloadTableForSearchString");
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (self.location != nil) {
-        NSString *currentLocation = [NSString stringWithFormat:@"%+.6f,%+.6f",self.location.coordinate.latitude, self.location.coordinate.longitude];
-        [params setObject:currentLocation forKey:@"ll"];
-        
-        [self.client searchWithTerm:searchString params:params success:^(AFHTTPRequestOperation *operation, id response) {
-            NSArray *restaurantsDictionary = response[@"businesses"];
-            NSArray *restaurants = [Restaurant businessesWithDictionaries:restaurantsDictionary];
-            self.restaurants = [NSMutableArray arrayWithArray:restaurants];
-            [controller.searchResultsTableView reloadData];
+    if(![searchString  isEqual: @""]){
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        if (self.location != nil) {
+            NSString *currentLocation = [NSString stringWithFormat:@"%+.6f,%+.6f",self.location.coordinate.latitude, self.location.coordinate.longitude];
+            [params setObject:currentLocation forKey:@"ll"];
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error: %@", [error description]);
-        }];
+            [self.client searchWithTerm:searchString params:params success:^(AFHTTPRequestOperation *operation, id response) {
+                NSArray *restaurantsDictionary = response[@"businesses"];
+                NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
+                self.restaurants = [NSMutableArray arrayWithArray:restaurants];
+                [controller.searchResultsTableView reloadData];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"error: %@", [error description]);
+            }];
+        }
     }
     
     return YES;
@@ -105,6 +116,7 @@
     NSLog(@"searchDisplayControllerDidBeginSearch");
     
 }
+
 
 /*
 #pragma mark - Navigation

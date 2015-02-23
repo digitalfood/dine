@@ -14,7 +14,7 @@
 
 float const METERS_PER_MILE = 1609.344;
 
-@interface SectionViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, RestaurantViewDelegate>
+@interface SectionViewController () <UIScrollViewDelegate, LocationManagerDelegate, RestaurantViewDelegate>
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @property (nonatomic, assign) CGFloat sectionWidth;
@@ -22,8 +22,7 @@ float const METERS_PER_MILE = 1609.344;
 
 @property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, strong) YelpClient *client;
-@property (nonatomic, strong) NSMutableArray *restaurants;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) LocationManager *locationManager;
 
 @end
 
@@ -34,11 +33,8 @@ float const METERS_PER_MILE = 1609.344;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.client = [YelpClient sharedInstance];
-        
         self.locationManager = [LocationManager sharedInstance];
-        self.location = self.locationManager.location;
-        [self updateUI];
-        
+        self.locationManager.delegate = self;
     }
     return self;
 }
@@ -59,8 +55,6 @@ float const METERS_PER_MILE = 1609.344;
     self.scrollView.delegate = self;
     
     self.pageControl.hidden = YES;
-    
-    [self reloadData];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -92,6 +86,17 @@ float const METERS_PER_MILE = 1609.344;
     [self.delegate tapOnRestaurant:restaurant withGesture:tapGestureRecognizer];
 }
 
+#pragma mark - Location Manager Delegate methods
+
+- (void)didUpdateLocation:(CLLocation *)location {
+    if (self.location == nil) {
+        self.location = location;
+        [self reloadData];
+    } else {
+        self.location = location;
+    }
+}
+
 #pragma mark - private methods
 
 - (void)reloadData {
@@ -102,9 +107,9 @@ float const METERS_PER_MILE = 1609.344;
     
         [self.client searchWithTerm:@"Restaurants" params:params success:^(AFHTTPRequestOperation *operation, id response) {
             NSArray *restaurantsDictionary = response[@"businesses"];
-            NSArray *restaurants = [Restaurant businessesWithDictionaries:restaurantsDictionary];
+            NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
             self.restaurants = [NSMutableArray arrayWithArray:restaurants];
-            [self updateUI];
+            [self updateUI: 0];
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error: %@", [error description]);
@@ -112,7 +117,7 @@ float const METERS_PER_MILE = 1609.344;
     }
 }
 
-- (void)updateUI {
+- (void)updateUI: (NSInteger) currentPage {
     // remove existing restua from
     for(UIView *subview in [self.scrollView subviews]) {
         [subview removeFromSuperview];
@@ -121,7 +126,7 @@ float const METERS_PER_MILE = 1609.344;
     NSInteger numberOfViews = self.restaurants.count;
     
     self.pageControl.numberOfPages = numberOfViews;
-    self.pageControl.currentPage = 0;
+    self.pageControl.currentPage = currentPage;
     
     for (int i = 0; i < numberOfViews; i++) {
         CGFloat xOrigin = i * self.sectionWidth;
@@ -133,7 +138,14 @@ float const METERS_PER_MILE = 1609.344;
         [self.scrollView addSubview:restaurantView];
     }
     self.scrollView.contentSize = CGSizeMake(self.sectionWidth * numberOfViews, self.sectionHeight);
+    [self.scrollView scrollRectToVisible:CGRectMake(self.sectionWidth * currentPage, 0, self.sectionWidth, self.sectionHeight) animated:NO];
     [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage]];
+}
+
+- (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index {
+    self.restaurants = restaurants;
+    [self updateUI: index];
+    
 }
 
 @end
