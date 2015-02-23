@@ -16,11 +16,12 @@
 #import "DishView.h"
 #import "Restaurant.h"
 #import "Parse/Parse.h"
+#import "SearchViewController.h"
 
 float const ANIMATION_DURATION = 0.5;
 float const LIST_VIEW_EXPAND_BUFFER = 10;
 
-@interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate>
+@interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate, SearchViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
@@ -88,7 +89,7 @@ typedef enum {
     [query whereKey:@"restaurantId" equalTo:@"thai-square-restaurant-cupertino"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.lvc.dishes = [NSMutableArray arrayWithArray:objects];
-    }];    
+    }];
 }
 
 - (void)createFood:(PFObject *)food {
@@ -190,6 +191,21 @@ typedef enum {
 }
 
 #pragma mark - Add Food Item
+- (IBAction)onSearchButton:(id)sender {
+    
+    self.disableInteractiveTransition = YES;
+    SearchViewController *rdvc = [[SearchViewController alloc] init];
+    rdvc.modalPresentationStyle = UIModalPresentationCustom;
+    rdvc.transitioningDelegate = self;
+    rdvc.delegate = self;
+    rdvc.view.frame = self.view.frame;
+    [self presentViewController:rdvc animated:YES completion:nil];
+    
+}
+
+- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) i {
+    NSLog(@"search callback");
+}
 
 - (IBAction)onCameraButton:(id)sender {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];

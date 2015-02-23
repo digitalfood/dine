@@ -10,11 +10,8 @@
 #import "RestaurantView.h"
 #import "YelpClient.h"
 #import "Parse/Parse.h"
+#import "LocationManager.h"
 
-NSString * const K_YELP_CCONSUMER_KEY = @"vxKwwcR_NMQ7WaEiQBK_CA";
-NSString * const K_YELP_CONSUMER_SECRET = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
-NSString * const K_YELP_TOKEN = @"uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV";
-NSString * const K_YELP_TOKEN_SECRET = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 float const METERS_PER_MILE = 1609.344;
 
 @interface SectionViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, RestaurantViewDelegate>
@@ -36,32 +33,12 @@ float const METERS_PER_MILE = 1609.344;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.client = [[YelpClient alloc] initWithConsumerKey:K_YELP_CCONSUMER_KEY consumerSecret:K_YELP_CONSUMER_SECRET accessToken:K_YELP_TOKEN accessSecret:K_YELP_TOKEN_SECRET];
+        self.client = [YelpClient sharedInstance];
         
-        if (![CLLocationManager locationServicesEnabled]){
-            NSLog(@"location services are disabled");
-        }
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-            NSLog(@"location services are blocked by the user");
-        }
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-            NSLog(@"location services are enabled");
-        }
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
-            NSLog(@"about to show a dialog requesting permission");
-        }
+        self.locationManager = [LocationManager sharedInstance];
+        self.location = self.locationManager.location;
+        [self updateUI];
         
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        self.locationManager.distanceFilter = 100.0f;
-        self.locationManager.headingFilter = 5;
-        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-            [self.locationManager requestWhenInUseAuthorization];
-        }
-        if ([CLLocationManager locationServicesEnabled]){
-            [self.locationManager startUpdatingLocation];
-        }
     }
     return self;
 }
@@ -107,23 +84,6 @@ float const METERS_PER_MILE = 1609.344;
         [self.delegate swipeToRestaurant:self.restaurants[page]];
     }
     self.pageControl.currentPage = page;// this displays the white dot as current page
-}
-
-#pragma mark - Core Location Manager Delegate methods
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-        NSLog(@"User has denied location services");
-    } else {
-        NSLog(@"Location manager did fail with error: %@", error.localizedFailureReason);
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations {
-    self.location = [locations lastObject];
-    [self reloadData];
 }
 
 #pragma mark - Restaurant View Delegate methods
