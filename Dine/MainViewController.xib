@@ -11,6 +11,7 @@
                 <outlet property="listView" destination="7fn-eI-FpI" id="vjy-js-ryE"/>
                 <outlet property="listViewXOffset" destination="5HU-hZ-5I2" id="28Y-au-Gpe"/>
                 <outlet property="listViewYOffset" destination="VHc-ib-MBd" id="cQX-0B-C7S"/>
+                <outlet property="panGestureRecognizer" destination="nqn-EJ-MPK" id="ykt-q6-XaY"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -46,6 +47,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
@@ -57,8 +59,16 @@
                 <constraint firstItem="ZHK-iQ-qF0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="wV4-5f-XRT"/>
                 <constraint firstAttribute="bottom" secondItem="7fn-eI-FpI" secondAttribute="bottom" id="zT6-Xs-rZo"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="nqn-EJ-MPK" appends="YES" id="R5L-Rl-kRI"/>
+            </connections>
             <point key="canvasLocation" x="413" y="314"/>
         </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="nqn-EJ-MPK">
+            <connections>
+                <action selector="onPanGesture:" destination="-1" id="0FB-0Z-WFC"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="camera.png" width="24" height="24"/>

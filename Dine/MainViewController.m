@@ -12,6 +12,7 @@
 #import "DishDetailViewController.h"
 #import "FoodComposeViewController.h"
 #import "RestaurantDetailViewController.h"
+#import "SettingsViewController.h"
 #import "DishView.h"
 #import "Restaurant.h"
 #import "Parse/Parse.h"
@@ -26,10 +27,13 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewYOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewXOffset;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
 
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
 @property (nonatomic, strong) DishDetailViewController *ddvc;
+@property (nonatomic, strong) SettingsViewController *settingsViewController;
+@property (nonatomic, assign) NSNumber *isMenuOpen;
 
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, assign) CGPoint originalConstant;
@@ -54,6 +58,9 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.settingsViewController = [[SettingsViewController alloc] init];
+    [self.view addSubview:self.settingsViewController.view];
+
     self.svc = [[SectionViewController alloc] init];
     self.svc.delegate = self;
     [self.svc setFrame:self.sectionView.frame];
@@ -63,8 +70,9 @@ typedef enum {
     self.lvc.delegate = self;
     [self.lvc setFrame:self.listView.frame];
     [self.view addSubview:self.lvc.view];
-
+    
     [self.view bringSubviewToFront:self.cameraButton];
+    [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.panGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -211,6 +219,79 @@ typedef enum {
     [imagePicker dismissViewControllerAnimated:YES completion:^{
         [self presentViewController:nvc animated:YES completion:nil];
     }];
+}
+
+#pragma mark - Settings View
+
+- (IBAction)onPanGesture:(UIPanGestureRecognizer *)sender {
+    CGPoint translation = [sender translationInView:self.view];
+    CGFloat screenSize = self.view.frame.size.height - 40;
+    CGFloat offset = ([self.isMenuOpen isEqual:@1]) ? (0 - screenSize) : 0;
+    
+    if ((translation.y >= (0 + offset)) && (translation.y <= (screenSize + offset))) {
+        CGFloat newOffset = translation.y - offset;
+        
+        CGRect frame = self.svc.view.frame;
+        frame.origin.y = newOffset;
+        self.svc.view.frame = frame;
+        
+        CGRect lFrame = self.lvc.view.frame;
+        lFrame.origin.y = newOffset + frame.size.height;
+        self.lvc.view.frame = lFrame;
+        
+        CGRect cFrame = self.cameraButton.frame;
+        cFrame.origin.y = newOffset + 8.0;
+        self.cameraButton.frame = cFrame;
+    }
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint velocity = [sender velocityInView:self.view];
+        
+        if (velocity.y > 0) {
+            [self openMenu];
+        } else if (velocity.y < 0) {
+            [self closeMenu];
+        }
+    }
+}
+
+- (void)openMenu {
+    [UIView animateWithDuration:0.5 animations:^{
+        CGFloat screenSize = self.view.frame.size.height - 40;
+
+        CGRect frame = self.svc.view.frame;
+        frame.origin.y = screenSize;
+        self.svc.view.frame = frame;
+        
+        CGRect lFrame = self.lvc.view.frame;
+        lFrame.origin.y = screenSize + frame.size.height;
+        self.lvc.view.frame = lFrame;
+        
+        CGRect cFrame = self.cameraButton.frame;
+        cFrame.origin.y = screenSize + 8.0;
+        self.cameraButton.frame = cFrame;
+
+    }];
+    
+    self.isMenuOpen = @1;
+}
+
+- (void)closeMenu {
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect frame = self.svc.view.frame;
+        frame.origin.y = 0;
+        self.svc.view.frame = frame;
+        
+        CGRect lFrame = self.lvc.view.frame;
+        lFrame.origin.y = 0 + frame.size.height;
+        self.lvc.view.frame = lFrame;
+        
+        CGRect cFrame = self.cameraButton.frame;
+        cFrame.origin.y = 0 + 8.0;
+        self.cameraButton.frame = cFrame;
+    }];
+    
+    self.isMenuOpen = 0;
 }
 
 #pragma mark - private methods

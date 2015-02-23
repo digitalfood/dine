@@ -18,7 +18,6 @@ NSString * const K_YELP_TOKEN_SECRET = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 float const METERS_PER_MILE = 1609.344;
 
 @interface SectionViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, RestaurantViewDelegate>
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @property (nonatomic, assign) CGFloat sectionWidth;
