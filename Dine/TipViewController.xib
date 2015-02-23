@@ -95,6 +95,7 @@
                             <color key="tintColor" red="0.76430179552881761" green="0.76430179552881761" blue="0.76430179552881761" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="onTap:" destination="-1" eventType="valueChanged" id="i8Z-UN-OrX"/>
+                                <action selector="tipValueChanged:" destination="-1" eventType="valueChanged" id="hIK-q3-SXn"/>
                             </connections>
                         </segmentedControl>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How was the service ?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJj-Ac-fTH">
@@ -124,12 +125,24 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dwd-Ty-o2V">
-                            <rect key="frame" x="61" y="146" width="33" height="30"/>
+                            <rect key="frame" x="61" y="146" width="40" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="DOB-XW-u4j"/>
+                            </constraints>
                             <state key="normal" title="15%">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="onTipValueBtn:" destination="-1" eventType="touchUpInside" id="Kj6-f8-CQC"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2E-JO-oTM">
+                            <rect key="frame" x="219" y="251" width="81" height="30"/>
+                            <state key="normal" title="Split the bill">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onSplitBtn:" destination="-1" eventType="touchUpInside" id="V7d-O8-iXg"/>
                             </connections>
                         </button>
                     </subviews>

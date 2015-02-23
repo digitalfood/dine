@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Restaurant.h"
 
 @interface CheckSplitViewController : UIViewController
+
+@property (nonatomic, strong) Restaurant *restaurant;
+@property (nonatomic, assign) float amount;
 
 @end

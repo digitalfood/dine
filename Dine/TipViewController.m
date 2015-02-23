@@ -17,6 +17,10 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tipControl;
 @property (weak, nonatomic) IBOutlet UIView *viewHandle;
 
+
+@property (nonatomic, assign) float totalAmount;
+
+
 @property (nonatomic, assign) CGPoint initialCenter;
 @property (nonatomic, assign) double billAmount;
 @property (weak, nonatomic) IBOutlet UIButton *tipValueBtn;
@@ -45,12 +49,18 @@
     layer.shadowOpacity = 0.20f;
     layer.shadowPath = [[UIBezierPath bezierPathWithRect:layer.bounds] CGPath];
     
-    
     self.billAmount = 0;
     [self.billTextField becomeFirstResponder];
     self.billTextField.delegate = self;
     [self updateUI];
     
+}
+- (IBAction)tipValueChanged:(id)sender {
+    NSArray *tipValues = @[@"0.15", @"0.18", @"0.2"];
+
+    [self.tipValueBtn setTitle:[NSString stringWithFormat: @"%i%%", (int)(100 * [tipValues[self.tipControl.selectedSegmentIndex] floatValue])] forState: UIControlStateNormal];
+    NSLog(@"%i%%", (int)(100 * [tipValues[self.tipControl.selectedSegmentIndex] floatValue]));
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,10 +72,11 @@
     NSArray *tipValues = @[@"0.15", @"0.18", @"0.2"];
     
     float tipAmount = self.billAmount * [tipValues[self.tipControl.selectedSegmentIndex] floatValue];
-    float totalAmount = tipAmount + self.billAmount;
+    self.totalAmount = tipAmount + self.billAmount;
     
     self.tipLabel.text = [NSString stringWithFormat:@"$%0.2f", tipAmount];
-    self.totalLabel.text = [NSString stringWithFormat:@"$%0.2f", totalAmount];
+    self.totalLabel.text = [NSString stringWithFormat:@"$%0.2f", self.totalAmount];
+
 }
 
 - (IBAction)onTap:(UISegmentedControl *)sender {
@@ -84,10 +95,15 @@
 
 
 - (IBAction)onTipValueBtn:(id)sender {
-    TipSettingsViewController *splitVC = [[TipSettingsViewController alloc] init];
-    [self presentViewController:splitVC animated:YES completion:nil];
+    TipSettingsViewController *tipSettingsVC = [[TipSettingsViewController alloc] init];
+    [self presentViewController:tipSettingsVC animated:YES completion:nil];
 }
 
+- (IBAction)onSplitBtn:(id)sender {
+    CheckSplitViewController *splitVC = [[CheckSplitViewController alloc] init];
+    splitVC.amount = self.totalAmount;
+    [self presentViewController:splitVC animated:YES completion:nil];
+}
 
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     
