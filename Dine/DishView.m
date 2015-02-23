@@ -61,6 +61,7 @@
         if (!error) {
             self.dishImage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             self.dishImage.image = [UIImage imageWithData:imageData];
+            self.dishImage.contentMode = UIViewContentModeScaleAspectFill;
         }
     }];
     
