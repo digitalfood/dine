@@ -40,9 +40,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nlD-gm-Mwn">
-                        <rect key="frame" x="77" y="33" width="106" height="17"/>
+                        <rect key="frame" x="77" y="33" width="84" height="17"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="106" id="04r-63-WPF"/>
+                            <constraint firstAttribute="width" constant="84" id="04r-63-WPF"/>
                             <constraint firstAttribute="height" constant="17" id="j2w-zH-ZM6"/>
                         </constraints>
                     </imageView>

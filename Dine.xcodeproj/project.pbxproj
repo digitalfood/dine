@@ -12,6 +12,7 @@
 		597F6BF11A9A5F330079C584 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 597F6BEF1A9A5F330079C584 /* SearchViewController.xib */; };
 		597F6BF51A9A6AF30079C584 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BF31A9A6AF30079C584 /* SearchCell.m */; };
 		597F6BF61A9A6AF30079C584 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 597F6BF41A9A6AF30079C584 /* SearchCell.xib */; };
+		597F6BFA1A9A96880079C584 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BF91A9A96880079C584 /* LocationManager.m */; };
 		673A8C531A9964F900A21F8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A8C521A9964F900A21F8A /* main.m */; };
 		673A8C561A9964F900A21F8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A8C551A9964F900A21F8A /* AppDelegate.m */; };
 		673A8C5E1A9964F900A21F8A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 673A8C5D1A9964F900A21F8A /* Images.xcassets */; };
@@ -79,6 +80,8 @@
 		597F6BF21A9A6AF30079C584 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		597F6BF31A9A6AF30079C584 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		597F6BF41A9A6AF30079C584 /* SearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
+		597F6BF81A9A96880079C584 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		597F6BF91A9A96880079C584 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		673A8C4D1A9964F900A21F8A /* Dine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		673A8C511A9964F900A21F8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		673A8C521A9964F900A21F8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -184,6 +187,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		597F6BF71A9A96680079C584 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				597F6BF81A9A96880079C584 /* LocationManager.h */,
+				597F6BF91A9A96880079C584 /* LocationManager.m */,
+			);
+			name = Lib;
+			sourceTree = "<group>";
+		};
 		673A8C441A9964F900A21F8A = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +221,7 @@
 			children = (
 				6771F2001A9965B4009EB77C /* API */,
 				6771F2011A9965C1009EB77C /* Model */,
+				597F6BF71A9A96680079C584 /* Lib */,
 				6771F2021A9965D2009EB77C /* View */,
 				6771F2031A9965EF009EB77C /* ViewController */,
 				675F53B31A99696B00101FE4 /* Resources */,
@@ -523,6 +536,7 @@
 				A5658EF41A9A7C07002DBE45 /* SettingCell.m in Sources */,
 				6771F1F71A9965AF009EB77C /* Restaurant.m in Sources */,
 				6771F1FA1A9965AF009EB77C /* RestaurantView.m in Sources */,
+				597F6BFA1A9A96880079C584 /* LocationManager.m in Sources */,
 				673A8C531A9964F900A21F8A /* main.m in Sources */,
 				6771F1E11A996593009EB77C /* DishView.m in Sources */,
 				6771F1F81A9965AF009EB77C /* RestaurantDetailViewController.m in Sources */,

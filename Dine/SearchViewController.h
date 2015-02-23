@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class SearchViewController;
+
+@protocol SearchViewControllerDelegate <NSObject>
+
+- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) i;
+
+@end
+
 @interface SearchViewController : UIViewController
+
+@property (nonatomic, weak) id<SearchViewControllerDelegate> delegate;
 
 @end
