@@ -76,9 +76,4 @@
     [self.delegate tapOnDish];
 }
 
-- (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
-    // TODO: pass dish data model to finish data binding in DishDetailViewController
-//    [self.delegate panOnDish:panGestureRecognizer];
-}
-
 @end

@@ -32,9 +32,6 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewYOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewXOffset;
-
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
 @property (weak, nonatomic) IBOutlet UIView *customNavBar;
@@ -43,15 +40,14 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (nonatomic, assign) NSNumber *isMenuOpen;
 
 @property (nonatomic, strong) Restaurant *restaurant;
+@property (nonatomic, strong) NSMutableArray *dishes;
+
 @property (nonatomic, assign) CGPoint originalConstant;
 @property (nonatomic, assign) CGFloat xCompliment;
-@property (nonatomic, assign) BOOL shrinkX;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
-@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveTransition;
-@property (nonatomic, assign) BOOL disableInteractiveTransition;
 
-@property (nonatomic, strong) NSMutableArray *dishes;
+
 
 @end
 
@@ -85,8 +81,6 @@ typedef enum {
     [self.view bringSubviewToFront:self.searchButton];
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -104,8 +98,11 @@ typedef enum {
     }];    
 }
 
+- (void)createFood:(PFObject *)food {
+    
+}
+
 - (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
-    self.disableInteractiveTransition = YES;
     RestaurantDetailViewController *rdvc = [[RestaurantDetailViewController alloc] init];
     rdvc.restaurant = restaurant;
     rdvc.modalPresentationStyle = UIModalPresentationCustom;
@@ -196,8 +193,6 @@ typedef enum {
 
 #pragma mark - Add Food Item
 - (IBAction)onSearchButton:(id)sender {
-    
-    self.disableInteractiveTransition = YES;
     SearchViewController *rdvc = [[SearchViewController alloc] init];
     rdvc.restaurants = self.svc.restaurants;
     rdvc.modalPresentationStyle = UIModalPresentationCustom;
