@@ -13,7 +13,7 @@
 
 @interface SearchViewController () <UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) LocationManager *locationManager;
 @property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, strong) YelpClient *client;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;

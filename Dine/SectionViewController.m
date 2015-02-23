@@ -14,7 +14,7 @@
 
 float const METERS_PER_MILE = 1609.344;
 
-@interface SectionViewController () <UIScrollViewDelegate, CLLocationManagerDelegate, RestaurantViewDelegate>
+@interface SectionViewController () <UIScrollViewDelegate, LocationManagerDelegate, RestaurantViewDelegate>
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @property (nonatomic, assign) CGFloat sectionWidth;
@@ -22,7 +22,7 @@ float const METERS_PER_MILE = 1609.344;
 
 @property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, strong) YelpClient *client;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) LocationManager *locationManager;
 
 @end
 
@@ -33,11 +33,8 @@ float const METERS_PER_MILE = 1609.344;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.client = [YelpClient sharedInstance];
-        
         self.locationManager = [LocationManager sharedInstance];
-        self.location = self.locationManager.location;
-        [self updateUI: 0];
-        
+        self.locationManager.delegate = self;
     }
     return self;
 }
@@ -58,8 +55,6 @@ float const METERS_PER_MILE = 1609.344;
     self.scrollView.delegate = self;
     
     self.pageControl.hidden = YES;
-    
-    [self reloadData];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -89,6 +84,17 @@ float const METERS_PER_MILE = 1609.344;
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self.delegate tapOnRestaurant:restaurant withGesture:tapGestureRecognizer];
+}
+
+#pragma mark - Location Manager Delegate methods
+
+- (void)didUpdateLocation:(CLLocation *)location {
+    if (self.location == nil) {
+        self.location = location;
+        [self reloadData];
+    } else {
+        self.location = location;
+    }
 }
 
 #pragma mark - private methods
