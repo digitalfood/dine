@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Restaurant.h"
 
 @class SearchViewController;
 
 @protocol SearchViewControllerDelegate <NSObject>
 
-- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) i;
+- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index;
 
 @end
 

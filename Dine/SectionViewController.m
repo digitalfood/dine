@@ -37,7 +37,7 @@ float const METERS_PER_MILE = 1609.344;
         
         self.locationManager = [LocationManager sharedInstance];
         self.location = self.locationManager.location;
-        [self updateUI];
+        [self updateUI: 0];
         
     }
     return self;
@@ -104,7 +104,7 @@ float const METERS_PER_MILE = 1609.344;
             NSArray *restaurantsDictionary = response[@"businesses"];
             NSArray *restaurants = [Restaurant businessesWithDictionaries:restaurantsDictionary];
             self.restaurants = [NSMutableArray arrayWithArray:restaurants];
-            [self updateUI];
+            [self updateUI: 0];
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error: %@", [error description]);
@@ -112,7 +112,7 @@ float const METERS_PER_MILE = 1609.344;
     }
 }
 
-- (void)updateUI {
+- (void)updateUI: (NSInteger) currentPage {
     // remove existing restua from
     for(UIView *subview in [self.scrollView subviews]) {
         [subview removeFromSuperview];
@@ -134,6 +134,12 @@ float const METERS_PER_MILE = 1609.344;
     }
     self.scrollView.contentSize = CGSizeMake(self.sectionWidth * numberOfViews, self.sectionHeight);
     [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage]];
+}
+
+- (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index {
+    self.restaurants = restaurants;
+    [self updateUI: index];
+    
 }
 
 @end

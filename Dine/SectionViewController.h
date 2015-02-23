@@ -23,5 +23,6 @@
 @property (nonatomic, weak) id<SectionViewControllerDelegate> delegate;
 
 - (void)setFrame:(CGRect)frame;
+- (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index;
 
 @end

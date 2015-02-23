@@ -205,8 +205,9 @@ typedef enum {
     
 }
 
-- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) i {
-    NSLog(@"search callback");
+- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index {
+    NSLog(@"search callback %ld", (long)index);
+    [self.svc reloadDataForResult:restaurants atRestaurant:index];
 }
 
 - (IBAction)onCameraButton:(id)sender {
