@@ -41,28 +41,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SettingCell *cell;
+    SettingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SettingCell"];
+    [cell setLayoutMargins:UIEdgeInsetsZero];
     
     if (indexPath.row == 0) {
-        cell = [self getUserCell];
+        PFUser *user = [PFUser currentUser];
+        cell.name = user[@"fullname"];
+        cell.iconImageUrl = user[@"profileImageUrl"];
     } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCell"];
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-        
         cell.iconImage = [UIImage imageNamed:@"logout.png"];
         cell.name = @"Logout";
     }
     
-    return cell;
-}
-
-- (SettingCell *)getUserCell {
-    SettingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SettingCell"];
-    [cell setLayoutMargins:UIEdgeInsetsZero];
-
-    PFUser *user = [PFUser currentUser];
-    cell.name = user[@"fullname"];
-    cell.iconImageUrl = user[@"profileImageUrl"];
     return cell;
 }
 
