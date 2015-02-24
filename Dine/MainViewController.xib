@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -22,13 +22,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="bXK-oP-VqT">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="bXK-oP-VqT" secondAttribute="height" multiplier="1:1" id="VHt-EU-A3e"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fn-eI-FpI">
                     <rect key="frame" x="0.0" y="320" width="320" height="248"/>
                     <color key="backgroundColor" red="0.90244239270000004" green="0.90244239270000004" blue="0.90244239270000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -86,13 +79,20 @@
                         <constraint firstAttribute="height" constant="68" id="uyl-lU-Nbp"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="bXK-oP-VqT">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="bXK-oP-VqT" secondAttribute="height" multiplier="1:1" id="Ahs-L2-zh0"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="uyp-0l-59t" secondAttribute="trailing" id="36z-ku-KoS"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
-                <constraint firstAttribute="bottom" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="Kec-h3-1eb"/>
+                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="Jel-71-3kM"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="VHc-ib-MBd"/>
                 <constraint firstItem="uyp-0l-59t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="d9u-t9-p4h"/>
