@@ -57,7 +57,7 @@
 
 - (IBAction)onRequestBtn:(id)sender {
     
-    NSString *recipientEmail = @"fabian.uribe@gmail.com";
+    NSString *recipientEmail = self.emailTextField.text;
     NSString *serviceEmail = @"request@square.com";
     
     
@@ -74,7 +74,7 @@
 
 - (IBAction)onSentBtn:(id)sender {
     
-    NSString *recipientEmail = @"fabian.uribe@gmail.com";
+    NSString *recipientEmail = self.emailTextField.text;
     NSString *serviceEmail = @"cash@square.com";
     
     NSString *recipients = [NSString stringWithFormat:@"mailto:%@?cc=%@&subject=$%.02f",recipientEmail, serviceEmail, self.splitAmount];
