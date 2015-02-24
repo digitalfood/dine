@@ -45,7 +45,6 @@
     [nib instantiateWithOwner:self options:nil];
     
     self.contentView.frame = self.frame;
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.contentView];
 
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
@@ -73,8 +72,7 @@
 
 #pragma mark - interaction methods
 - (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
-    // TODO: pass dish data model to finish data binding in DishDetailViewController
-    [self.delegate tapOnDish];
+    [self.delegate tapOnDish:self.page];
 }
 
 @end

@@ -113,6 +113,7 @@ float const METERS_PER_MILE = 1609.344;
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error: %@", [error description]);
+            [self reloadData];
         }];
     }
 }

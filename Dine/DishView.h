@@ -11,7 +11,7 @@
 
 @protocol DishViewDelegate <NSObject>
 
-- (void)tapOnDish;
+- (void)tapOnDish:(int)page;
 
 @end
 
@@ -23,5 +23,6 @@
 
 @property (nonatomic, weak) id<DishViewDelegate> delegate;
 @property (nonatomic, strong) Dish *dish;
+@property (nonatomic, assign) int page;
 
 @end

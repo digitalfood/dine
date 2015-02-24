@@ -8,20 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-extern float const DISH_RATIO;
+extern float const DISHVIEW_ASPECTRATIO;
 
 @protocol ListViewControllerDelegate <NSObject>
 
-- (void)tapOnDish;
+- (void)tapOnDish:(int)page;
 - (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
 
 @interface ListViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, weak) id<ListViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *dishes;
+@property (nonatomic, assign) BOOL expaned;
 - (void)setFrame:(CGRect)frame;
 
 @end

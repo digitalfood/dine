@@ -125,7 +125,12 @@ typedef enum {
 
 #pragma mark - ListViewControllerDelegate methods
 
-- (void)tapOnDish {
+- (void)tapOnDish:(int)page {
+    if (self.lvc.expaned) {
+        [self collapseListView];
+    } else {
+        [self expandListViewToPage:page];
+    }
 }
 
 - (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer {
@@ -136,7 +141,7 @@ typedef enum {
         self.originalConstant = CGPointMake(self.listViewXOffset.constant, self.listViewYOffset.constant);
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         CGFloat scale = translation.y * 3;
-        CGFloat deltaX = self.originalConstant.x + translation.x + scale * DISH_RATIO * self.xCompliment;
+        CGFloat deltaX = self.originalConstant.x + translation.x + scale * DISHVIEW_ASPECTRATIO * self.xCompliment;
         CGFloat deltaY = self.originalConstant.y + scale;
         
         if (deltaY > 0) {
@@ -152,30 +157,81 @@ typedef enum {
         }
         [self.lvc setFrame:self.listView.frame];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        [UIView animateWithDuration:0.5 animations:^{
-            CGFloat sectionWidth = [[UIScreen mainScreen] bounds].size.width;
-            if (translation.y < 0) {
-                int page = floor((- self.listViewXOffset.constant - sectionWidth / 2 ) / sectionWidth) + 1;
-                self.listViewXOffset.constant = - page * sectionWidth;
-                self.listViewYOffset.constant = - self.sectionView.frame.size.height;
-            } else {
-                NSLog(@"contentsize: %f", self.lvc.scrollView.contentSize.width);
-                NSLog(@"x offset: %f", self.listViewXOffset.constant);
-                if (self.listViewXOffset.constant < - (self.lvc.scrollView.contentSize.width - sectionWidth)) {
-                    self.listViewXOffset.constant = - (self.lvc.scrollView.contentSize.width - sectionWidth);
-                }
-                NSLog(@"x offset afterward: %f", self.listViewXOffset.constant);
-                self.listViewYOffset.constant = 0;
-            }
-            [self.view layoutIfNeeded];
-            [self.lvc setFrame:self.listView.frame];
-        }];
+        if (translation.y < 0) {
+            [self expandListView];
+        } else {
+            [self collapseListView];
+        }
     }
 }
 
+- (void)expandListView {
+    if (self.lvc.expaned) {
+        return;
+    }
+    [UIView animateWithDuration:0.5 animations:^{
+        CGFloat sectionWidth = self.lvc.view.frame.size.height * DISHVIEW_ASPECTRATIO;
+        CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        int page = floor((- self.listViewXOffset.constant - sectionWidth / 2 ) / sectionWidth) + 1;
+        self.listViewXOffset.constant = - page * screenWidth;
+        self.listViewYOffset.constant = - self.sectionView.frame.size.height;
+        [self.view layoutIfNeeded];
+        [self.lvc setFrame:self.listView.frame];
+        
+        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * screenWidth, screenHeight);
+        self.lvc.scrollView.pagingEnabled = YES;
+        
+        self.lvc.pageControl.currentPage = page;
+        self.lvc.expaned = YES;
+    }];
+}
+
+- (void)expandListViewToPage:(int)page {
+    if (self.lvc.expaned) {
+        return;
+    }
+    NSLog(@"page: %d", page);
+    [UIView animateWithDuration:0.5 animations:^{
+        CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        self.listViewXOffset.constant = - page * screenWidth;
+        self.listViewYOffset.constant = - self.sectionView.frame.size.height;
+        [self.view layoutIfNeeded];
+        [self.lvc setFrame:self.listView.frame];
+        
+        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * screenWidth, screenHeight);
+        self.lvc.scrollView.pagingEnabled = YES;
+        
+        self.lvc.pageControl.currentPage = page;
+        self.lvc.expaned = YES;
+    }];
+}
+
+- (void)collapseListView {
+    if (!self.lvc.expaned) {
+        return;
+    }
+    [UIView animateWithDuration:0.5 animations:^{
+        CGFloat sectionWidth = self.lvc.view.frame.size.height * DISHVIEW_ASPECTRATIO;
+        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        self.listViewXOffset.constant = 0;
+        self.listViewYOffset.constant = 0;
+        [self.view layoutIfNeeded];
+        [self.lvc setFrame:self.listView.frame];
+        
+        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * sectionWidth, screenHeight);
+        self.lvc.scrollView.pagingEnabled = NO;
+        self.lvc.expaned = NO;
+    }];
+}
+
 #pragma mark - UIPanGestureRecognizerDelegate methods
-- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.svc.view];
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        return YES;
+    }
+    CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.svc.view];
     return fabs(velocity.y) > fabs(velocity.x);
 }
 
