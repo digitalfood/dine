@@ -14,8 +14,6 @@ float const DISH_RATIO = 0.5625;
 
 @interface ListViewController () <UIScrollViewDelegate, DishViewDelegate, UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
 @property (nonatomic, assign) CGFloat dishWidth;
 @property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
 @property (nonatomic, strong) NSMutableArray *contrainstArray;

@@ -152,6 +152,24 @@ typedef enum {
         }
         [self.lvc setFrame:self.listView.frame];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        [UIView animateWithDuration:0.5 animations:^{
+            CGFloat sectionWidth = [[UIScreen mainScreen] bounds].size.width;
+            if (translation.y < 0) {
+                int page = floor((- self.listViewXOffset.constant - sectionWidth / 2 ) / sectionWidth) + 1;
+                self.listViewXOffset.constant = - page * sectionWidth;
+                self.listViewYOffset.constant = - self.sectionView.frame.size.height;
+            } else {
+                NSLog(@"contentsize: %f", self.lvc.scrollView.contentSize.width);
+                NSLog(@"x offset: %f", self.listViewXOffset.constant);
+                if (self.listViewXOffset.constant < - (self.lvc.scrollView.contentSize.width - sectionWidth)) {
+                    self.listViewXOffset.constant = - (self.lvc.scrollView.contentSize.width - sectionWidth);
+                }
+                NSLog(@"x offset afterward: %f", self.listViewXOffset.constant);
+                self.listViewYOffset.constant = 0;
+            }
+            [self.view layoutIfNeeded];
+            [self.lvc setFrame:self.listView.frame];
+        }];
     }
 }
 

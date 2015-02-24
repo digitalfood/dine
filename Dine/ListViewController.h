@@ -19,6 +19,7 @@ extern float const DISH_RATIO;
 
 @interface ListViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, weak) id<ListViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *dishes;
 - (void)setFrame:(CGRect)frame;
