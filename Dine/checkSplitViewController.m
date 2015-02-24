@@ -24,7 +24,6 @@
 @implementation CheckSplitViewController
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // hide status bar
@@ -36,9 +35,9 @@
     [self splitBill];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -46,13 +45,12 @@
     [self splitBill];
 }
 
+
 - (void) splitBill {
     self.countLabel.text = [NSString stringWithFormat: @"%i", (int) self.countStepper.value];
     self.splitAmount =  self.amount/self.countStepper.value;
     self.amountLabel.text = [NSString stringWithFormat: @"$%0.2f", self.splitAmount];
-
 }
-
 
 
 - (IBAction)onRequestBtn:(id)sender {
@@ -72,6 +70,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
 }
 
+
 - (IBAction)onSentBtn:(id)sender {
     
     NSString *recipientEmail = self.emailTextField.text;
@@ -87,7 +86,6 @@
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
 }
-
 
 
 - (IBAction)onContactsBtn:(id)sender {
