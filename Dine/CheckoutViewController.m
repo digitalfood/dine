@@ -114,6 +114,7 @@
 
 - (IBAction)onSplitBtn:(id)sender {
     CheckSplitViewController *splitVC = [[CheckSplitViewController alloc] init];
+    splitVC.view.frame = self.view.frame;
     splitVC.amount = self.totalAmount;
     [self presentViewController:splitVC animated:YES completion:nil];
 }
