@@ -11,7 +11,7 @@
                 <outlet property="customNavBar" destination="uyp-0l-59t" id="zxn-C7-7nT"/>
                 <outlet property="listView" destination="7fn-eI-FpI" id="vjy-js-ryE"/>
                 <outlet property="listViewXOffset" destination="5HU-hZ-5I2" id="28Y-au-Gpe"/>
-                <outlet property="panGestureRecognizer" destination="nqn-EJ-MPK" id="ykt-q6-XaY"/>
+                <outlet property="listViewYOffset" destination="wgI-Rb-1dE" id="JLx-H1-wcl"/>
                 <outlet property="searchButton" destination="WYd-VJ-zMn" id="Utx-Qt-iQy"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -22,9 +22,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fn-eI-FpI">
-                    <rect key="frame" x="0.0" y="320" width="320" height="248"/>
-                    <color key="backgroundColor" red="0.90244239270000004" green="0.90244239270000004" blue="0.90244239270000004" alpha="1" colorSpace="calibratedRGB"/>
+                <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="bXK-oP-VqT">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="bXK-oP-VqT" secondAttribute="height" multiplier="1:1" id="Ahs-L2-zh0"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyp-0l-59t">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
@@ -79,12 +82,9 @@
                         <constraint firstAttribute="height" constant="68" id="uyl-lU-Nbp"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="bXK-oP-VqT">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="bXK-oP-VqT" secondAttribute="height" multiplier="1:1" id="Ahs-L2-zh0"/>
-                    </constraints>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fn-eI-FpI">
+                    <rect key="frame" x="0.0" y="320" width="320" height="248"/>
+                    <color key="backgroundColor" red="0.90244239270000004" green="0.90244239270000004" blue="0.90244239270000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -92,26 +92,17 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="uyp-0l-59t" secondAttribute="trailing" id="36z-ku-KoS"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
-                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="Jel-71-3kM"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
-                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="VHc-ib-MBd"/>
                 <constraint firstItem="uyp-0l-59t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="d9u-t9-p4h"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hjW-eG-Fl5"/>
                 <constraint firstAttribute="trailing" secondItem="7fn-eI-FpI" secondAttribute="trailing" id="sLT-wM-Env"/>
                 <constraint firstAttribute="trailing" secondItem="bXK-oP-VqT" secondAttribute="trailing" id="tW8-eC-zcf"/>
                 <constraint firstItem="uyp-0l-59t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="v4e-Oe-XCo"/>
+                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="wgI-Rb-1dE"/>
                 <constraint firstAttribute="bottom" secondItem="7fn-eI-FpI" secondAttribute="bottom" id="zT6-Xs-rZo"/>
             </constraints>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="nqn-EJ-MPK" appends="YES" id="R5L-Rl-kRI"/>
-            </connections>
             <point key="canvasLocation" x="431" y="278"/>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="nqn-EJ-MPK">
-            <connections>
-                <action selector="onPanGesture:" destination="-1" id="0FB-0Z-WFC"/>
-            </connections>
-        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="camera.png" width="24" height="24"/>
