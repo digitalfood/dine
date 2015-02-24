@@ -12,7 +12,6 @@
 
 @interface CheckSplitViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
 
-@property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, assign) float amount;
 
 @end
