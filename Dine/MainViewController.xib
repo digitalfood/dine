@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -30,10 +30,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyp-0l-59t">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYd-VJ-zMn" userLabel="SearchButton">
-                            <rect key="frame" x="195" y="26" width="24" height="24"/>
+                            <rect key="frame" x="195" y="8" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="LxE-x2-wZ8"/>
                                 <constraint firstAttribute="height" constant="24" id="mjb-Vk-wKy"/>
@@ -46,7 +46,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHK-iQ-qF0">
-                            <rect key="frame" x="288" y="26" width="24" height="24"/>
+                            <rect key="frame" x="288" y="8" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="mF5-zp-V5I"/>
                                 <constraint firstAttribute="height" constant="24" id="ney-qX-CM8"/>
@@ -59,7 +59,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbd-9u-B7J">
-                            <rect key="frame" x="238" y="23" width="30" height="30"/>
+                            <rect key="frame" x="238" y="5" width="30" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="W3C-P9-aKU"/>
                                 <constraint firstAttribute="width" constant="30" id="hBi-sA-Cz6"/>
@@ -73,13 +73,13 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="WYd-VJ-zMn" firstAttribute="top" secondItem="uyp-0l-59t" secondAttribute="top" constant="26" id="27V-wc-2FA"/>
+                        <constraint firstItem="WYd-VJ-zMn" firstAttribute="top" secondItem="uyp-0l-59t" secondAttribute="top" constant="8" id="27V-wc-2FA"/>
                         <constraint firstItem="Gbd-9u-B7J" firstAttribute="centerY" secondItem="ZHK-iQ-qF0" secondAttribute="centerY" id="27m-Vt-hvS"/>
                         <constraint firstAttribute="trailing" secondItem="ZHK-iQ-qF0" secondAttribute="trailing" constant="8" id="7to-ic-47H"/>
                         <constraint firstItem="Gbd-9u-B7J" firstAttribute="leading" secondItem="WYd-VJ-zMn" secondAttribute="trailing" constant="19" id="CH5-9N-fGj"/>
                         <constraint firstItem="Gbd-9u-B7J" firstAttribute="centerY" secondItem="WYd-VJ-zMn" secondAttribute="centerY" id="GR2-Ra-UCX"/>
                         <constraint firstItem="ZHK-iQ-qF0" firstAttribute="leading" secondItem="Gbd-9u-B7J" secondAttribute="trailing" constant="20" id="pfL-Lg-2Xs"/>
-                        <constraint firstAttribute="height" constant="68" id="uyl-lU-Nbp"/>
+                        <constraint firstAttribute="height" constant="40" id="uyl-lU-Nbp"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fn-eI-FpI">
@@ -93,8 +93,8 @@
                 <constraint firstAttribute="trailing" secondItem="uyp-0l-59t" secondAttribute="trailing" id="36z-ku-KoS"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
-                <constraint firstItem="uyp-0l-59t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="d9u-t9-p4h"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hjW-eG-Fl5"/>
+                <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="uyp-0l-59t" secondAttribute="top" id="nMU-Qd-nxf"/>
                 <constraint firstAttribute="trailing" secondItem="7fn-eI-FpI" secondAttribute="trailing" id="sLT-wM-Env"/>
                 <constraint firstAttribute="trailing" secondItem="bXK-oP-VqT" secondAttribute="trailing" id="tW8-eC-zcf"/>
                 <constraint firstItem="uyp-0l-59t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="v4e-Oe-XCo"/>
