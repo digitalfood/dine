@@ -191,7 +191,6 @@ typedef enum {
     if (self.lvc.expaned) {
         return;
     }
-    NSLog(@"page: %d", page);
     [UIView animateWithDuration:0.5 animations:^{
         CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
         CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
