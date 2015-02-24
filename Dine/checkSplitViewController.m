@@ -29,11 +29,27 @@
     // hide status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+    
+    NSLog(@"%f", self.view.frame.size.width);
+    NSLog(@"%f", self.view.frame.size.height);
+    NSLog(@"%f", self.view.frame.origin.x);
+    NSLog(@"%f", self.view.frame.origin.y);
+    
+    self.view.frame = self.viewFrame;
+
+    NSLog(@"%f", self.view.frame.size.width);
+    NSLog(@"%f", self.view.frame.size.height);
+    NSLog(@"%f", self.view.frame.origin.x);
+    NSLog(@"%f", self.view.frame.origin.y);
+
+    
     self.countStepper.minimumValue = 2;
     self.countStepper.value = 2;
     
     [self splitBill];
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {

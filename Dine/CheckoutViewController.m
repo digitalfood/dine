@@ -100,9 +100,38 @@
 
 
 - (IBAction)onSplitBtn:(id)sender {
+    
+    
     CheckSplitViewController *splitVC = [[CheckSplitViewController alloc] init];
+    
+    CGRect frame = self.view.frame;
+//    
+//    NSLog(@"%f", frame.size.width);
+//    NSLog(@"%f", frame.size.height);
+//    NSLog(@"%f", frame.origin.x);
+//    NSLog(@"%f", frame.origin.y);
+    
+//    splitVC.view.frame = self.view.frame;
+    
+//    NSLog(@"---------------------");
+//
+//    
+//    NSLog(@"%f", splitVC.view.frame.size.width);
+//    NSLog(@"%f", splitVC.view.frame.size.height);
+//    NSLog(@"%f", splitVC.view.frame.origin.x);
+//    NSLog(@"%f", splitVC.view.frame.origin.y);
+//    
+//    
+    self.view.clipsToBounds = YES;
+    self.view.autoresizesSubviews = YES;
+    splitVC.view.clipsToBounds = YES;
 
+
+    splitVC.viewFrame = frame;
     splitVC.amount = self.totalAmount;
+    
+    
+    
     [self presentViewController:splitVC animated:YES completion:nil];
 }
 
