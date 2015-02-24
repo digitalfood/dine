@@ -27,6 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // hide status bar
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     // Initialize variables
     self.buttonList = @[self.starButton1, self.starButton2, self.starButton3, self.starButton4, self.starButton5];

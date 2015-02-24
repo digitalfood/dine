@@ -10,11 +10,9 @@
 #import "DishView.h"
 #import "Dish.h"
 
-float const DISH_RATIO = 0.5625;
+float const DISHVIEW_ASPECTRATIO = 0.5625;
 
-@interface ListViewController () <UIScrollViewDelegate, DishViewDelegate, UIGestureRecognizerDelegate>
-
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@interface ListViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, DishViewDelegate>
 
 @property (nonatomic, assign) CGFloat dishWidth;
 @property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
@@ -28,9 +26,8 @@ float const DISH_RATIO = 0.5625;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.expaned = NO;
     [self configureScrollView];
-//    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,11 +35,28 @@ float const DISH_RATIO = 0.5625;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - DishViewDelegate methods
+- (void)tapOnDish:(int)page {
+    [self.delegate tapOnDish:page];
+}
+
 #pragma mark - UIPanGestureRecognizerDelegate methods
-- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.scrollView];
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        return YES;
+    }
+    CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.scrollView];
     return fabs(velocity.y) > fabs(velocity.x);
 }
+
+#pragma mark - Scroll View Delegate methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    int page = floor((self.scrollView.contentOffset.x - self.dishWidth / 2 ) / self.dishWidth) + 1;
+    self.pageControl.currentPage = page;
+}
+
+#pragma mark - private methods
 
 - (void)configureScrollView
 {
@@ -57,7 +71,6 @@ float const DISH_RATIO = 0.5625;
     self.scrollView.directionalLockEnabled = YES;
     
     self.scrollView.delegate = self;
-    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
     panGestureRecognizer.delegate = self;
@@ -67,7 +80,7 @@ float const DISH_RATIO = 0.5625;
 
 - (void)setFrame:(CGRect)frame {
     self.view.frame = frame;
-    self.dishWidth = frame.size.height * DISH_RATIO;
+    self.dishWidth = frame.size.height * DISHVIEW_ASPECTRATIO;
     [self resizeSubframes];
 }
 
@@ -100,19 +113,13 @@ float const DISH_RATIO = 0.5625;
         CGRect dishFrame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
         DishView *dishView = [[DishView alloc] initWithFrame:dishFrame];
         [dishView setDish:self.dishes[i]];
-
+        dishView.page = i;
         dishView.delegate = self;
-//        dishView.backgroundColor = [UIColor colorWithRed:0.5/i green:0.5 blue:0.5 alpha:1];
-        
         [self.scrollView addSubview:dishView];
     }
     self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);
     
     [self resizeSubframes];
-}
-
-- (void)tapOnDish {
-    [self.delegate tapOnDish];
 }
 
 - (void)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
