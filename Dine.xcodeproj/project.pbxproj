@@ -66,7 +66,6 @@
 		D6629A521A9ACF23009A4E0D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A501A9ACF23009A4E0D /* AddressBook.framework */; };
 		D6629A531A9ACF23009A4E0D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */; };
 		D688423A1A9B133C0053D1F1 /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = D68842391A9B133C0053D1F1 /* address.png */; };
-		D688423D1A9B14270053D1F1 /* customNavBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D688423C1A9B14270053D1F1 /* customNavBarView.m */; };
 		D688423F1A9B18DC0053D1F1 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = D688423E1A9B18DC0053D1F1 /* check.png */; };
 /* End PBXBuildFile section */
 
@@ -165,8 +164,6 @@
 		D6629A501A9ACF23009A4E0D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		D68842391A9B133C0053D1F1 /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
-		D688423B1A9B14270053D1F1 /* customNavBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = customNavBarView.h; sourceTree = "<group>"; };
-		D688423C1A9B14270053D1F1 /* customNavBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customNavBarView.m; sourceTree = "<group>"; };
 		D688423E1A9B18DC0053D1F1 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		EF324F7A546329AFC767EA7E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -328,8 +325,6 @@
 				597F6BF21A9A6AF30079C584 /* SearchCell.h */,
 				597F6BF31A9A6AF30079C584 /* SearchCell.m */,
 				597F6BF41A9A6AF30079C584 /* SearchCell.xib */,
-				D688423B1A9B14270053D1F1 /* customNavBarView.h */,
-				D688423C1A9B14270053D1F1 /* customNavBarView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -578,7 +573,6 @@
 				6771F1FF1A9965AF009EB77C /* YelpClient.m in Sources */,
 				6771F1E61A99659F009EB77C /* MainViewController.m in Sources */,
 				D6629A491A9A8589009A4E0D /* CheckSplitViewController.m in Sources */,
-				D688423D1A9B14270053D1F1 /* customNavBarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -75,9 +75,6 @@ typedef enum {
 
     [self.view bringSubviewToFront: self.customNavBar ];
     
-    [self.view bringSubviewToFront:self.cameraButton];
-    [self.view bringSubviewToFront:self.searchButton];
-
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
     panGestureRecognizer.delegate = self;
     [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:panGestureRecognizer];
@@ -268,13 +265,10 @@ typedef enum {
         lFrame.origin.y = newOffset + frame.size.height - 248.0;
         self.lvc.view.frame = lFrame;
         
-        CGRect cFrame = self.cameraButton.frame;
+        CGRect cFrame = self.customNavBar.frame;
         cFrame.origin.y = newOffset + 8.0;
-        self.cameraButton.frame = cFrame;
+        self.customNavBar.frame = cFrame;
         
-        CGRect sFrame = self.searchButton.frame;
-        sFrame.origin.y = newOffset + 8.0;
-        self.searchButton.frame = sFrame;
     }
     
     if (sender.state == UIGestureRecognizerStateEnded) {
@@ -300,13 +294,10 @@ typedef enum {
         lFrame.origin.y = screenSize + frame.size.height - 248.0;
         self.lvc.view.frame = lFrame;
         
-        CGRect cFrame = self.cameraButton.frame;
+        CGRect cFrame = self.customNavBar.frame;
         cFrame.origin.y = screenSize + 8.0;
-        self.cameraButton.frame = cFrame;
+        self.customNavBar.frame = cFrame;
 
-        CGRect sFrame = self.searchButton.frame;
-        sFrame.origin.y = screenSize + 8.0;
-        self.searchButton.frame = sFrame;
     }];
     
     self.isMenuOpen = @1;
@@ -322,13 +313,10 @@ typedef enum {
         lFrame.origin.y = frame.size.height - 248.0;
         self.lvc.view.frame = lFrame;
         
-        CGRect cFrame = self.cameraButton.frame;
+        CGRect cFrame = self.customNavBar.frame;
         cFrame.origin.y = 8.0;
-        self.cameraButton.frame = cFrame;
+        self.customNavBar.frame = cFrame;
 
-        CGRect sFrame = self.searchButton.frame;
-        sFrame.origin.y = 8.0;
-        self.searchButton.frame = sFrame;
     }];
     
     self.isMenuOpen = 0;
