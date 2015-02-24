@@ -84,7 +84,22 @@ typedef enum {
     panGestureRecognizer.delegate = self;
     [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:panGestureRecognizer];
     [self.svc.view addGestureRecognizer:panGestureRecognizer];
+    
+    // handle cuntomNavBar gesture
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+    [self.customNavBar addGestureRecognizer:tapGestureRecognizer];
+
+    UIPanGestureRecognizer *navBarPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
+    [self.customNavBar addGestureRecognizer:navBarPanGestureRecognizer];
+    
+    self.customNavBar.userInteractionEnabled = YES;
 }
+
+#pragma mark - onTap methods
+- (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    [self tapOnRestaurant:self.restaurant withGesture:tapGestureRecognizer];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -352,7 +367,7 @@ typedef enum {
         self.lvc.view.frame = lFrame;
         
         CGRect cFrame = self.customNavBar.frame;
-        cFrame.origin.y = newOffset + 8.0;
+        cFrame.origin.y = newOffset;
         self.customNavBar.frame = cFrame;
         
     }
@@ -381,7 +396,7 @@ typedef enum {
         self.lvc.view.frame = lFrame;
         
         CGRect cFrame = self.customNavBar.frame;
-        cFrame.origin.y = screenSize + 8.0;
+        cFrame.origin.y = screenSize;
         self.customNavBar.frame = cFrame;
 
     }];
@@ -400,12 +415,12 @@ typedef enum {
         self.lvc.view.frame = lFrame;
         
         CGRect cFrame = self.customNavBar.frame;
-        cFrame.origin.y = 8.0;
+        cFrame.origin.y = 0;
         self.customNavBar.frame = cFrame;
 
     }];
     
-    self.isMenuOpen = 0;
+    self.isMenuOpen = @0;
 }
 
 #pragma mark - private methods
