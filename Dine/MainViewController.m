@@ -11,6 +11,7 @@
 #import "ListViewController.h"
 #import "FoodComposeViewController.h"
 #import "RestaurantDetailViewController.h"
+#import "CheckoutViewController.h"
 #import "SettingsViewController.h"
 #import "DishView.h"
 #import "Restaurant.h"
@@ -33,19 +34,20 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 
 @property (nonatomic, strong) SectionViewController *svc;
 @property (nonatomic, strong) ListViewController *lvc;
+@property (weak, nonatomic) IBOutlet UIView *customNavBar;
+
 @property (nonatomic, strong) SettingsViewController *settingsViewController;
 @property (nonatomic, assign) NSNumber *isMenuOpen;
 
 @property (nonatomic, strong) Restaurant *restaurant;
+@property (nonatomic, strong) NSMutableArray *dishes;
+
 @property (nonatomic, assign) CGPoint originalConstant;
 @property (nonatomic, assign) CGFloat xCompliment;
-@property (nonatomic, assign) BOOL shrinkX;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
-@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveTransition;
-@property (nonatomic, assign) BOOL disableInteractiveTransition;
 
-@property (nonatomic, strong) NSMutableArray *dishes;
+
 
 @end
 
@@ -71,6 +73,8 @@ typedef enum {
     self.lvc.delegate = self;
     [self.lvc setFrame:self.listView.frame];
     [self.view addSubview:self.lvc.view];
+
+    [self.view bringSubviewToFront: self.customNavBar ];
     
     [self.view bringSubviewToFront:self.cameraButton];
     [self.view bringSubviewToFront:self.searchButton];
@@ -95,15 +99,13 @@ typedef enum {
 }
 
 - (void)createFood:(PFObject *)food {
-    // Joanna please update food menu accordingly
+    
 }
-
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
     if ([self.isMenuOpen isEqual:@1]) {
         [self closeMenu];
     } else {
-        self.disableInteractiveTransition = YES;
         RestaurantDetailViewController *rdvc = [[RestaurantDetailViewController alloc] init];
         rdvc.restaurant = restaurant;
         rdvc.modalPresentationStyle = UIModalPresentationCustom;
@@ -155,6 +157,7 @@ typedef enum {
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     self.isPresenting = NO;
+    [self.customNavBar setAlpha:1];
     return self;
 }
 
@@ -177,10 +180,23 @@ typedef enum {
     }
 }
 
+#pragma mark - Check Out
+
+- (IBAction)onCheckoutButton:(id)sender {
+    
+    CheckoutViewController *checkoutVC = [[CheckoutViewController alloc] init];
+    checkoutVC.modalPresentationStyle = UIModalPresentationCustom;
+    checkoutVC.transitioningDelegate = self;
+    
+    [self presentViewController:checkoutVC animated:YES completion:^{
+        [self.customNavBar setAlpha: 0];
+    }];
+}
+
+
+
 #pragma mark - Add Food Item
 - (IBAction)onSearchButton:(id)sender {
-    
-    self.disableInteractiveTransition = YES;
     SearchViewController *rdvc = [[SearchViewController alloc] init];
     rdvc.restaurants = self.svc.restaurants;
     rdvc.modalPresentationStyle = UIModalPresentationCustom;

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TipViewController : UIViewController
+@interface CheckoutViewController : UIViewController
+
+- (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
+
 
 @end

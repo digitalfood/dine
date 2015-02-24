@@ -35,7 +35,6 @@
     // Setup navigation items
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancelButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButton)];
-    
     self.commentsField.borderStyle = UITextBorderStyleRoundedRect;
 }
 
@@ -91,7 +90,6 @@
 
     return ratings;
 }
-
 
 #pragma mark - Ratings
 

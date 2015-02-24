@@ -24,6 +24,16 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
+        
+        self.dishImage = [[UIImageView alloc] initWithFrame:frame];
+        
+        [self addSubview:self.dishImage];
+        
+        self.dishName = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 143, 60)];
+        self.dishName.text = @"A Dish";
+        
+        [self addSubview:self.dishName];
+        
         [self setup];
     }
     return self;
@@ -51,6 +61,7 @@
         if (!error) {
             self.dishImage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             self.dishImage.image = [UIImage imageWithData:imageData];
+            self.dishImage.contentMode = UIViewContentModeScaleAspectFill;
         }
     }];
     
@@ -64,11 +75,6 @@
 - (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
     // TODO: pass dish data model to finish data binding in DishDetailViewController
     [self.delegate tapOnDish];
-}
-
-- (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
-    // TODO: pass dish data model to finish data binding in DishDetailViewController
-//    [self.delegate panOnDish:panGestureRecognizer];
 }
 
 @end

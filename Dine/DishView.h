@@ -12,7 +12,6 @@
 @protocol DishViewDelegate <NSObject>
 
 - (void)tapOnDish;
-//- (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
 

@@ -10,7 +10,6 @@
 #import "DishView.h"
 #import "Dish.h"
 
-
 float const DISH_RATIO = 0.5625;
 
 @interface ListViewController () <UIScrollViewDelegate, DishViewDelegate>
