@@ -27,7 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // hide status bar
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     self.countStepper.minimumValue = 2;
     self.countStepper.value = 2;

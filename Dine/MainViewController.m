@@ -57,6 +57,11 @@ typedef enum {
     ANIMATION_TYPE_DOWNWARDEXPAND
 } ANIMATION_TYPE;
 
+- (void)viewWillAppear:(BOOL)animated {
+    // hide status bar
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -139,8 +144,12 @@ typedef enum {
             deltaY /= 5;
             deltaX /= 5;
         }
-        self.listViewXOffset.constant = deltaX;
-        self.listViewYOffset.constant = deltaY;
+        if (deltaX <= 0) {
+            self.listViewXOffset.constant = deltaX;
+        }
+        if (deltaY <= 0) {
+            self.listViewYOffset.constant = deltaY;
+        }
         [self.lvc setFrame:self.listView.frame];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
     }
@@ -202,8 +211,6 @@ typedef enum {
     }];
 }
 
-
-
 #pragma mark - Add Food Item
 - (IBAction)onSearchButton:(id)sender {
     SearchViewController *rdvc = [[SearchViewController alloc] init];
@@ -230,7 +237,12 @@ typedef enum {
         imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     
+    imagePicker.transitioningDelegate = self;
     [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)imagePicker {
