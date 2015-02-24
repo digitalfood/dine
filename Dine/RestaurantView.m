@@ -67,11 +67,11 @@
     // add restaurant name
     UIFont *font = [UIFont systemFontOfSize:25];
     NSDictionary *attributes = @{NSFontAttributeName: font};
-    CGRect nameLabelRect = [self.restaurant.name boundingRectWithSize:CGSizeMake(self.frame.size.width - 40, CGFLOAT_MAX)
+    CGRect nameLabelRect = [self.restaurant.name boundingRectWithSize:CGSizeMake(self.frame.size.width - 80, CGFLOAT_MAX)
                                                         options:NSStringDrawingUsesLineFragmentOrigin
                                                      attributes:attributes
                                                         context:nil];
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 150, nameLabelRect.size.width, nameLabelRect.size.height)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, nameLabelRect.size.width, nameLabelRect.size.height)];
     self.nameLabel.font = [UIFont systemFontOfSize:25];
     self.nameLabel.text = self.restaurant.name;
     self.nameLabel.textColor = [UIColor whiteColor];

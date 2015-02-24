@@ -11,7 +11,6 @@
                 <outlet property="customNavBar" destination="uyp-0l-59t" id="zxn-C7-7nT"/>
                 <outlet property="listView" destination="7fn-eI-FpI" id="vjy-js-ryE"/>
                 <outlet property="listViewXOffset" destination="5HU-hZ-5I2" id="28Y-au-Gpe"/>
-                <outlet property="listViewYOffset" destination="VHc-ib-MBd" id="cQX-0B-C7S"/>
                 <outlet property="panGestureRecognizer" destination="nqn-EJ-MPK" id="ykt-q6-XaY"/>
                 <outlet property="searchButton" destination="WYd-VJ-zMn" id="Utx-Qt-iQy"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
@@ -93,6 +92,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="uyp-0l-59t" secondAttribute="trailing" id="36z-ku-KoS"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
+                <constraint firstAttribute="bottom" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="Kec-h3-1eb"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
                 <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="VHc-ib-MBd"/>
                 <constraint firstItem="uyp-0l-59t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="d9u-t9-p4h"/>

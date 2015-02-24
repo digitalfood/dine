@@ -17,11 +17,8 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Iev-p9-FNm">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" red="0.0" green="0.2424233727" blue="0.51098879419999998" alpha="0.65000000000000002" colorSpace="calibratedRGB"/>
-                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Iev-p9-FNm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="QlE-TZ-QBV"/>
                 <constraint firstAttribute="trailing" secondItem="Iev-p9-FNm" secondAttribute="trailing" id="cef-zu-StW"/>

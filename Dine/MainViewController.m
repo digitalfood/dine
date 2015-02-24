@@ -77,8 +77,8 @@ typedef enum {
     [self.view bringSubviewToFront: self.customNavBar ];
     
     [self.view bringSubviewToFront:self.cameraButton];
-    [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.panGestureRecognizer];
     [self.view bringSubviewToFront:self.searchButton];
+    [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.panGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,12 +103,16 @@ typedef enum {
 }
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
-    RestaurantDetailViewController *rdvc = [[RestaurantDetailViewController alloc] init];
-    rdvc.restaurant = restaurant;
-    rdvc.modalPresentationStyle = UIModalPresentationCustom;
-    rdvc.transitioningDelegate = self;
-    rdvc.view.frame = self.view.frame;
-    [self presentViewController:rdvc animated:YES completion:nil];
+    if ([self.isMenuOpen isEqual:@1]) {
+        [self closeMenu];
+    } else {
+        RestaurantDetailViewController *rdvc = [[RestaurantDetailViewController alloc] init];
+        rdvc.restaurant = restaurant;
+        rdvc.modalPresentationStyle = UIModalPresentationCustom;
+        rdvc.transitioningDelegate = self;
+        rdvc.view.frame = self.view.frame;
+        [self presentViewController:rdvc animated:YES completion:nil];
+    }
 }
 
 #pragma mark - ListViewControllerDelegate methods
@@ -252,12 +256,16 @@ typedef enum {
         self.svc.view.frame = frame;
         
         CGRect lFrame = self.lvc.view.frame;
-        lFrame.origin.y = newOffset + frame.size.height;
+        lFrame.origin.y = newOffset + frame.size.height - 248.0;
         self.lvc.view.frame = lFrame;
         
         CGRect cFrame = self.cameraButton.frame;
         cFrame.origin.y = newOffset + 8.0;
         self.cameraButton.frame = cFrame;
+        
+        CGRect sFrame = self.searchButton.frame;
+        sFrame.origin.y = newOffset + 8.0;
+        self.searchButton.frame = sFrame;
     }
     
     if (sender.state == UIGestureRecognizerStateEnded) {
@@ -280,13 +288,16 @@ typedef enum {
         self.svc.view.frame = frame;
         
         CGRect lFrame = self.lvc.view.frame;
-        lFrame.origin.y = screenSize + frame.size.height;
+        lFrame.origin.y = screenSize + frame.size.height - 248.0;
         self.lvc.view.frame = lFrame;
         
         CGRect cFrame = self.cameraButton.frame;
         cFrame.origin.y = screenSize + 8.0;
         self.cameraButton.frame = cFrame;
 
+        CGRect sFrame = self.searchButton.frame;
+        sFrame.origin.y = screenSize + 8.0;
+        self.searchButton.frame = sFrame;
     }];
     
     self.isMenuOpen = @1;
@@ -299,12 +310,16 @@ typedef enum {
         self.svc.view.frame = frame;
         
         CGRect lFrame = self.lvc.view.frame;
-        lFrame.origin.y = 0 + frame.size.height;
+        lFrame.origin.y = frame.size.height - 248.0;
         self.lvc.view.frame = lFrame;
         
         CGRect cFrame = self.cameraButton.frame;
-        cFrame.origin.y = 0 + 8.0;
+        cFrame.origin.y = 8.0;
         self.cameraButton.frame = cFrame;
+
+        CGRect sFrame = self.searchButton.frame;
+        sFrame.origin.y = 8.0;
+        self.searchButton.frame = sFrame;
     }];
     
     self.isMenuOpen = 0;
