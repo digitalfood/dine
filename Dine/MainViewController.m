@@ -22,7 +22,7 @@
 float const ANIMATION_DURATION = 0.5;
 float const LIST_VIEW_EXPAND_BUFFER = 10;
 
-@interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate, SearchViewControllerDelegate>
+@interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate, SearchViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
@@ -78,8 +78,10 @@ typedef enum {
     [self.view bringSubviewToFront:self.cameraButton];
     [self.view bringSubviewToFront:self.searchButton];
 
-//    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self.view action:@selector(onPanGesture:)];
-//    [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:panGestureRecognizer];    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
+    panGestureRecognizer.delegate = self;
+    [self.svc.scrollView.panGestureRecognizer requireGestureRecognizerToFail:panGestureRecognizer];
+    [self.svc.view addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,6 +144,12 @@ typedef enum {
         [self.lvc setFrame:self.listView.frame];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
     }
+}
+
+#pragma mark - UIPanGestureRecognizerDelegate methods
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.svc.view];
+    return fabs(velocity.y) > fabs(velocity.x);
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate methods

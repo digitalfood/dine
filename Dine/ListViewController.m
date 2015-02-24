@@ -12,7 +12,7 @@
 
 float const DISH_RATIO = 0.5625;
 
-@interface ListViewController () <UIScrollViewDelegate, DishViewDelegate>
+@interface ListViewController () <UIScrollViewDelegate, DishViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -38,6 +38,11 @@ float const DISH_RATIO = 0.5625;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UIPanGestureRecognizerDelegate methods
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.scrollView];
+    return fabs(velocity.y) > fabs(velocity.x);
+}
 
 - (void)configureScrollView
 {
@@ -48,15 +53,16 @@ float const DISH_RATIO = 0.5625;
     
     self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = NO;
+    self.scrollView.bounces = NO;
+    self.scrollView.directionalLockEnabled = YES;
     
     self.scrollView.delegate = self;
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
-    // make sure scrollview still works
-//    [panGestureRecognizer
-//     requireGestureRecognizerToFail:self.scrollView.panGestureRecognizer];
-    [self.scrollView addGestureRecognizer:panGestureRecognizer];
+    panGestureRecognizer.delegate = self;
+    [self.scrollView.panGestureRecognizer requireGestureRecognizerToFail:panGestureRecognizer];
+    [self.view addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)setFrame:(CGRect)frame {
