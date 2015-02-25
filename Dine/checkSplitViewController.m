@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @property (nonatomic, assign) float splitAmount;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
 
@@ -29,19 +30,15 @@
     // hide status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+    // Adds shadow to Checkout View
+    CALayer *layer = self.contentView.layer;
+    layer.shadowOffset = CGSizeMake(1, 1);
+    layer.shadowColor = [[UIColor blackColor] CGColor];
+    layer.shadowRadius = 6.0f;
+    layer.shadowOpacity = 0.40f;
+    layer.shadowOffset = CGSizeMake(0, 8.0);
+    layer.shadowPath = [[UIBezierPath bezierPathWithRect:layer.bounds] CGPath];
     
-    NSLog(@"%f", self.view.frame.size.width);
-    NSLog(@"%f", self.view.frame.size.height);
-    NSLog(@"%f", self.view.frame.origin.x);
-    NSLog(@"%f", self.view.frame.origin.y);
-    
-    self.view.frame = self.viewFrame;
-
-    NSLog(@"%f", self.view.frame.size.width);
-    NSLog(@"%f", self.view.frame.size.height);
-    NSLog(@"%f", self.view.frame.origin.x);
-    NSLog(@"%f", self.view.frame.origin.y);
-
     
     self.countStepper.minimumValue = 2;
     self.countStepper.value = 2;

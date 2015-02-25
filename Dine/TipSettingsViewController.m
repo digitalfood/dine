@@ -18,24 +18,7 @@
 
 }
 - (IBAction)onApply:(id)sender {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    NSURL *url = [NSURL URLWithString:@"http://www.stackoverflow.com"];
-//    
-//    if (![[UIApplication sharedApplication] openURL:url]) {
-//        NSLog(@"%@%@",@"Failed to open url:",[url description]);
-//    }
 
-    
-//    NSString *recipients = @"mailto:first@example.com?cc=second@example.com,third@example.com&subject=Hello from California!";
-//    
-//    NSString *body = @"&body=It is raining in sunny California!";
-//    
-//    NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
-//    
-//    email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
-    
 }
 
 - (void)viewDidLoad {

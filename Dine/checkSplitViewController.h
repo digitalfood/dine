@@ -13,6 +13,5 @@
 @interface CheckSplitViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
 
 @property (nonatomic, assign) float amount;
-@property (nonatomic, assign) CGRect viewFrame ;
 
 @end

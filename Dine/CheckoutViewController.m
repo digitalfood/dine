@@ -24,6 +24,7 @@
 @property (nonatomic, assign) CGPoint initialCenter;
 @property (nonatomic, assign) float totalAmount;
 @property (nonatomic, assign) double billAmount;
+@property (weak, nonatomic) IBOutlet UIView *checkView;
 
 - (void)updateUI;
 
@@ -40,17 +41,22 @@
     [self.viewHandle addGestureRecognizer:panGestureRecognizer];
     
     // Adds shadow to Checkout View
-    CALayer *layer = self.view.layer;
+    CALayer *layer = self.checkView.layer;
     layer.shadowOffset = CGSizeMake(1, 1);
     layer.shadowColor = [[UIColor blackColor] CGColor];
-    layer.shadowRadius = 4.0f;
-    layer.shadowOpacity = 0.20f;
+    layer.shadowRadius = 6.0f;
+    layer.shadowOpacity = 0.40f;
+    layer.shadowOffset = CGSizeMake(0, 12.0);
     layer.shadowPath = [[UIBezierPath bezierPathWithRect:layer.bounds] CGPath];
     
     self.billAmount = 0;
-    [self.billTextField becomeFirstResponder];
     self.billTextField.delegate = self;
     [self updateUI];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [self.billTextField becomeFirstResponder];
+
 }
 
 
@@ -101,37 +107,8 @@
 
 - (IBAction)onSplitBtn:(id)sender {
     
-    
     CheckSplitViewController *splitVC = [[CheckSplitViewController alloc] init];
-    
-    CGRect frame = self.view.frame;
-//    
-//    NSLog(@"%f", frame.size.width);
-//    NSLog(@"%f", frame.size.height);
-//    NSLog(@"%f", frame.origin.x);
-//    NSLog(@"%f", frame.origin.y);
-    
-//    splitVC.view.frame = self.view.frame;
-    
-//    NSLog(@"---------------------");
-//
-//    
-//    NSLog(@"%f", splitVC.view.frame.size.width);
-//    NSLog(@"%f", splitVC.view.frame.size.height);
-//    NSLog(@"%f", splitVC.view.frame.origin.x);
-//    NSLog(@"%f", splitVC.view.frame.origin.y);
-//    
-//    
-    self.view.clipsToBounds = YES;
-    self.view.autoresizesSubviews = YES;
-    splitVC.view.clipsToBounds = YES;
-
-
-    splitVC.viewFrame = frame;
     splitVC.amount = self.totalAmount;
-    
-    
-    
     [self presentViewController:splitVC animated:YES completion:nil];
 }
 
@@ -153,13 +130,13 @@
     } else if ( panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         
         if (velocity.y > 0){
-            center = CGPointMake(self.initialCenter.x, 600);
+            center = CGPointMake(self.initialCenter.x, self.view.frame.size.height*1.5);
 
         } else {
             center = CGPointMake(self.initialCenter.x, self.initialCenter.y);
         }
         
-        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:5 options:0 animations:^{
+        [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:1 options:0 animations:^{
             self.view.center = center;
         } completion:^(BOOL finished) {
             if (velocity.y > 0){

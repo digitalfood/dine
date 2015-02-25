@@ -54,7 +54,8 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 
 typedef enum {
     ANIMATION_TYPE_BUBBLE,
-    ANIMATION_TYPE_DOWNWARDEXPAND
+    ANIMATION_TYPE_DOWNWARDEXPAND,
+    AMIATION_TYPE_FROMBELOW
 } ANIMATION_TYPE;
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -252,8 +253,11 @@ typedef enum {
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if ([presented isKindOfClass:[RestaurantDetailViewController class]]) {
         self.animationType = ANIMATION_TYPE_DOWNWARDEXPAND;
-    } else {
+    }
+    if([presented isKindOfClass:[SearchViewController class]]) {
         self.animationType = ANIMATION_TYPE_BUBBLE;
+    } else {
+        self.animationType = AMIATION_TYPE_FROMBELOW;
     }
     self.isPresenting = YES;
     return self;
@@ -280,6 +284,7 @@ typedef enum {
             [self tansitionInBubbleForContext:transitionContext];
             break;
         default:
+            [self transitionFromBelow:transitionContext];
             break;
     }
 }
@@ -426,7 +431,6 @@ typedef enum {
 #pragma mark - private methods
 
 - (void)tansitionInBubbleForContext:(id <UIViewControllerContextTransitioning>)transitionContext {
-    // Fabio you can use this function for rendering tip calculator
     
     UIView *containerView = [transitionContext containerView];
     
@@ -448,6 +452,42 @@ typedef enum {
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             fromViewController.view.alpha = 0;
             fromViewController.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [fromViewController.view removeFromSuperview];
+        }];
+    }
+}
+
+- (void)transitionFromBelow:(id <UIViewControllerContextTransitioning>)transitionContext {
+    
+    UIView *containerView = [transitionContext containerView];
+    
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    
+    if (self.isPresenting) {
+        [containerView addSubview:toViewController.view];
+        toViewController.view.alpha = 1;
+        CGRect frame = self.view.frame;
+        frame.origin.y = self.view.frame.size.height;
+        toViewController.view.frame = frame;
+        
+        
+        [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:4 options:0 animations:^{
+            
+            toViewController.view.alpha = 1;
+            CGRect frame = self.view.frame;
+            toViewController.view.frame = frame;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    } else {
+        fromViewController.view.alpha = 1;
+        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            toViewController.view.alpha = 1;
+            CGRect frame = self.view.frame;
+            toViewController.view.frame = frame;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
             [fromViewController.view removeFromSuperview];
