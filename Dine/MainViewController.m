@@ -46,8 +46,6 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
 
-
-
 @end
 
 @implementation MainViewController
@@ -227,8 +225,7 @@ typedef enum {
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if ([presented isKindOfClass:[RestaurantDetailViewController class]]) {
         self.animationType = ANIMATION_TYPE_FADEIN;
-    }
-    if([presented isKindOfClass:[SearchViewController class]]) {
+    } else if([presented isKindOfClass:[SearchViewController class]]) {
         self.animationType = ANIMATION_TYPE_BUBBLE;
     } else {
         self.animationType = AMIATION_TYPE_FROMBELOW;
@@ -253,6 +250,7 @@ typedef enum {
     switch (self.animationType) {
         case ANIMATION_TYPE_FADEIN:
             [self tansitionFadeInContext:transitionContext];
+            break;
         case ANIMATION_TYPE_DOWNWARDEXPAND:
             [self tansitionInDownwardExpandForContext:transitionContext];
             break;
