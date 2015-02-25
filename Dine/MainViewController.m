@@ -198,14 +198,15 @@ typedef enum {
         return;
     }
     [UIView animateWithDuration:0.5 animations:^{
-        CGFloat sectionWidth = self.lvc.view.frame.size.height * DISHVIEW_ASPECTRATIO;
-        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
-//        self.lvc.scrollView.contentOffset = CGPointMake(0, 0);
         self.listViewYOffset.constant = 0;
         [self.view layoutIfNeeded];
+        
+        CGFloat sectionWidth = self.listView.frame.size.height * DISHVIEW_ASPECTRATIO;
+        
         [self.lvc setFrame:self.listView.frame];
         
-        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * sectionWidth, screenHeight);
+        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * sectionWidth, self.listView.frame.size.height);
+        
         self.lvc.scrollView.pagingEnabled = NO;
         self.lvc.expaned = NO;
     }];
