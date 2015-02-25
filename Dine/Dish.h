@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) PFFile *image;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *ratings;
 
 + (NSMutableArray *)dishWithDictionaries:(NSArray *)dictionaries;
 

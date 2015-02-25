@@ -19,11 +19,10 @@
 @interface DishView : UIView
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) IBOutlet UILabel *dishName;
-@property (strong, nonatomic) IBOutlet UIImageView *dishImage;
-
 @property (nonatomic, weak) id<DishViewDelegate> delegate;
 @property (nonatomic, strong) Dish *dish;
 @property (nonatomic, assign) int page;
+
+- (void)updateUI;
 
 @end
