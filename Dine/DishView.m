@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *star5Width;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *star5Height;
 
+@property (weak, nonatomic) IBOutlet UIView *descBg;
 @end
 
 
@@ -115,6 +116,8 @@
 
 - (void)updateUI{
     
+    CGFloat alpha = 0;
+    
     if(self.contentView.frame.size.height > 400){
         [self.dishName setFont:[UIFont systemFontOfSize:24]];
         
@@ -132,6 +135,7 @@
         
         self.star5Width.constant = 24;
         self.star5Height.constant = 24;
+        alpha = 0.5;
         
     }else if(self.contentView.frame.size.height < 400){
         [self.dishName setFont:[UIFont systemFontOfSize:15]];
@@ -155,13 +159,17 @@
     
     self.dishName.adjustsFontSizeToFitWidth = YES;
     
-    [self.dishName layoutIfNeeded];
-    [self.star1 layoutIfNeeded];
-    [self.star2 layoutIfNeeded];
-    [self.star3 layoutIfNeeded];
-    [self.star4 layoutIfNeeded];
-    [self.star5 layoutIfNeeded];
-    [self.contentView layoutIfNeeded];
+    [UIView animateWithDuration:0.8 animations:^{
+        [self.dishName layoutIfNeeded];
+        [self.star1 layoutIfNeeded];
+        [self.star2 layoutIfNeeded];
+        [self.star3 layoutIfNeeded];
+        [self.star4 layoutIfNeeded];
+        [self.star5 layoutIfNeeded];
+        [self.contentView layoutIfNeeded];
+        self.descBg.alpha = alpha;
+    }];
+    
 }
 
 #pragma mark - UIPanGestureRecognizerDelegate methods
