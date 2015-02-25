@@ -82,7 +82,7 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
         CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
         subview.frame = dishFrame;
         if (subview.class == [DishView class]) {
-            subview.contentView.frame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
+            subview.contentView.frame = CGRectMake(0, 0, self.dishWidth, dishFrame.size.height);
             [subview updateUI];
             [subview layoutIfNeeded];
         }
