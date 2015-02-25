@@ -68,6 +68,12 @@
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
     self.location = [locations lastObject];
+    NSDate *date = [NSDate date];
+    [date dateByAddingTimeInterval:-60*1];
+    if ([self.location.timestamp compare:date] == NSOrderedDescending) {
+        [self.clLocationManager stopUpdatingLocation];
+    }
+    self.clLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.delegate didUpdateLocation:self.location];
 }
 

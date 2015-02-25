@@ -120,6 +120,8 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
 }
 
 - (void)signedIn {
+    
+    // TODO: add an alert before asking for permission to access user location
     // initiate location manager
     [LocationManager sharedInstance];
     
