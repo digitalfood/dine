@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DishView">
             <connections>
                 <outlet property="contentView" destination="Zi5-zQ-S36" id="WTs-vo-vpD"/>
+                <outlet property="descBg" destination="3rK-mw-R2h" id="yYt-7i-8YC"/>
                 <outlet property="dishImage" destination="O0t-l8-F0C" id="Kin-se-ipw"/>
-                <outlet property="dishName" destination="UGJ-Ci-wUz" id="QuP-XV-MzB"/>
+                <outlet property="dishName" destination="zlr-JU-GKc" id="o7D-4f-jwZ"/>
+                <outlet property="star1" destination="FDg-57-XzP" id="BXM-Yb-589"/>
+                <outlet property="star1Height" destination="hUJ-zS-hCa" id="6jK-KA-Ncq"/>
+                <outlet property="star1Width" destination="PZD-ep-3J8" id="45i-5k-ouB"/>
+                <outlet property="star2" destination="A3k-WP-Tot" id="3NM-la-fd1"/>
+                <outlet property="star2Height" destination="Uss-eM-uIl" id="sYs-ra-o2H"/>
+                <outlet property="star2Width" destination="Qms-MC-x2s" id="KuP-XB-uZd"/>
+                <outlet property="star3" destination="zkR-pa-zXY" id="UW7-D8-a83"/>
+                <outlet property="star3Height" destination="Nd9-Vx-Xgq" id="gFS-PF-8MI"/>
+                <outlet property="star3Width" destination="Xwh-Q8-axe" id="usc-eF-yeF"/>
+                <outlet property="star4" destination="bcT-h7-BlO" id="029-0f-yEW"/>
+                <outlet property="star4Height" destination="iOb-7e-X3Y" id="KVO-JB-WZr"/>
+                <outlet property="star4Width" destination="bIM-BT-RqI" id="3mK-7K-boX"/>
+                <outlet property="star5" destination="LFa-j3-DdN" id="Oe2-lX-NLI"/>
+                <outlet property="star5Height" destination="Fh9-pY-KDG" id="shx-9W-eh4"/>
+                <outlet property="star5Width" destination="Khs-Yc-HQX" id="kRd-WH-Z0x"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -16,30 +33,88 @@
             <rect key="frame" x="0.0" y="0.0" width="140" height="248"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chesse Steak" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGJ-Ci-wUz">
-                    <rect key="frame" x="8" y="100" width="83" height="16"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O0t-l8-F0C">
                     <rect key="frame" x="1" y="1" width="138" height="246"/>
                 </imageView>
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3rK-mw-R2h">
+                    <rect key="frame" x="0.0" y="166" width="140" height="82"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-57-XzP">
+                    <rect key="frame" x="8" y="176" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="PZD-ep-3J8"/>
+                        <constraint firstAttribute="height" constant="16" id="hUJ-zS-hCa"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="A3k-WP-Tot">
+                    <rect key="frame" x="24" y="176" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="Qms-MC-x2s"/>
+                        <constraint firstAttribute="height" constant="16" id="Uss-eM-uIl"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="zkR-pa-zXY">
+                    <rect key="frame" x="40" y="176" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Nd9-Vx-Xgq"/>
+                        <constraint firstAttribute="width" constant="16" id="Xwh-Q8-axe"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="bcT-h7-BlO">
+                    <rect key="frame" x="56" y="176" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="bIM-BT-RqI"/>
+                        <constraint firstAttribute="height" constant="16" id="iOb-7e-X3Y"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayStar.png" translatesAutoresizingMaskIntoConstraints="NO" id="LFa-j3-DdN">
+                    <rect key="frame" x="73" y="176" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Fh9-pY-KDG"/>
+                        <constraint firstAttribute="width" constant="16" id="Khs-Yc-HQX"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Beef Burger Beef Burger Beef Burger Beef Burger" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="zlr-JU-GKc">
+                    <rect key="frame" x="8" y="200" width="124" height="40"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" red="0.44728555484693877" green="0.44728555484693877" blue="0.44728555484693877" alpha="1" colorSpace="calibratedRGB"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="zlr-JU-GKc" secondAttribute="trailing" constant="8" id="0ZV-CG-IpT"/>
                 <constraint firstAttribute="trailing" secondItem="O0t-l8-F0C" secondAttribute="trailing" constant="1" id="1Rm-cD-LLm"/>
-                <constraint firstItem="UGJ-Ci-wUz" firstAttribute="top" secondItem="Zi5-zQ-S36" secondAttribute="top" constant="100" id="UNj-gc-1RG"/>
+                <constraint firstItem="3rK-mw-R2h" firstAttribute="top" secondItem="Zi5-zQ-S36" secondAttribute="bottom" multiplier="3:4" constant="-20" id="2vZ-a2-Lxh"/>
+                <constraint firstItem="zkR-pa-zXY" firstAttribute="centerY" secondItem="A3k-WP-Tot" secondAttribute="centerY" id="7fO-az-ef0"/>
+                <constraint firstItem="A3k-WP-Tot" firstAttribute="centerY" secondItem="FDg-57-XzP" secondAttribute="centerY" id="EoZ-6v-FEK"/>
+                <constraint firstItem="zlr-JU-GKc" firstAttribute="top" secondItem="LFa-j3-DdN" secondAttribute="bottom" constant="8" id="HO0-OY-lbD"/>
+                <constraint firstItem="bcT-h7-BlO" firstAttribute="leading" secondItem="zkR-pa-zXY" secondAttribute="trailing" id="Iq0-l0-U8v"/>
+                <constraint firstAttribute="bottom" secondItem="3rK-mw-R2h" secondAttribute="bottom" id="OGB-hs-Dce"/>
+                <constraint firstItem="zkR-pa-zXY" firstAttribute="leading" secondItem="A3k-WP-Tot" secondAttribute="trailing" id="OrX-Ty-XR8"/>
+                <constraint firstItem="LFa-j3-DdN" firstAttribute="centerY" secondItem="bcT-h7-BlO" secondAttribute="centerY" id="R4k-e1-r8k"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zlr-JU-GKc" secondAttribute="bottom" constant="8" id="Sas-HI-5Wb"/>
+                <constraint firstItem="FDg-57-XzP" firstAttribute="leading" secondItem="Zi5-zQ-S36" secondAttribute="leading" constant="8" id="T7f-oD-xsZ"/>
                 <constraint firstAttribute="bottom" secondItem="O0t-l8-F0C" secondAttribute="bottom" constant="1" id="VjI-3n-fgc"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UGJ-Ci-wUz" secondAttribute="trailing" constant="8" id="dND-Ie-HxW"/>
-                <constraint firstItem="UGJ-Ci-wUz" firstAttribute="leading" secondItem="Zi5-zQ-S36" secondAttribute="leading" constant="8" id="fbb-g2-Zle"/>
+                <constraint firstItem="zkR-pa-zXY" firstAttribute="centerY" secondItem="bcT-h7-BlO" secondAttribute="centerY" id="dJ2-1n-Qpf"/>
                 <constraint firstItem="O0t-l8-F0C" firstAttribute="leading" secondItem="Zi5-zQ-S36" secondAttribute="leading" constant="1" id="gx0-nQ-eIs"/>
+                <constraint firstItem="zlr-JU-GKc" firstAttribute="leading" secondItem="Zi5-zQ-S36" secondAttribute="leading" constant="8" id="gyB-AZ-ctY"/>
+                <constraint firstItem="LFa-j3-DdN" firstAttribute="leading" secondItem="bcT-h7-BlO" secondAttribute="trailing" constant="1" id="ihf-iw-1Ke"/>
+                <constraint firstItem="3rK-mw-R2h" firstAttribute="leading" secondItem="Zi5-zQ-S36" secondAttribute="leading" id="jLW-Ck-JAw"/>
+                <constraint firstAttribute="trailing" secondItem="3rK-mw-R2h" secondAttribute="trailing" id="jvQ-A5-b6R"/>
+                <constraint firstItem="A3k-WP-Tot" firstAttribute="leading" secondItem="FDg-57-XzP" secondAttribute="trailing" id="qcr-6y-xfl"/>
+                <constraint firstItem="FDg-57-XzP" firstAttribute="top" secondItem="Zi5-zQ-S36" secondAttribute="bottom" multiplier="3:4" constant="-10" id="w5D-ZC-TLk"/>
                 <constraint firstItem="O0t-l8-F0C" firstAttribute="top" secondItem="Zi5-zQ-S36" secondAttribute="top" constant="1" id="zdW-rB-SdX"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="445" y="333"/>
+            <point key="canvasLocation" x="251" y="333"/>
         </view>
     </objects>
+    <resources>
+        <image name="grayStar.png" width="24" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

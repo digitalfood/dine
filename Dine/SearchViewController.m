@@ -13,6 +13,9 @@
 
 @interface SearchViewController () <UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *viewHandle;
+@property (nonatomic, assign) CGPoint initialCenter;
+
 @property (nonatomic, strong) LocationManager *locationManager;
 @property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, strong) YelpClient *client;
@@ -40,6 +43,10 @@
     
     [self.searchDisplay.searchResultsTableView reloadData];
     self.title = @"Search";
+    
+    // Add Pan Gesture recognizer to the viewHandle
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
+    [self.viewHandle addGestureRecognizer:panGestureRecognizer];
     
 }
 
@@ -117,6 +124,41 @@
     
 }
 
+
+- (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
+    [self.searchBar endEditing:YES];
+    CGPoint translation = [panGestureRecognizer translationInView:self.view];
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    CGPoint center;
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        
+        self.initialCenter = self.view.center;
+        
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        
+        self.view.center = CGPointMake(self.initialCenter.x, self.initialCenter.y + translation.y);
+        
+    } else if ( panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        
+        if (velocity.y > 0){
+            center = CGPointMake(self.initialCenter.x, 600);
+            
+        } else {
+            center = CGPointMake(self.initialCenter.x, self.initialCenter.y);
+        }
+        
+        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:5 options:0 animations:^{
+            self.view.center = center;
+        } completion:^(BOOL finished) {
+            if (velocity.y > 0){
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+        
+        
+    }
+}
 
 /*
 #pragma mark - Navigation

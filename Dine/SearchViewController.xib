@@ -10,15 +10,20 @@
                 <outlet property="searchDisplay" destination="46Q-MR-tja" id="nTQ-8Z-rze"/>
                 <outlet property="searchDisplayController" destination="46Q-MR-tja" id="jxC-rd-Nv9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewHandle" destination="sAy-VW-jl5" id="rbs-72-F36"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" alpha="0.29999999999999999" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAy-VW-jl5">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <searchBar contentMode="redraw" placeholder="e.g. tacos, Max's" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-DF-afy">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <rect key="frame" x="0.0" y="50" width="414" height="44"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="414" id="I1q-LU-Xku"/>
@@ -29,14 +34,31 @@
                         <outlet property="delegate" destination="-1" id="zCq-it-mBR"/>
                     </connections>
                 </searchBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEARCH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGA-zi-8pa">
+                    <rect key="frame" x="113.5" y="7" width="188.5" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="BWt-QH-8jr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="45"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="wSf-DF-afy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="589-Gy-r5f"/>
-                <constraint firstItem="wSf-DF-afy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="IBx-uh-cnj"/>
+                <constraint firstItem="wSf-DF-afy" firstAttribute="top" secondItem="sAy-VW-jl5" secondAttribute="bottom" id="5Yi-FL-LXp"/>
+                <constraint firstAttribute="centerX" secondItem="KGA-zi-8pa" secondAttribute="centerX" id="6gV-XB-RMH"/>
+                <constraint firstItem="KGA-zi-8pa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="7" id="GnK-fU-4zK"/>
+                <constraint firstItem="wSf-DF-afy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="IBx-uh-cnj"/>
+                <constraint firstAttribute="trailing" secondItem="sAy-VW-jl5" secondAttribute="trailing" id="KCd-Dq-seR"/>
                 <constraint firstAttribute="trailing" secondItem="wSf-DF-afy" secondAttribute="trailing" id="M6R-zA-uRh"/>
+                <constraint firstItem="sAy-VW-jl5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="agz-Fu-RmU"/>
+                <constraint firstItem="sAy-VW-jl5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uSe-eK-nOe"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+            <point key="canvasLocation" x="139" y="154"/>
         </view>
         <searchDisplayController id="46Q-MR-tja">
             <connections>

@@ -286,7 +286,11 @@ typedef enum {
     rdvc.transitioningDelegate = self;
     rdvc.delegate = self;
     rdvc.view.frame = self.view.frame;
-    [self presentViewController:rdvc animated:YES completion:nil];
+    //[self presentViewController:rdvc animated:YES completion:nil];
+    
+    [self presentViewController:rdvc animated:YES completion:^{
+        [self.customNavBar setAlpha: 0];
+    }];
     
 }
 

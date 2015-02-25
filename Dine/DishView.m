@@ -10,6 +10,28 @@
 
 @interface DishView () <UIGestureRecognizerDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *dishName;
+@property (strong, nonatomic) IBOutlet UIImageView *dishImage;
+@property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
+
+@property (weak, nonatomic) IBOutlet UIImageView *star1;
+@property (weak, nonatomic) IBOutlet UIImageView *star2;
+@property (weak, nonatomic) IBOutlet UIImageView *star3;
+@property (weak, nonatomic) IBOutlet UIImageView *star4;
+@property (weak, nonatomic) IBOutlet UIImageView *star5;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star1Width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star1Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star2Width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star2Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star3Width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star3Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star4Width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star4Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star5Width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *star5Height;
+
+@property (weak, nonatomic) IBOutlet UIView *descBg;
 @end
 
 
@@ -24,15 +46,6 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
-        
-        self.dishImage = [[UIImageView alloc] initWithFrame:frame];
-        
-        [self addSubview:self.dishImage];
-        
-        self.dishName = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 143, 60)];
-        self.dishName.text = @"A Dish";
-        
-        [self addSubview:self.dishName];
         
         [self setup];
     }
@@ -53,6 +66,13 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
     panGestureRecognizer.delegate = self;
     [self addGestureRecognizer:panGestureRecognizer];
+    
+    self.star1.contentMode = UIViewContentModeScaleAspectFit;
+    self.star2.contentMode = UIViewContentModeScaleAspectFit;
+    self.star3.contentMode = UIViewContentModeScaleAspectFit;
+    self.star4.contentMode = UIViewContentModeScaleAspectFit;
+    self.star5.contentMode = UIViewContentModeScaleAspectFit;
+    
 }
 
 - (void)setDish:(Dish *)dish {
@@ -68,10 +88,88 @@
         }
     }];
     
+    for (int i=1; i<=[self.dish.ratings intValue]; i++) {
+        switch (i) {
+            case 1:
+                [self.star1 setImage:[UIImage imageNamed:@"redStar.png"]];
+                break;
+            case 2:
+                [self.star2 setImage:[UIImage imageNamed:@"redStar.png"]];
+                break;
+            case 3:
+                [self.star3 setImage:[UIImage imageNamed:@"redStar.png"]];
+                break;
+            case 4:
+                [self.star4 setImage:[UIImage imageNamed:@"redStar.png"]];
+                break;
+            case 5:
+                [self.star5 setImage:[UIImage imageNamed:@"redStar.png"]];
+                break;
+        }
+    }
+    
     self.dishImage.layer.cornerRadius = 3.0;
     [self.dishImage setClipsToBounds:YES];
     
     [self bringSubviewToFront:self.dishName];
+}
+
+- (void)updateUI{
+    
+    CGFloat alpha = 0;
+    
+    if(self.contentView.frame.size.height > 400){
+        [self.dishName setFont:[UIFont systemFontOfSize:24]];
+        
+        self.star1Width.constant = 24;
+        self.star1Height.constant = 24;
+        
+        self.star2Width.constant = 24;
+        self.star2Height.constant = 24;
+        
+        self.star3Width.constant = 24;
+        self.star3Height.constant = 24;
+        
+        self.star4Width.constant = 24;
+        self.star4Height.constant = 24;
+        
+        self.star5Width.constant = 24;
+        self.star5Height.constant = 24;
+        alpha = 0.5;
+        
+    }else if(self.contentView.frame.size.height < 400){
+        [self.dishName setFont:[UIFont systemFontOfSize:15]];
+        
+        self.star1Width.constant = 16;
+        self.star1Height.constant = 16;
+        
+        self.star2Width.constant = 16;
+        self.star2Height.constant = 16;
+        
+        self.star3Width.constant = 16;
+        self.star3Height.constant = 16;
+        
+        self.star4Width.constant = 16;
+        self.star4Height.constant = 16;
+        
+        self.star5Width.constant = 16;
+        self.star5Height.constant = 16;
+        
+    }
+    
+    self.dishName.adjustsFontSizeToFitWidth = YES;
+    
+    [UIView animateWithDuration:0.8 animations:^{
+        [self.dishName layoutIfNeeded];
+        [self.star1 layoutIfNeeded];
+        [self.star2 layoutIfNeeded];
+        [self.star3 layoutIfNeeded];
+        [self.star4 layoutIfNeeded];
+        [self.star5 layoutIfNeeded];
+        [self.contentView layoutIfNeeded];
+        self.descBg.alpha = alpha;
+    }];
+    
 }
 
 #pragma mark - UIPanGestureRecognizerDelegate methods

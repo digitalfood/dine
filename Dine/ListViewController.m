@@ -64,7 +64,7 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
     self.scrollView.delegate = self;
 }
 
-- (void)setFrame:(CGRect)frame {
+- (void)setFrame:(CGRect)frame {    
     self.view.frame = frame;
     self.dishWidth = frame.size.height * DISHVIEW_ASPECTRATIO;
     [self resizeSubframes];
@@ -83,6 +83,7 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
         subview.frame = dishFrame;
         if (subview.class == [DishView class]) {
             subview.contentView.frame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
+            [subview updateUI];
             [subview layoutIfNeeded];
         }
         i++;

@@ -16,6 +16,7 @@
     if (self) {
         self.name = dictionary[@"name"];
         self.image = dictionary[@"thumbnail"];
+        self.ratings = dictionary[@"ratings"];
     }
     return self;
 }
