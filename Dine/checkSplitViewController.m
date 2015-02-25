@@ -18,11 +18,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @property (nonatomic, assign) float splitAmount;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
 
 @implementation CheckSplitViewController
-
 
 
 - (void)viewDidLoad {
@@ -30,15 +30,27 @@
     // hide status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+    // Adds shadow to Checkout View
+    CALayer *layer = self.contentView.layer;
+    layer.shadowOffset = CGSizeMake(1, 1);
+    layer.shadowColor = [[UIColor blackColor] CGColor];
+    layer.shadowRadius = 6.0f;
+    layer.shadowOpacity = 0.40f;
+    layer.shadowOffset = CGSizeMake(0, 8.0);
+    layer.shadowPath = [[UIBezierPath bezierPathWithRect:layer.bounds] CGPath];
+    
+    
     self.countStepper.minimumValue = 2;
     self.countStepper.value = 2;
     
     [self splitBill];
 }
 
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -46,24 +58,23 @@
     [self splitBill];
 }
 
+
 - (void) splitBill {
     self.countLabel.text = [NSString stringWithFormat: @"%i", (int) self.countStepper.value];
     self.splitAmount =  self.amount/self.countStepper.value;
     self.amountLabel.text = [NSString stringWithFormat: @"$%0.2f", self.splitAmount];
-
 }
-
 
 
 - (IBAction)onRequestBtn:(id)sender {
     
-    NSString *recipientEmail = @"fabian.uribe@gmail.com";
+    NSString *recipientEmail = self.emailTextField.text;
     NSString *serviceEmail = @"request@square.com";
     
     
     NSString *recipients = [NSString stringWithFormat:@"mailto:%@?cc=%@&subject=$%.02f",recipientEmail, serviceEmail, self.splitAmount];
     
-    NSString *body = [NSString stringWithFormat:@"&body=Please send $%0.2f to cover your share of the total bill ($%0.2f) from %@", self.splitAmount, self.amount, self.restaurant.name];
+    NSString *body = [NSString stringWithFormat:@"&body=Please send $%0.2f to cover your share of the total bill ($%0.2f)", self.splitAmount, self.amount];
     
     NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
     
@@ -72,14 +83,15 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
 }
 
+
 - (IBAction)onSentBtn:(id)sender {
     
-    NSString *recipientEmail = @"fabian.uribe@gmail.com";
+    NSString *recipientEmail = self.emailTextField.text;
     NSString *serviceEmail = @"cash@square.com";
     
     NSString *recipients = [NSString stringWithFormat:@"mailto:%@?cc=%@&subject=$%.02f",recipientEmail, serviceEmail, self.splitAmount];
     
-    NSString *body = [NSString stringWithFormat:@"&body=Here is my share of $%0.2f to cover the bill ($%0.2f) from %@", self.splitAmount, self.amount, self.restaurant.name];
+    NSString *body = [NSString stringWithFormat:@"&body=Here is my share of $%0.2f to cover the bill ($%0.2f)", self.splitAmount, self.amount];
     
     NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
     
@@ -87,7 +99,6 @@
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
 }
-
 
 
 - (IBAction)onContactsBtn:(id)sender {
