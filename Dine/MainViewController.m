@@ -109,12 +109,13 @@ typedef enum {
 
 #pragma mark - SectionViewControllerDelegate methods
 
-- (void)swipeToRestaurant:(Restaurant *)restaurant {
+- (void)swipeToRestaurant:(Restaurant *)restaurant rtl:(BOOL)rtl {
     self.restaurant = restaurant;
     PFQuery *query = [PFQuery queryWithClassName:@"Food"];
     [query whereKey:@"restaurantId" equalTo:@"thai-square-restaurant-cupertino"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSMutableArray *dishes = [Dish dishWithDictionaries:objects];
+        self.lvc.reverseSliding = !rtl; // reverse sliding-in animation if not swiped from right to left
         self.lvc.dishes = [NSMutableArray arrayWithArray:dishes];
     }];    
 }
