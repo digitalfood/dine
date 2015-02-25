@@ -158,15 +158,15 @@
     }
     
     self.dishName.adjustsFontSizeToFitWidth = YES;
+    [self.dishName layoutIfNeeded];
+    [self.star1 layoutIfNeeded];
+    [self.star2 layoutIfNeeded];
+    [self.star3 layoutIfNeeded];
+    [self.star4 layoutIfNeeded];
+    [self.star5 layoutIfNeeded];
+    [self.contentView layoutIfNeeded];
     
     [UIView animateWithDuration:0.8 animations:^{
-        [self.dishName layoutIfNeeded];
-        [self.star1 layoutIfNeeded];
-        [self.star2 layoutIfNeeded];
-        [self.star3 layoutIfNeeded];
-        [self.star4 layoutIfNeeded];
-        [self.star5 layoutIfNeeded];
-        [self.contentView layoutIfNeeded];
         self.descBg.alpha = alpha;
     }];
     
