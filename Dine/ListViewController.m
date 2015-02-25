@@ -27,6 +27,7 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.expaned = NO;
+    self.reverseSliding = NO;
     [self configureScrollView];
 }
 
@@ -93,9 +94,11 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
     for(UIView *subview in [self.scrollView subviews]) {
         [subview removeFromSuperview];
     }
-    
+    CGFloat offset = [[UIScreen mainScreen] bounds].size.width;
+    offset = self.reverseSliding ? -offset : offset;
     for (int i = 0; i < self.dishes.count; i++) {
-        CGRect dishFrame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
+        CGFloat xOrigin = i * (self.dishWidth + 1) + offset;
+        CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
         DishView *dishView = [[DishView alloc] initWithFrame:dishFrame];
         [dishView setDish:self.dishes[i]];
         dishView.page = i;
@@ -103,23 +106,23 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
         [self.scrollView addSubview:dishView];
     }
     self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);
-    
+    [self slideIn];
+}
+
+- (void)slideIn {
     int i = 0;
     for(DishView *subview in [self.scrollView subviews]) {
-        CGFloat xOrigin = i * (self.dishWidth + 1) + 320;
-        CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
-        subview.frame = dishFrame;
-        if (subview.class == [DishView class]) {
-            subview.contentView.frame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
-            [subview layoutIfNeeded];
-        }
+        [UIView animateWithDuration:0.4 delay:0.05 * i usingSpringWithDamping:0.9 initialSpringVelocity:0 options:0 animations:^{
+            CGFloat xOrigin = i * (self.dishWidth + 1);
+            CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
+            subview.frame = dishFrame;
+            if (subview.class == [DishView class]) {
+                subview.contentView.frame = CGRectMake(0, 0, self.dishWidth, self.view.frame.size.height);
+                [subview layoutIfNeeded];
+            }
+        } completion:nil];
         i++;
     }
-    
-    [UIView animateWithDuration:0.4 animations:^{
-        [self resizeSubframes];
-    }];
-    
 }
 
 - (void)panOnDish:(int)page withRecognier:(UIPanGestureRecognizer *)panGestureRecognizer {

@@ -75,7 +75,7 @@ float const METERS_PER_MILE = 1609.344;
     int page = floor((self.scrollView.contentOffset.x - self.sectionWidth / 2 ) / self.sectionWidth) + 1; //this provide you the page number
     
     if (self.pageControl.currentPage != page) {
-        [self.delegate swipeToRestaurant:self.restaurants[page]];
+        [self.delegate swipeToRestaurant:self.restaurants[page] rtl:(self.pageControl.currentPage < page)];
     }
     self.pageControl.currentPage = page;// this displays the white dot as current page
 }
@@ -134,13 +134,12 @@ float const METERS_PER_MILE = 1609.344;
         RestaurantView *restaurantView = [[RestaurantView alloc] init];
         restaurantView.delegate = self;
         restaurantView.frame = CGRectMake(xOrigin, 0, self.sectionWidth, self.sectionHeight);
-        // restaurantView.backgroundColor = [UIColor colorWithRed:0.5/i green:0.5 blue:0.5 alpha:1];
         restaurantView.restaurant = self.restaurants[i];
         [self.scrollView addSubview:restaurantView];
     }
     self.scrollView.contentSize = CGSizeMake(self.sectionWidth * numberOfViews, self.sectionHeight);
     [self.scrollView scrollRectToVisible:CGRectMake(self.sectionWidth * currentPage, 0, self.sectionWidth, self.sectionHeight) animated:NO];
-    [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage]];
+    [self.delegate swipeToRestaurant:self.restaurants[self.pageControl.currentPage] rtl:YES];
 }
 
 - (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index {

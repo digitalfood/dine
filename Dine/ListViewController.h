@@ -24,6 +24,7 @@ extern float const DISHVIEW_ASPECTRATIO;
 @property (nonatomic, weak) id<ListViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *dishes;
 @property (nonatomic, assign) BOOL expaned;
+@property (nonatomic, assign) BOOL reverseSliding;
 - (void)setFrame:(CGRect)frame;
 
 @end
