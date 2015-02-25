@@ -12,6 +12,7 @@
 @protocol DishViewDelegate <NSObject>
 
 - (void)tapOnDish:(int)page;
+- (void)panOnDish:(int)page withRecognier:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
 

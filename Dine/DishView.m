@@ -8,7 +8,7 @@
 
 #import "DishView.h"
 
-@interface DishView ()
+@interface DishView () <UIGestureRecognizerDelegate>
 
 @end
 
@@ -49,6 +49,10 @@
 
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [self addGestureRecognizer:tapGestureRecognizer];
+    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
+    panGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)setDish:(Dish *)dish {
@@ -70,9 +74,22 @@
     [self bringSubviewToFront:self.dishName];
 }
 
+#pragma mark - UIPanGestureRecognizerDelegate methods
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        return YES;
+    }
+    CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.contentView];
+    return fabs(velocity.y) > fabs(velocity.x);
+}
+
 #pragma mark - interaction methods
 - (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self.delegate tapOnDish:self.page];
+}
+
+- (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
+    [self.delegate panOnDish:self.page withRecognier:panGestureRecognizer];
 }
 
 @end

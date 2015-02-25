@@ -12,7 +12,7 @@
 
 float const DISHVIEW_ASPECTRATIO = 0.5625;
 
-@interface ListViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, DishViewDelegate>
+@interface ListViewController () <UIScrollViewDelegate, DishViewDelegate>
 
 @property (nonatomic, assign) CGFloat dishWidth;
 @property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
@@ -40,15 +40,6 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
     [self.delegate tapOnDish:page];
 }
 
-#pragma mark - UIPanGestureRecognizerDelegate methods
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if (![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        return YES;
-    }
-    CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.scrollView];
-    return fabs(velocity.y) > fabs(velocity.x);
-}
-
 #pragma mark - Scroll View Delegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -67,15 +58,9 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
     
     self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = NO;
-    self.scrollView.bounces = NO;
     self.scrollView.directionalLockEnabled = YES;
     
     self.scrollView.delegate = self;
-    
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
-    panGestureRecognizer.delegate = self;
-    [self.scrollView.panGestureRecognizer requireGestureRecognizerToFail:panGestureRecognizer];
-    [self.view addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -122,8 +107,8 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
     [self resizeSubframes];
 }
 
-- (void)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
-    [self.delegate panOnDish:panGestureRecognizer];
+- (void)panOnDish:(int)page withRecognier:(UIPanGestureRecognizer *)panGestureRecognizer {
+    [self.delegate panOnDish:page withRecognier:panGestureRecognizer];
 }
 
 @end

@@ -13,7 +13,7 @@ extern float const DISHVIEW_ASPECTRATIO;
 @protocol ListViewControllerDelegate <NSObject>
 
 - (void)tapOnDish:(int)page;
-- (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer;
+- (void)panOnDish:(int)page withRecognier:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
 
