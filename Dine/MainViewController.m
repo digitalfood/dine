@@ -27,7 +27,6 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewYOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *listViewXOffset;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
@@ -41,8 +40,9 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, strong) NSMutableArray *dishes;
 
-@property (nonatomic, assign) CGPoint originalConstant;
-@property (nonatomic, assign) CGFloat xCompliment;
+@property (nonatomic, assign) CGFloat originalHeight;
+@property (nonatomic, assign) CGPoint originalXY;
+@property (nonatomic, assign) CGFloat touchLocationX;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
 
@@ -146,69 +146,41 @@ typedef enum {
     }
 }
 
-- (void)panOnDish:(UIPanGestureRecognizer *)panGestureRecognizer {
+- (void)panOnDish:(int)page withRecognier:(UIPanGestureRecognizer *)panGestureRecognizer {
     CGPoint translation = [panGestureRecognizer translationInView:self.view];
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         // x-compliment to simulate scaling up while the horizontal center being the initial location of the gesture
-        self.xCompliment = 2 * ([panGestureRecognizer locationInView:self.view].x / [[UIScreen mainScreen] bounds].size.width);
-        self.originalConstant = CGPointMake(self.listViewXOffset.constant, self.listViewYOffset.constant);
+        self.touchLocationX = [panGestureRecognizer locationInView:self.view].x;
+        self.originalXY = CGPointMake(self.lvc.scrollView.contentOffset.x, self.listViewYOffset.constant);
+        self.originalHeight = self.lvc.scrollView.frame.size.height;
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat scale = translation.y * 3;
-        CGFloat deltaX = self.originalConstant.x + translation.x + scale * DISHVIEW_ASPECTRATIO * self.xCompliment;
-        CGFloat deltaY = self.originalConstant.y + scale;
-        
-        if (deltaY > 0) {
-            // over-compression can be performed at reduced rate
-            deltaY /= 5;
-            deltaX /= 5;
-        }
-        if (deltaX <= 0) {
-            self.listViewXOffset.constant = deltaX;
-        }
+        CGFloat yDistance = translation.y * 3;
+        CGFloat deltaY = self.originalXY.y + yDistance;
+        CGFloat newHeight = self.originalHeight - deltaY;
+        CGFloat scale = newHeight / self.originalHeight;
+        CGFloat deltaX =  -translation.x + (self.originalXY.x + self.touchLocationX) * scale - self.touchLocationX;
+        self.lvc.scrollView.contentOffset = CGPointMake(deltaX, 0);
         if (deltaY <= 0) {
             self.listViewYOffset.constant = deltaY;
         }
         [self.lvc setFrame:self.listView.frame];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (translation.y < 0) {
-            [self expandListView];
+            [self expandListViewToPage:page];
         } else {
             [self collapseListView];
         }
     }
 }
 
-- (void)expandListView {
-    if (self.lvc.expaned) {
-        return;
-    }
-    [UIView animateWithDuration:0.5 animations:^{
-        CGFloat sectionWidth = self.lvc.view.frame.size.height * DISHVIEW_ASPECTRATIO;
-        CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
-        int page = floor((- self.listViewXOffset.constant - sectionWidth / 2 ) / sectionWidth) + 1;
-        self.listViewXOffset.constant = - page * screenWidth;
-        self.listViewYOffset.constant = - self.sectionView.frame.size.height;
-        [self.view layoutIfNeeded];
-        [self.lvc setFrame:self.listView.frame];
-        
-        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * screenWidth, screenHeight);
-        self.lvc.scrollView.pagingEnabled = YES;
-        
-        self.lvc.pageControl.currentPage = page;
-        self.lvc.expaned = YES;
-    }];
-}
-
 - (void)expandListViewToPage:(int)page {
     if (self.lvc.expaned) {
         return;
     }
-    NSLog(@"page: %d", page);
     [UIView animateWithDuration:0.5 animations:^{
         CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
         CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
-        self.listViewXOffset.constant = - page * screenWidth;
+        self.lvc.scrollView.contentOffset = CGPointMake(page * screenWidth, 0);
         self.listViewYOffset.constant = - self.sectionView.frame.size.height;
         [self.view layoutIfNeeded];
         [self.lvc setFrame:self.listView.frame];
@@ -228,7 +200,7 @@ typedef enum {
     [UIView animateWithDuration:0.5 animations:^{
         CGFloat sectionWidth = self.lvc.view.frame.size.height * DISHVIEW_ASPECTRATIO;
         CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
-        self.listViewXOffset.constant = 0;
+//        self.lvc.scrollView.contentOffset = CGPointMake(0, 0);
         self.listViewYOffset.constant = 0;
         [self.view layoutIfNeeded];
         [self.lvc setFrame:self.listView.frame];

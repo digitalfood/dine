@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -10,7 +10,6 @@
                 <outlet property="cameraButton" destination="ZHK-iQ-qF0" id="KGV-7c-Kor"/>
                 <outlet property="customNavBar" destination="uyp-0l-59t" id="zxn-C7-7nT"/>
                 <outlet property="listView" destination="7fn-eI-FpI" id="vjy-js-ryE"/>
-                <outlet property="listViewXOffset" destination="5HU-hZ-5I2" id="28Y-au-Gpe"/>
                 <outlet property="listViewYOffset" destination="wgI-Rb-1dE" id="JLx-H1-wcl"/>
                 <outlet property="searchButton" destination="WYd-VJ-zMn" id="Utx-Qt-iQy"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
