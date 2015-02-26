@@ -19,7 +19,7 @@
 
 @interface SectionViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, weak) id<SectionViewControllerDelegate> delegate;
 
 @property (nonatomic, strong) NSMutableArray *restaurants;
