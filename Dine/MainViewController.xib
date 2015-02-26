@@ -31,7 +31,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYd-VJ-zMn" userLabel="SearchButton">
-                            <rect key="frame" x="205" y="20" width="20" height="20"/>
+                            <rect key="frame" x="203" y="20" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="LxE-x2-wZ8"/>
                                 <constraint firstAttribute="height" constant="20" id="mjb-Vk-wKy"/>
@@ -44,7 +44,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHK-iQ-qF0">
-                            <rect key="frame" x="284" y="20" width="20" height="20"/>
+                            <rect key="frame" x="282" y="20" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="mF5-zp-V5I"/>
                                 <constraint firstAttribute="height" constant="20" id="ney-qX-CM8"/>
@@ -57,7 +57,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbd-9u-B7J">
-                            <rect key="frame" x="244" y="20" width="20" height="20"/>
+                            <rect key="frame" x="242" y="20" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="W3C-P9-aKU"/>
                                 <constraint firstAttribute="width" constant="20" id="hBi-sA-Cz6"/>
@@ -69,8 +69,12 @@
                                 <action selector="onCheckoutButton:" destination="-1" eventType="touchUpInside" id="QEJ-jM-ibM"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dine" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A6-yp-fsu">
+                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dine" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A6-yp-fsu">
                             <rect key="frame" x="16" y="18" width="57" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="57" id="6xw-hj-kAR"/>
+                                <constraint firstAttribute="height" constant="24" id="xZT-SL-fsy"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="23"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -79,10 +83,12 @@
                     <constraints>
                         <constraint firstItem="WYd-VJ-zMn" firstAttribute="top" secondItem="uyp-0l-59t" secondAttribute="top" constant="20" id="27V-wc-2FA"/>
                         <constraint firstItem="Gbd-9u-B7J" firstAttribute="centerY" secondItem="ZHK-iQ-qF0" secondAttribute="centerY" id="27m-Vt-hvS"/>
-                        <constraint firstAttribute="trailing" secondItem="ZHK-iQ-qF0" secondAttribute="trailing" constant="16" id="7to-ic-47H"/>
+                        <constraint firstAttribute="trailing" secondItem="ZHK-iQ-qF0" secondAttribute="trailing" constant="18" id="7to-ic-47H"/>
                         <constraint firstItem="Gbd-9u-B7J" firstAttribute="leading" secondItem="WYd-VJ-zMn" secondAttribute="trailing" constant="19" id="CH5-9N-fGj"/>
                         <constraint firstItem="Gbd-9u-B7J" firstAttribute="centerY" secondItem="WYd-VJ-zMn" secondAttribute="centerY" id="GR2-Ra-UCX"/>
                         <constraint firstItem="ZHK-iQ-qF0" firstAttribute="leading" secondItem="Gbd-9u-B7J" secondAttribute="trailing" constant="20" id="pfL-Lg-2Xs"/>
+                        <constraint firstItem="0A6-yp-fsu" firstAttribute="leading" secondItem="uyp-0l-59t" secondAttribute="leading" constant="16" id="rcw-us-s2f"/>
+                        <constraint firstItem="0A6-yp-fsu" firstAttribute="top" secondItem="uyp-0l-59t" secondAttribute="top" constant="18" id="sD3-Wu-Zwb"/>
                         <constraint firstAttribute="height" constant="50" id="uyl-lU-Nbp"/>
                     </constraints>
                 </view>
