@@ -114,8 +114,16 @@ typedef enum {
 
 - (void)swipeToRestaurant:(Restaurant *)restaurant rtl:(BOOL)rtl {
     self.restaurant = restaurant;
+    NSString *restaurantId;
+    NSArray *whilteList = @[@"gochi-japanese-fusion-tapas-cupertino", @"ikes-lair-cupertino-2"];
+    // THIS IS A TEMPORARY HACK TO SHOW DEFAULT DISHES WHEN THERE'S NO DISHES IN PARSE
+    if ([whilteList containsObject:restaurant.id]) {
+        restaurantId = restaurant.id;
+    } else {
+        restaurantId = @"thai-square-restaurant-cupertino";
+    }
     PFQuery *query = [PFQuery queryWithClassName:@"Food"];
-    [query whereKey:@"restaurantId" equalTo:@"thai-square-restaurant-cupertino"];
+    [query whereKey:@"restaurantId" equalTo:restaurantId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSMutableArray *dishes = [Dish dishWithDictionaries:objects];
         self.lvc.reverseSliding = !rtl; // reverse sliding-in animation if not swiped from right to left
