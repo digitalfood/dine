@@ -84,13 +84,14 @@
                                                         options:NSStringDrawingUsesLineFragmentOrigin
                                                      attributes:attributes
                                                         context:nil];
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, nameLabelRect.size.width, nameLabelRect.size.height)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 4, nameLabelRect.size.width, nameLabelRect.size.height)];
+    self.nameLabel.alpha = 0.7;
     self.nameLabel.font = [UIFont systemFontOfSize:25];
     self.nameLabel.text = self.restaurant.name;
     self.nameLabel.textColor = [UIColor whiteColor];
     self.nameLabel.numberOfLines = 2;
     CGRect nameFrame = self.nameLabel.frame;
-    nameFrame.origin.y = 35;
+    nameFrame.origin.y = 36;
     self.nameLabel.frame = nameFrame;
 
     [self addSubview:self.nameLabel];
