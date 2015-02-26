@@ -58,9 +58,12 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
     self.scrollView.delegate = self;
 }
 
-- (void)setFrame:(CGRect)frame {    
-    self.view.frame = frame;
+- (void)setFrame:(CGRect)frame preLayout:(BOOL)preLayout {
     self.dishWidth = frame.size.height * DISHVIEW_ASPECTRATIO;
+    self.view.frame = frame;
+    if (preLayout) {
+        [self.view layoutIfNeeded];
+    }
     [self resizeSubframes];
 }
 

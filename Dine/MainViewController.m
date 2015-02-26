@@ -75,7 +75,7 @@ typedef enum {
     
     self.lvc = [[ListViewController alloc] init];
     self.lvc.delegate = self;
-    [self.lvc setFrame:self.listView.frame];
+    [self.lvc setFrame:self.listView.frame preLayout:NO];
     [self.view addSubview:self.lvc.view];
 
     [self.view bringSubviewToFront: self.customNavBar ];
@@ -162,7 +162,7 @@ typedef enum {
         if (deltaY <= 0) {
             self.listViewYOffset.constant = deltaY;
         }
-        [self.lvc setFrame:self.listView.frame];
+        [self.lvc setFrame:self.listView.frame preLayout:NO];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if ([panGestureRecognizer velocityInView:self.view].y < 0) {
             [self expandListViewToPage:page];
@@ -177,12 +177,11 @@ typedef enum {
     self.lvc.scrollView.pagingEnabled = YES;
     self.lvc.expaned = YES;
     self.listViewYOffset.constant = - self.sectionView.frame.size.height;
+    self.lvc.pageControl.currentPage = page;
     [self.view layoutIfNeeded];
-
     [UIView animateWithDuration:0.5 animations:^{
         self.lvc.scrollView.contentOffset = CGPointMake(page * screenWidth, 0);
-        [self.lvc setFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-        self.lvc.pageControl.currentPage = page;
+        [self.lvc setFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) preLayout:NO];
     }];
 }
 
@@ -194,10 +193,10 @@ typedef enum {
     CGFloat sectionHeight = self.listView.frame.size.height;
     CGFloat scale = sectionHeight / [[UIScreen mainScreen] bounds].size.height;
     
-    [UIView animateWithDuration:0.5 delay:1.0 options:0 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         self.lvc.scrollView.contentOffset = CGPointMake(self.lvc.scrollView.contentOffset.x * scale, 0);
-        [self.lvc setFrame:self.listView.frame];
-    } completion:nil];
+        [self.lvc setFrame:self.listView.frame preLayout:YES];
+    }];
 }
 
 #pragma mark - UIPanGestureRecognizerDelegate methods
