@@ -72,6 +72,7 @@ typedef enum {
 
     self.svc = [[SectionViewController alloc] init];
     self.svc.delegate = self;
+    self.svc.searchTerm = self.searchTerm;
     [self.svc setFrame:self.sectionView.frame];
     [self.view addSubview:self.svc.view];
     
@@ -310,6 +311,7 @@ typedef enum {
 
 - (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index searchTerm: (NSString*) searchTerm; {
     self.searchTerm = searchTerm;
+    self.svc.searchTerm = self.searchTerm;
     [self.svc reloadDataForResult:restaurants atRestaurant:index];
 }
 
