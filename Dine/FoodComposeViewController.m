@@ -60,11 +60,15 @@
         return;
     }
     
+    PFUser *user = [PFUser currentUser];
+
     PFObject *food = [PFObject objectWithClassName:@"Food"];
     food[@"name"] = self.nameField.text;
     food[@"comments"] = self.commentsField.text;
     food[@"ratings"] = [self getRatings];
     food[@"restaurantId"] = self.restaurant.id;
+    food[@"user"] = user;
+    food[@"fullname"] = user[@"fullname"];
     
     NSData *imageData = UIImagePNGRepresentation(self.thumbnailImage);
     PFFile *imageFile = [PFFile fileWithData:imageData];
