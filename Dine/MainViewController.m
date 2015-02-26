@@ -176,30 +176,28 @@ typedef enum {
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     self.lvc.scrollView.pagingEnabled = YES;
     self.lvc.expaned = YES;
+    self.listViewYOffset.constant = - self.sectionView.frame.size.height;
+    [self.view layoutIfNeeded];
 
     [UIView animateWithDuration:0.5 animations:^{
         self.lvc.scrollView.contentOffset = CGPointMake(page * screenWidth, 0);
-        self.listViewYOffset.constant = - self.sectionView.frame.size.height;
-        [self.view layoutIfNeeded];
         [self.lvc setFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-        
         self.lvc.pageControl.currentPage = page;
     }];
 }
 
 - (void)collapseListView {
-    CGFloat sectionHeight = self.listView.frame.size.height;
-    CGFloat scale = sectionHeight / [[UIScreen mainScreen] bounds].size.height;
     self.lvc.scrollView.pagingEnabled = NO;
     self.lvc.expaned = NO;
-
-    [UIView animateWithDuration:0.5 animations:^{
-        self.listViewYOffset.constant = 0;
-        [self.view layoutIfNeeded];
-
+    self.listViewYOffset.constant = 0;
+    [self.view layoutIfNeeded];
+    CGFloat sectionHeight = self.listView.frame.size.height;
+    CGFloat scale = sectionHeight / [[UIScreen mainScreen] bounds].size.height;
+    
+    [UIView animateWithDuration:0.5 delay:1.0 options:0 animations:^{
         self.lvc.scrollView.contentOffset = CGPointMake(self.lvc.scrollView.contentOffset.x * scale, 0);
         [self.lvc setFrame:self.listView.frame];
-    }];
+    } completion:nil];
 }
 
 #pragma mark - UIPanGestureRecognizerDelegate methods

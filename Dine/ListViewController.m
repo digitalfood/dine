@@ -15,10 +15,6 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
 @interface ListViewController () <UIScrollViewDelegate, DishViewDelegate>
 
 @property (nonatomic, assign) CGFloat dishWidth;
-@property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
-@property (nonatomic, strong) NSMutableArray *contrainstArray;
-@property (nonatomic, assign) BOOL pageOpened;
-@property (nonatomic, assign) CGRect originalScrollViewFrame;
 
 @end
 
@@ -52,8 +48,6 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
 
 - (void)configureScrollView
 {
-    _contrainstArray = [[NSMutableArray alloc] init];
-    
     [self.scrollView setShowsHorizontalScrollIndicator:YES];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
     

@@ -10,7 +10,7 @@
                 <outlet property="cameraButton" destination="ZHK-iQ-qF0" id="KGV-7c-Kor"/>
                 <outlet property="customNavBar" destination="uyp-0l-59t" id="zxn-C7-7nT"/>
                 <outlet property="listView" destination="7fn-eI-FpI" id="vjy-js-ryE"/>
-                <outlet property="listViewYOffset" destination="wgI-Rb-1dE" id="JLx-H1-wcl"/>
+                <outlet property="listViewYOffset" destination="q8J-CK-Fng" id="yK7-66-hNq"/>
                 <outlet property="searchButton" destination="WYd-VJ-zMn" id="Utx-Qt-iQy"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -90,15 +90,15 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="uyp-0l-59t" secondAttribute="trailing" id="36z-ku-KoS"/>
-                <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
+                <constraint firstAttribute="trailing" secondItem="7fn-eI-FpI" secondAttribute="trailing" id="4ry-K4-ePy"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
+                <constraint firstAttribute="bottom" secondItem="7fn-eI-FpI" secondAttribute="bottom" id="aaL-aq-byf"/>
+                <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eEa-gx-j7k"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hjW-eG-Fl5"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="uyp-0l-59t" secondAttribute="top" id="nMU-Qd-nxf"/>
-                <constraint firstAttribute="trailing" secondItem="7fn-eI-FpI" secondAttribute="trailing" id="sLT-wM-Env"/>
+                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="q8J-CK-Fng"/>
                 <constraint firstAttribute="trailing" secondItem="bXK-oP-VqT" secondAttribute="trailing" id="tW8-eC-zcf"/>
                 <constraint firstItem="uyp-0l-59t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="v4e-Oe-XCo"/>
-                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="wgI-Rb-1dE"/>
-                <constraint firstAttribute="bottom" secondItem="7fn-eI-FpI" secondAttribute="bottom" id="zT6-Xs-rZo"/>
             </constraints>
             <point key="canvasLocation" x="431" y="278"/>
         </view>
