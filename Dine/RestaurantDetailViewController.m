@@ -7,6 +7,7 @@
 //
 
 #import "RestaurantDetailViewController.h"
+#import "MapViewController.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface RestaurantDetailViewController ()
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *restCate;
 @property (weak, nonatomic) IBOutlet UIView *detailShadow;
 @property (weak, nonatomic) IBOutlet UIView *detailView;
+- (IBAction)onMapButton:(UIButton *)sender;
 
 @end
 
@@ -110,4 +112,12 @@
 
 }
 
+- (IBAction)onMapButton:(UIButton *)sender {
+    MapViewController *vc = [[MapViewController alloc] init];
+    vc.restaurant = self.restaurant;
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self presentViewController:nvc animated:YES completion:nil];
+}
 @end

@@ -12,7 +12,9 @@
 #import "Parse/Parse.h"
 #import "LocationManager.h"
 
-float const METERS_PER_MILE = 1609.344;
+#ifndef METERS_PER_MILE
+#define METERS_PER_MILE 1609.344
+#endif
 
 @interface SectionViewController () <UIScrollViewDelegate, LocationManagerDelegate, RestaurantViewDelegate>
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
