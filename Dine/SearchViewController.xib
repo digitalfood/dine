@@ -18,13 +18,13 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAy-VW-jl5">
+                <view alpha="0.54999999999999993" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAy-VW-jl5">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                 </view>
-                <searchBar contentMode="redraw" barStyle="black" placeholder="e.g. tacos, Max's" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-DF-afy">
+                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="e.g. tacos, Max's" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-DF-afy">
                     <rect key="frame" x="0.0" y="50" width="414" height="44"/>
-                    <color key="backgroundColor" red="0.047058828175067902" green="0.023529414087533951" blue="0.0078431377187371254" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="414" id="I1q-LU-Xku"/>
                         <constraint firstAttribute="height" constant="44" id="Pte-XX-aux"/>
@@ -40,7 +40,7 @@
                         <constraint firstAttribute="height" constant="50" id="BWt-QH-8jr"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="45"/>
-                    <color key="textColor" red="0.12941176470588237" green="0.12941176470588237" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.99215692281723022" green="0.9960784912109375" blue="0.9960784912109375" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
