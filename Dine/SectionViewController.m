@@ -28,23 +28,21 @@ float const METERS_PER_MILE = 1609.344;
 
 @implementation SectionViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.client = [YelpClient sharedInstance];
-        self.locationManager = [LocationManager sharedInstance];
-        self.locationManager.delegate = self;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sectionWidth = [[UIScreen mainScreen] bounds].size.width;
+    self.client = [YelpClient sharedInstance];
+    self.locationManager = [LocationManager sharedInstance];
+    self.locationManager.delegate = self;
+
+    CGSize size = [[UIScreen mainScreen] bounds].size;
+    self.sectionWidth = size.width;
     self.sectionHeight = self.view.frame.size.height;
     
+    if (self.scrollView == nil) {
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        [self.view addSubview:self.scrollView];
+    }
     self.scrollView.scrollEnabled = YES;
     self.scrollView.pagingEnabled = YES;
     
@@ -54,6 +52,9 @@ float const METERS_PER_MILE = 1609.344;
 
     self.scrollView.delegate = self;
     
+    if (self.pageControl == nil) {
+        self.pageControl = [[UIPageControl alloc] init];
+    }
     self.pageControl.hidden = YES;
 }
 
@@ -72,12 +73,12 @@ float const METERS_PER_MILE = 1609.344;
 #pragma mark - Scroll View Delegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    int page = floor((self.scrollView.contentOffset.x - self.sectionWidth / 2 ) / self.sectionWidth) + 1; //this provide you the page number
+    int page = floor((self.scrollView.contentOffset.x - self.sectionWidth / 2 ) / self.sectionWidth) + 1;
     
     if (self.pageControl.currentPage != page) {
         [self.delegate swipeToRestaurant:self.restaurants[page] rtl:(self.pageControl.currentPage < page)];
     }
-    self.pageControl.currentPage = page;// this displays the white dot as current page
+    self.pageControl.currentPage = page;
 }
 
 #pragma mark - Restaurant View Delegate methods

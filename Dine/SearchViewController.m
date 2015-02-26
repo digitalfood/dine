@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplay;
 
+@property (nonatomic, assign) BOOL isInRefresh;
+@property (nonatomic, strong) NSNumber *offset;
+
 @end
 
 @implementation SearchViewController
@@ -48,6 +51,11 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
     [self.viewHandle addGestureRecognizer:panGestureRecognizer];
     
+    self.isInRefresh = NO;
+    self.offset = 0;
+    
+    self.restaurants = [NSMutableArray array];
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -55,7 +63,7 @@
     [super viewDidAppear:animated];
     
     [self.searchBar becomeFirstResponder];
-    self.searchBar.text = @"Restaurants";
+    self.searchBar.text = self.searchTerm;
     [self.searchDisplay.searchResultsTableView reloadData];
     
 }
@@ -81,12 +89,24 @@
     SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell"];
     cell.restaurant = self.restaurants[indexPath.row];
     
+    if (indexPath.row == self.restaurants.count - 1 && !self.isInRefresh) {
+        tableView.tableFooterView.hidden = NO;
+        self.isInRefresh = YES;
+        
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        self.offset = [NSNumber numberWithLong:self.restaurants.count];
+        [params setValue:self.offset forKey:@"offset"];
+        NSLog(@"offset %@", self.offset);
+        [self fetchBusinessWithTerm:self.searchTerm params:params];
+        
+    }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"didSelectRowAtIndexPath");
-    [self.delegate searchViewController:self didSearchRestaurant:self.restaurants index:indexPath.row];
+    [self.delegate searchViewController:self didSearchRestaurant:self.restaurants index:indexPath.row searchTerm:self.searchTerm];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -96,26 +116,41 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     NSLog(@"shouldReloadTableForSearchString");
-    
-    if(![searchString  isEqual: @""]){
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        if (self.location != nil) {
-            NSString *currentLocation = [NSString stringWithFormat:@"%+.6f,%+.6f",self.location.coordinate.latitude, self.location.coordinate.longitude];
-            [params setObject:currentLocation forKey:@"ll"];
-            
-            [self.client searchWithTerm:searchString params:params success:^(AFHTTPRequestOperation *operation, id response) {
-                NSArray *restaurantsDictionary = response[@"businesses"];
-                NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
-                self.restaurants = [NSMutableArray arrayWithArray:restaurants];
-                [controller.searchResultsTableView reloadData];
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error: %@", [error description]);
-            }];
-        }
+    self.searchTerm = searchString;
+    self.offset = 0;
+    if(![searchString isEqual: @""]){
+        
+        [self fetchBusinessWithTerm:searchString params:nil];
+        
     }
     
     return YES;
+}
+
+- (void)fetchBusinessWithTerm:(NSString *)term params:(NSMutableDictionary *)params {
+    
+    if(params == nil){
+        params = [NSMutableDictionary dictionary];
+    }
+    
+    if (self.location != nil) {
+        
+        NSString *currentLocation = [NSString stringWithFormat:@"%+.6f,%+.6f",self.location.coordinate.latitude, self.location.coordinate.longitude];
+        [params setObject:currentLocation forKey:@"ll"];
+        
+        [self.client searchWithTerm:term params:params success:^(AFHTTPRequestOperation *operation, id response) {
+            NSArray *restaurantsDictionary = response[@"businesses"];
+            NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
+            [self.restaurants addObjectsFromArray:restaurants];
+            [self.searchDisplay.searchResultsTableView reloadData];
+            
+            self.searchDisplay.searchResultsTableView.tableFooterView.hidden = YES;
+            self.isInRefresh = NO;
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"error: %@", [error description]);
+        }];
+    }
 }
 
 - (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {

@@ -46,6 +46,8 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
 
+@property (nonatomic, strong) NSString *searchTerm;
+
 @end
 
 @implementation MainViewController
@@ -93,6 +95,8 @@ typedef enum {
     [self.customNavBar addGestureRecognizer:navBarPanGestureRecognizer];
     
     self.customNavBar.userInteractionEnabled = YES;
+    
+    self.searchTerm = @"Restaurants";
 }
 
 #pragma mark - onTap methods
@@ -284,6 +288,7 @@ typedef enum {
     rdvc.modalPresentationStyle = UIModalPresentationCustom;
     rdvc.transitioningDelegate = self;
     rdvc.delegate = self;
+    rdvc.searchTerm = self.searchTerm;
     rdvc.view.frame = self.view.frame;
     [self.svc hideRestaurantName:YES];
     
@@ -295,7 +300,8 @@ typedef enum {
     
 }
 
-- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index {
+- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index searchTerm: (NSString*) searchTerm; {
+    self.searchTerm = searchTerm;
     [self.svc reloadDataForResult:restaurants atRestaurant:index];
 }
 

@@ -6,8 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SectionViewController">
             <connections>
-                <outlet property="pageControl" destination="g6U-lI-GmE" id="osL-9z-Gxt"/>
-                <outlet property="scrollView" destination="Qry-XG-kfM" id="4ZT-VP-ml9"/>
+                <outlet property="pageControl" destination="g6U-lI-GmE" id="Es2-5y-bl8"/>
+                <outlet property="scrollView" destination="Qry-XG-kfM" id="5P6-cK-eo1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,7 +18,7 @@
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qry-XG-kfM">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </scrollView>
                 <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="g6U-lI-GmE">
                     <rect key="frame" x="100" y="234" width="120" height="100"/>
@@ -27,7 +27,7 @@
                     </constraints>
                 </pageControl>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Qry-XG-kfM" firstAttribute="centerY" secondItem="g6U-lI-GmE" secondAttribute="centerY" id="6VS-9n-RmY"/>
                 <constraint firstItem="g6U-lI-GmE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="100" id="8Wy-u3-1Wm"/>
@@ -37,7 +37,6 @@
                 <constraint firstItem="Qry-XG-kfM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qd1-ND-KrY"/>
                 <constraint firstAttribute="trailing" secondItem="Qry-XG-kfM" secondAttribute="trailing" id="s9p-HB-QUS"/>
             </constraints>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="433" y="386"/>
         </view>
     </objects>
