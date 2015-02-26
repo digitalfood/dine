@@ -61,6 +61,7 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
 - (void)setFrame:(CGRect)frame preLayout:(BOOL)preLayout {
     self.dishWidth = frame.size.height * DISHVIEW_ASPECTRATIO;
     self.view.frame = frame;
+    
     if (preLayout) {
         [self.view layoutIfNeeded];
     }
@@ -79,10 +80,17 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
         CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
         subview.frame = dishFrame;
         if (subview.class == [DishView class]) {
+            if (dishFrame.size.height == 568.0) {
+                subview.dishComments.textColor = [UIColor darkGrayColor];
+            } else {
+                subview.dishComments.textColor = [UIColor clearColor];
+            }
+            
             subview.contentView.frame = CGRectMake(0, 0, self.dishWidth, dishFrame.size.height);
             [subview updateUI];
             [subview layoutIfNeeded];
         }
+        
         i++;
     }
     self.scrollView.contentSize = CGSizeMake(self.dishWidth * self.dishes.count, self.view.frame.size.height);
