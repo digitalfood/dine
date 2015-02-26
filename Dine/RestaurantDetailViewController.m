@@ -12,7 +12,14 @@
 @interface RestaurantDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *restaurantImageView;
+@property (weak, nonatomic) IBOutlet UILabel *restName;
+@property (weak, nonatomic) IBOutlet UIImageView *restRatings;
+@property (weak, nonatomic) IBOutlet UILabel *restDistance;
+@property (weak, nonatomic) IBOutlet UILabel *restAddr;
+@property (weak, nonatomic) IBOutlet UILabel *restCate;
+@property (weak, nonatomic) IBOutlet UIView *detailShadow;
 
+@property (weak, nonatomic) IBOutlet UIView *detailView;
 @end
 
 @implementation RestaurantDetailViewController
@@ -27,6 +34,15 @@
 
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [self.view addGestureRecognizer:tapGestureRecognizer];
+    
+    UIPanGestureRecognizer *panDetailGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onDetailPan:)];
+    [self.detailView addGestureRecognizer:panDetailGestureRecognizer];
+    
+    self.restName.text = self.restaurant.name;
+    [self.restRatings setImageWithURL:[NSURL URLWithString:self.restaurant.ratingImageUrl]];
+    self.restDistance.text = [NSString stringWithFormat:@"%.2f mi", self.restaurant.distance];
+    self.restAddr.text = self.restaurant.address;
+    self.restCate.text = self.restaurant.categories;
 
     self.view.userInteractionEnabled = YES;
     
@@ -58,6 +74,40 @@
 
 - (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onDetailPan:(UIPanGestureRecognizer *)sender {
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint velocity = [sender velocityInView:self.view];
+        
+        if (velocity.y > 0) {
+            [UIView animateWithDuration:0.5 animations:^{
+                CGFloat screenSize = self.view.frame.size.height - 35;
+                
+                CGRect frame = self.detailView.frame;
+                frame.origin.y = screenSize;
+                self.detailView.frame = frame;
+                
+                CGRect sframe = self.detailShadow.frame;
+                sframe.origin.y = screenSize;
+                self.detailShadow.frame = sframe;
+            }];
+        } else if (velocity.y < 0) {
+            [UIView animateWithDuration:0.5 animations:^{
+               
+                CGRect frame = self.detailView.frame;
+                frame.origin.y = 467;
+                self.detailView.frame = frame;
+                
+                CGRect sframe = self.detailShadow.frame;
+                sframe.origin.y = 467;
+                self.detailShadow.frame = sframe;
+                
+            }];
+        }
+    }
+
 }
 
 @end

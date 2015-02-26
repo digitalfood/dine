@@ -13,6 +13,7 @@
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) CAGradientLayer *gradientView;
 
 @end
 
@@ -28,10 +29,16 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.tableView.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor purpleColor] CGColor], (id)[[UIColor blueColor] CGColor], nil];
-    [self.tableView.layer insertSublayer:gradient atIndex:0];
+    self.gradientView = [CAGradientLayer layer];
+    self.gradientView.frame = self.tableView.frame;
+    self.gradientView.colors = [NSArray arrayWithObjects:(id)[[UIColor purpleColor] CGColor], (id)[[UIColor blueColor] CGColor], nil];
+    self.tableView.autoresizesSubviews = YES;
+    [self.tableView.layer insertSublayer:self.gradientView atIndex:0];
+}
+
+- (void) viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.gradientView.frame = self.tableView.frame;
 }
 
 - (void)didReceiveMemoryWarning {

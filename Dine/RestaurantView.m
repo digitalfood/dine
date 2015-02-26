@@ -76,6 +76,9 @@
     self.nameLabel.text = self.restaurant.name;
     self.nameLabel.textColor = [UIColor whiteColor];
     self.nameLabel.numberOfLines = 2;
+    CGRect nameFrame = self.nameLabel.frame;
+    nameFrame.origin.y = 35;
+    self.nameLabel.frame = nameFrame;
 
     [self addSubview:self.nameLabel];
 }

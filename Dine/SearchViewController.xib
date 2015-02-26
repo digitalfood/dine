@@ -20,7 +20,7 @@
             <subviews>
                 <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAy-VW-jl5">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <searchBar contentMode="redraw" placeholder="e.g. tacos, Max's" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-DF-afy">
                     <rect key="frame" x="0.0" y="50" width="414" height="44"/>
