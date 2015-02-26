@@ -114,7 +114,7 @@ float const DISHVIEW_ASPECTRATIO = 0.5625;
     self.scrollView.contentOffset = CGPointMake(0, 0);
     int i = 0;
     for(DishView *subview in [self.scrollView subviews]) {
-        [UIView animateWithDuration:0.4 delay:0.05 * i usingSpringWithDamping:0.9 initialSpringVelocity:0 options:0 animations:^{
+        [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:0 animations:^{
             CGFloat xOrigin = i * (self.dishWidth + 1);
             CGRect dishFrame = CGRectMake(xOrigin, 0, self.dishWidth, self.view.frame.size.height);
             subview.frame = dishFrame;
