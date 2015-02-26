@@ -15,6 +15,7 @@
     
     if (self) {
         self.name = [object objectForKey:@"name"];
+        self.comments = [object objectForKey:@"comments"];
         self.image = [object objectForKey:@"thumbnail"];
         self.ratings = [object objectForKey:@"ratings"];
     }
@@ -26,6 +27,7 @@
 
     if (self) {
         self.name = dictionary[@"name"];
+        self.comments = dictionary[@"comments"];
         self.image = dictionary[@"thumbnail"];
         self.ratings = dictionary[@"ratings"];
     }
