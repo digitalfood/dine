@@ -13,7 +13,7 @@
 
 @protocol SearchViewControllerDelegate <NSObject>
 
-- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index;
+- (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index searchTerm: (NSString*) searchTerm;
 - (void) searchViewController:(SearchViewController *) searchViewController hideText:(BOOL)hide;
 
 @end
@@ -22,5 +22,6 @@
 
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, weak) id<SearchViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSString *searchTerm;
 
 @end

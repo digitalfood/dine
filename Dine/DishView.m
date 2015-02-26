@@ -79,6 +79,7 @@
     _dish = dish;
     
     self.dishName.text = self.dish.name;
+    self.dishComments.text = self.dish.comments;
     
     [self.dish.image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
         if (!error) {
@@ -107,6 +108,9 @@
                 break;
         }
     }
+    
+    self.layer.cornerRadius = 3.0;
+    [self setClipsToBounds:YES];
     
     self.dishImage.layer.cornerRadius = 3.0;
     [self.dishImage setClipsToBounds:YES];
