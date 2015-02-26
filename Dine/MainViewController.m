@@ -120,7 +120,10 @@ typedef enum {
 }
 
 - (void)createFood:(PFObject *)food {
-    
+    NSMutableArray *foods = [NSMutableArray arrayWithArray:self.lvc.dishes];
+    [foods insertObject:[Dish dishWithPFObject:food] atIndex:0];
+    self.lvc.reverseSliding = YES;
+    [self.lvc setDishes:foods];
 }
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
