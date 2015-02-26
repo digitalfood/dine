@@ -33,6 +33,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    
+    self.view.backgroundColor = [UIColor clearColor];
+//    self.view.opaque = NO;
+    
     self.client = [YelpClient sharedInstance];
     self.locationManager = [LocationManager sharedInstance];
     self.locationManager.delegate = self;

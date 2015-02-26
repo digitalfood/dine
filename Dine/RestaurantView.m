@@ -43,6 +43,9 @@
 - (void)setRestaurant:(Restaurant *)restaurant {
     _restaurant = restaurant;
 
+    self.backgroundColor = [UIColor clearColor];
+    self.opaque = NO;
+    
     // set-up image
     self.restaurantImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, [[UIScreen mainScreen] bounds].size.height)];
     self.restaurantImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -58,11 +61,21 @@
         } completion:nil];
     } failure:nil];
 
+
     // add overlay to darken the image
     UIView *overlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     overlay.backgroundColor = [UIColor blackColor];
     overlay.alpha = .3;
+    
     [self addSubview:overlay];
+    
+    // add gradient to the bottom of the image
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, self.frame.size.width, self.restaurantImageView.frame.size.height/1.5);
+    gradient.colors = @[(id)[UIColor clearColor].CGColor, (id)[UIColor blackColor].CGColor, (id)[UIColor blackColor].CGColor, (id)[UIColor clearColor].CGColor];
+    gradient.locations = @[@0.00, @0.00, @0.5, @0.98];
+    self.restaurantImageView.layer.mask = gradient;
+    
     
     // add restaurant name
     UIFont *font = [UIFont systemFontOfSize:25];
