@@ -239,7 +239,9 @@ typedef enum {
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     self.isPresenting = NO;
-    [self.customNavBar setAlpha:1];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.customNavBar setAlpha: 1];
+    }];
     return self;
 }
 
@@ -275,10 +277,10 @@ typedef enum {
     checkoutVC.transitioningDelegate = self;
     checkoutVC.delegate = self;
     [self.svc hideRestaurantName:YES];
-    
-    [self presentViewController:checkoutVC animated:YES completion:^{
+    [UIView animateWithDuration:0.5 animations:^{
         [self.customNavBar setAlpha: 0];
     }];
+    [self presentViewController:checkoutVC animated:YES completion:nil];
 }
 
 - (void) checkoutViewController:(SearchViewController *) checkoutViewController hideText:(BOOL)hide {
@@ -298,9 +300,11 @@ typedef enum {
     rdvc.view.frame = self.view.frame;
     [self.svc hideRestaurantName:YES];
     
-    [self presentViewController:rdvc animated:YES completion:^{
+    [UIView animateWithDuration:0.5 animations:^{
         [self.customNavBar setAlpha: 0];
     }];
+    
+    [self presentViewController:rdvc animated:YES completion:nil];
     
 }
 

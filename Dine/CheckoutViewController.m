@@ -9,7 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CheckoutViewController.h"
 #import "CheckSplitViewController.h"
-#import "TipSettingsViewController.h"
 
 @interface CheckoutViewController () <UITextFieldDelegate>
 
@@ -100,8 +99,7 @@
 
 
 - (IBAction)onTipValueBtn:(id)sender {
-    TipSettingsViewController *tipSettingsVC = [[TipSettingsViewController alloc] init];
-    [self presentViewController:tipSettingsVC animated:YES completion:nil];
+// TODO: Tip settings
 }
 
 

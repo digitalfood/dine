@@ -188,16 +188,17 @@
             center = CGPointMake(self.initialCenter.x, self.initialCenter.y);
         }
         
-        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:5 options:0 animations:^{
-            self.view.center = center;
-        } completion:^(BOOL finished) {
             if (velocity.y > 0){
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.delegate searchViewController:self hideText:NO];
             }else{
-                [self.delegate searchViewController:self hideText:YES];
+                
+                [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:5 options:0 animations:^{
+                    self.view.center = center;
+                } completion:^(BOOL finished) {
+                    [self.delegate searchViewController:self hideText:YES];
+                }];
             }
-        }];
         
         
     }

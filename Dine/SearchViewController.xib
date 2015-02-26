@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController">
@@ -20,11 +20,11 @@
             <subviews>
                 <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAy-VW-jl5">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <searchBar contentMode="redraw" placeholder="e.g. tacos, Max's" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-DF-afy">
+                <searchBar contentMode="redraw" barStyle="black" placeholder="e.g. tacos, Max's" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-DF-afy">
                     <rect key="frame" x="0.0" y="50" width="414" height="44"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.047058828175067902" green="0.023529414087533951" blue="0.0078431377187371254" alpha="1" colorSpace="deviceRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="414" id="I1q-LU-Xku"/>
                         <constraint firstAttribute="height" constant="44" id="Pte-XX-aux"/>
@@ -35,14 +35,13 @@
                     </connections>
                 </searchBar>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEARCH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGA-zi-8pa">
-                    <rect key="frame" x="113.5" y="7" width="188.5" height="50"/>
+                    <rect key="frame" x="113" y="8" width="188.5" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="BWt-QH-8jr"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="45"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.12941176470588237" green="0.12941176470588237" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
             </subviews>
@@ -50,7 +49,7 @@
                 <constraint firstItem="wSf-DF-afy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="589-Gy-r5f"/>
                 <constraint firstItem="wSf-DF-afy" firstAttribute="top" secondItem="sAy-VW-jl5" secondAttribute="bottom" id="5Yi-FL-LXp"/>
                 <constraint firstAttribute="centerX" secondItem="KGA-zi-8pa" secondAttribute="centerX" id="6gV-XB-RMH"/>
-                <constraint firstItem="KGA-zi-8pa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="7" id="GnK-fU-4zK"/>
+                <constraint firstItem="KGA-zi-8pa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="GnK-fU-4zK"/>
                 <constraint firstItem="wSf-DF-afy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="IBx-uh-cnj"/>
                 <constraint firstAttribute="trailing" secondItem="sAy-VW-jl5" secondAttribute="trailing" id="KCd-Dq-seR"/>
                 <constraint firstAttribute="trailing" secondItem="wSf-DF-afy" secondAttribute="trailing" id="M6R-zA-uRh"/>
