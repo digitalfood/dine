@@ -50,21 +50,24 @@
     [self.mapView addAnnotation:self.restaurant];
 }
 
-#pragma mark - Map view methods
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    static NSString *identifier = @"Restaurant";
-        
-    MKAnnotationView *annotationView = (MKAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-    if (annotationView == nil) {
-        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-        annotationView.enabled = YES;
-        annotationView.canShowCallout = YES;
-        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    } else {
-        annotationView.annotation = annotation;
+#pragma mark - MKMapViewDelegate methods
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    MKAnnotationView *annotationView;
+    for (annotationView in views) {
+        if ([annotationView.annotation isKindOfClass:[MKUserLocation class]]) {
+            annotationView.canShowCallout = NO;
+        } else {
+            annotationView.canShowCallout = YES;
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        }
     }
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    Restaurant *restaurant = (Restaurant*) view.annotation;
     
-    return annotationView;
+    NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
+    [restaurant.mapItem openInMapsWithLaunchOptions:launchOptions];
 }
 
 #pragma mark - Private methods
