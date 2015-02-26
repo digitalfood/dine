@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		10D7591BC3D12C450D79863B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E261B084513E7BE803EFDF /* libPods.a */; };
+		5979096D1A9F194300E7BEC3 /* quote.png in Resources */ = {isa = PBXBuildFile; fileRef = 5979096C1A9F194300E7BEC3 /* quote.png */; };
 		597F6BF01A9A5F330079C584 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BEE1A9A5F330079C584 /* SearchViewController.m */; };
 		597F6BF11A9A5F330079C584 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 597F6BEF1A9A5F330079C584 /* SearchViewController.xib */; };
 		597F6BF51A9A6AF30079C584 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BF31A9A6AF30079C584 /* SearchCell.m */; };
@@ -92,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5979096C1A9F194300E7BEC3 /* quote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quote.png; sourceTree = "<group>"; };
 		597F6BED1A9A5F330079C584 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		597F6BEE1A9A5F330079C584 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		597F6BEF1A9A5F330079C584 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				6718723A1A9EB89000B98325 /* magnify.png */,
 				671872361A9EB76400B98325 /* dollar.png */,
 				D68842391A9B133C0053D1F1 /* address.png */,
+				5979096C1A9F194300E7BEC3 /* quote.png */,
 				A5658EF61A9AA41C002DBE45 /* logout.png */,
 				A5D1926D1A99895D00380766 /* camera.png */,
 				675F53BA1A9969B000101FE4 /* tea.gif */,
@@ -553,6 +556,7 @@
 				D688423A1A9B133C0053D1F1 /* address.png in Resources */,
 				671872541A9EF4A100B98325 /* Icon-Small@3x.png in Resources */,
 				A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */,
+				5979096D1A9F194300E7BEC3 /* quote.png in Resources */,
 				A5D1926E1A99895D00380766 /* camera.png in Resources */,
 				671872381A9EB76400B98325 /* dollar.png in Resources */,
 				A5658EF51A9A7C07002DBE45 /* SettingCell.xib in Resources */,
