@@ -24,6 +24,9 @@ float const METERS_PER_MILE = 1609.344;
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) LocationManager *locationManager;
 
+@property (nonatomic, assign) BOOL isInRefresh;
+@property (nonatomic, strong) NSNumber *offset;
+
 @end
 
 @implementation SectionViewController
@@ -60,6 +63,11 @@ float const METERS_PER_MILE = 1609.344;
         self.pageControl = [[UIPageControl alloc] init];
     }
     self.pageControl.hidden = YES;
+    
+    self.isInRefresh = NO;
+    self.offset = 0;
+    
+    self.restaurants = [NSMutableArray array];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -83,6 +91,17 @@ float const METERS_PER_MILE = 1609.344;
         [self.delegate swipeToRestaurant:self.restaurants[page] rtl:(self.pageControl.currentPage < page)];
     }
     self.pageControl.currentPage = page;
+    
+    if (self.pageControl.currentPage == self.restaurants.count - 1 && !self.isInRefresh) {
+        
+        self.isInRefresh = YES;
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        self.offset = [NSNumber numberWithLong:self.restaurants.count];
+        [params setValue:self.offset forKey:@"offset"];
+        [self fetchBusinessWithTerm:self.searchTerm params:params];
+        
+    }
+    
 }
 
 #pragma mark - Restaurant View Delegate methods
@@ -105,36 +124,44 @@ float const METERS_PER_MILE = 1609.344;
 #pragma mark - private methods
 
 - (void)reloadData {
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [self fetchBusinessWithTerm:self.searchTerm params:nil];
+}
+
+- (void)fetchBusinessWithTerm:(NSString *)term params:(NSMutableDictionary *)params {
+    if(term == nil){
+        term = @"Restaurants";
+    }
+    
+    if(params == nil){
+        params = [NSMutableDictionary dictionary];
+    }
+    
     if (self.location != nil) {
+        
         NSString *currentLocation = [NSString stringWithFormat:@"%+.6f,%+.6f",self.location.coordinate.latitude, self.location.coordinate.longitude];
         [params setObject:currentLocation forKey:@"ll"];
-    
-        [self.client searchWithTerm:@"Restaurants" params:params success:^(AFHTTPRequestOperation *operation, id response) {
+        
+        [self.client searchWithTerm:term params:params success:^(AFHTTPRequestOperation *operation, id response) {
             NSArray *restaurantsDictionary = response[@"businesses"];
             NSArray *restaurants = [Restaurant restaurantsWithDictionaries:restaurantsDictionary];
-            self.restaurants = [NSMutableArray arrayWithArray:restaurants];
-            [self updateUI: 0];
-
+            [self.restaurants addObjectsFromArray:restaurants];
+            self.isInRefresh = NO;
+            [self updateUI: self.pageControl.currentPage];
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error: %@", [error description]);
-            [self reloadData];
         }];
     }
 }
 
 - (void)updateUI: (NSInteger) currentPage {
-    // remove existing restua from
-    for(UIView *subview in [self.scrollView subviews]) {
-        [subview removeFromSuperview];
-    }
     
     NSInteger numberOfViews = self.restaurants.count;
     
     self.pageControl.numberOfPages = numberOfViews;
     self.pageControl.currentPage = currentPage;
     
-    for (int i = 0; i < numberOfViews; i++) {
+    for (int i = (int)currentPage; i < numberOfViews; i++) {
         CGFloat xOrigin = i * self.sectionWidth;
         RestaurantView *restaurantView = [[RestaurantView alloc] init];
         restaurantView.delegate = self;
@@ -149,6 +176,12 @@ float const METERS_PER_MILE = 1609.344;
 
 - (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index {
     self.restaurants = restaurants;
+    
+    // remove existing restua from
+    for(UIView *subview in [self.scrollView subviews]) {
+        [subview removeFromSuperview];
+    }
+    
     [self updateUI: index];
     
 }
