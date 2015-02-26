@@ -32,7 +32,7 @@
     
     self.gradientView = [CAGradientLayer layer];
     self.gradientView.frame = self.tableView.frame;
-    self.gradientView.colors = [NSArray arrayWithObjects:(id)[[UIColor alloc] initWithRed:77/255.0 green:0/255.0 blue:77/255.0 alpha:1].CGColor, (id)[[UIColor blackColor] CGColor], nil];
+    self.gradientView.colors = [NSArray arrayWithObjects:(id)[[UIColor alloc] initWithRed:0/255.0 green:0/255.0 blue:77/255.0 alpha:1].CGColor, (id)[[UIColor blackColor] CGColor], nil];
     self.tableView.autoresizesSubviews = YES;
     [self.tableView.layer insertSublayer:self.gradientView atIndex:0];
 }

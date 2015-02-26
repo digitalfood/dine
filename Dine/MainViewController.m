@@ -68,6 +68,7 @@ typedef enum {
     [super viewDidLoad];
     
     self.settingsViewController = [[SettingsViewController alloc] init];
+    self.settingsViewController.view.alpha = 0;
     [self.view addSubview:self.settingsViewController.view];
 
     self.svc = [[SectionViewController alloc] init];
@@ -392,7 +393,9 @@ typedef enum {
 }
 
 - (void)openMenu {
+    self.settingsViewController.view.alpha = 0;
     [UIView animateWithDuration:0.5 animations:^{
+        self.settingsViewController.view.alpha = 1;
         CGFloat screenSize = self.view.frame.size.height - 40;
 
         CGRect frame = self.svc.view.frame;
@@ -413,7 +416,9 @@ typedef enum {
 }
 
 - (void)closeMenu {
+    self.settingsViewController.view.alpha = 1;
     [UIView animateWithDuration:0.5 animations:^{
+        self.settingsViewController.view.alpha = 0;
         CGRect frame = self.svc.view.frame;
         frame.origin.y = 0;
         self.svc.view.frame = frame;
