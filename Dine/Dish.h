@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *ratings;
 
++ (Dish *)dishWithPFObject:(PFObject *)object;
 + (NSMutableArray *)dishWithDictionaries:(NSArray *)dictionaries;
 
 @end

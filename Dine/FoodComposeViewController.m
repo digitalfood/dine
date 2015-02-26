@@ -72,8 +72,8 @@
     
     [food saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [self.delegate createFood:food];
-        [self dismissViewControllerAnimated:YES completion:nil];
     }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSNumber*) getRatings {

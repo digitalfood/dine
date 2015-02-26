@@ -37,8 +37,7 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
     if (currentUser) {
         [self signedIn];
     } else {
-        [self signedIn];
-//        [self notSignedIn];
+        [self notSignedIn];
     }
     
     [self.window makeKeyAndVisible];
@@ -111,7 +110,7 @@ NSString *kClientKey = @"iJbIfAr9JJ8Td5JOkZw8zTTlh9UlF7cwHdxt0x5g";
     [logInController.view addSubview:overlay];
     
     // bring facebook login button to front
-    [logInController.logInView addSubview:logInController.logInView.facebookButton];
+    [logInController.logInView bringSubviewToFront:logInController.logInView.facebookButton];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = logInController;

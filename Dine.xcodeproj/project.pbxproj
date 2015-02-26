@@ -13,6 +13,8 @@
 		597F6BF51A9A6AF30079C584 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BF31A9A6AF30079C584 /* SearchCell.m */; };
 		597F6BF61A9A6AF30079C584 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 597F6BF41A9A6AF30079C584 /* SearchCell.xib */; };
 		597F6BFA1A9A96880079C584 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F6BF91A9A96880079C584 /* LocationManager.m */; };
+		671872381A9EB76400B98325 /* dollar.png in Resources */ = {isa = PBXBuildFile; fileRef = 671872361A9EB76400B98325 /* dollar.png */; };
+		6718723B1A9EB89000B98325 /* magnify.png in Resources */ = {isa = PBXBuildFile; fileRef = 6718723A1A9EB89000B98325 /* magnify.png */; };
 		673A8C531A9964F900A21F8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A8C521A9964F900A21F8A /* main.m */; };
 		673A8C561A9964F900A21F8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A8C551A9964F900A21F8A /* AppDelegate.m */; };
 		673A8C5E1A9964F900A21F8A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 673A8C5D1A9964F900A21F8A /* Images.xcassets */; };
@@ -66,7 +68,6 @@
 		D6629A521A9ACF23009A4E0D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A501A9ACF23009A4E0D /* AddressBook.framework */; };
 		D6629A531A9ACF23009A4E0D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */; };
 		D688423A1A9B133C0053D1F1 /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = D68842391A9B133C0053D1F1 /* address.png */; };
-		D688423F1A9B18DC0053D1F1 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = D688423E1A9B18DC0053D1F1 /* check.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		597F6BF41A9A6AF30079C584 /* SearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		597F6BF81A9A96880079C584 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		597F6BF91A9A96880079C584 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		671872361A9EB76400B98325 /* dollar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dollar.png; sourceTree = "<group>"; };
+		6718723A1A9EB89000B98325 /* magnify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magnify.png; sourceTree = "<group>"; };
 		673A8C4D1A9964F900A21F8A /* Dine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		673A8C511A9964F900A21F8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		673A8C521A9964F900A21F8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -164,7 +167,6 @@
 		D6629A501A9ACF23009A4E0D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D6629A511A9ACF23009A4E0D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		D68842391A9B133C0053D1F1 /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
-		D688423E1A9B18DC0053D1F1 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		EF324F7A546329AFC767EA7E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -279,7 +281,8 @@
 		675F53B31A99696B00101FE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D688423E1A9B18DC0053D1F1 /* check.png */,
+				6718723A1A9EB89000B98325 /* magnify.png */,
+				671872361A9EB76400B98325 /* dollar.png */,
 				D68842391A9B133C0053D1F1 /* address.png */,
 				A5658EF61A9AA41C002DBE45 /* logout.png */,
 				A5D1926D1A99895D00380766 /* camera.png */,
@@ -485,7 +488,6 @@
 				597F6BF61A9A6AF30079C584 /* SearchCell.xib in Resources */,
 				673A8C611A9964F900A21F8A /* LaunchScreen.xib in Resources */,
 				675F53C01A99722F00101FE4 /* ListViewController.xib in Resources */,
-				D688423F1A9B18DC0053D1F1 /* check.png in Resources */,
 				D6629A4A1A9A8589009A4E0D /* CheckSplitViewController.xib in Resources */,
 				597F6BF11A9A5F330079C584 /* SearchViewController.xib in Resources */,
 				673A8C5E1A9964F900A21F8A /* Images.xcassets in Resources */,
@@ -501,8 +503,10 @@
 				D688423A1A9B133C0053D1F1 /* address.png in Resources */,
 				A5D192731A998C6400380766 /* FoodComposeViewController.xib in Resources */,
 				A5D1926E1A99895D00380766 /* camera.png in Resources */,
+				671872381A9EB76400B98325 /* dollar.png in Resources */,
 				A5658EF51A9A7C07002DBE45 /* SettingCell.xib in Resources */,
 				675F53B91A99698400101FE4 /* redStar.png in Resources */,
+				6718723B1A9EB89000B98325 /* magnify.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

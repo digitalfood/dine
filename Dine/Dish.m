@@ -10,6 +10,17 @@
 
 @implementation Dish
 
+- (id)initWithPFObject:(PFObject *)object {
+    self = [super init];
+    
+    if (self) {
+        self.name = [object objectForKey:@"name"];
+        self.image = [object objectForKey:@"thumbnail"];
+        self.ratings = [object objectForKey:@"ratings"];
+    }
+    return self;
+}
+
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
 
@@ -19,6 +30,11 @@
         self.ratings = dictionary[@"ratings"];
     }
     return self;
+}
+
++ (Dish *)dishWithPFObject:(PFObject *)object {
+    Dish *dish = [[Dish alloc] initWithPFObject:object];
+    return dish;
 }
 
 + (NSMutableArray *)dishWithDictionaries:(NSArray *)dictionaries {

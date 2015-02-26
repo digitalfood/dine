@@ -46,13 +46,12 @@ float const LIST_VIEW_EXPAND_BUFFER = 10;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) int animationType;
 
-
-
 @end
 
 @implementation MainViewController
 
 typedef enum {
+    ANIMATION_TYPE_FADEIN,
     ANIMATION_TYPE_BUBBLE,
     ANIMATION_TYPE_DOWNWARDEXPAND,
     AMIATION_TYPE_FROMBELOW
@@ -76,7 +75,7 @@ typedef enum {
     
     self.lvc = [[ListViewController alloc] init];
     self.lvc.delegate = self;
-    [self.lvc setFrame:self.listView.frame];
+    [self.lvc setFrame:self.listView.frame preLayout:NO];
     [self.view addSubview:self.lvc.view];
 
     [self.view bringSubviewToFront: self.customNavBar ];
@@ -121,7 +120,10 @@ typedef enum {
 }
 
 - (void)createFood:(PFObject *)food {
-    
+    NSMutableArray *foods = [NSMutableArray arrayWithArray:self.lvc.dishes];
+    [foods insertObject:[Dish dishWithPFObject:food] atIndex:0];
+    self.lvc.reverseSliding = YES;
+    [self.lvc setDishes:foods];
 }
 
 - (void)tapOnRestaurant:(Restaurant *)restaurant withGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
@@ -150,7 +152,6 @@ typedef enum {
 - (void)panOnDish:(int)page withRecognier:(UIPanGestureRecognizer *)panGestureRecognizer {
     CGPoint translation = [panGestureRecognizer translationInView:self.view];
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        // x-compliment to simulate scaling up while the horizontal center being the initial location of the gesture
         self.touchLocationX = [panGestureRecognizer locationInView:self.view].x;
         self.originalXY = CGPointMake(self.lvc.scrollView.contentOffset.x, self.listViewYOffset.constant);
         self.originalHeight = self.lvc.scrollView.frame.size.height;
@@ -164,9 +165,9 @@ typedef enum {
         if (deltaY <= 0) {
             self.listViewYOffset.constant = deltaY;
         }
-        [self.lvc setFrame:self.listView.frame];
+        [self.lvc setFrame:self.listView.frame preLayout:NO];
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        if (translation.y < 0) {
+        if ([panGestureRecognizer velocityInView:self.view].y < 0) {
             [self expandListViewToPage:page];
         } else {
             [self collapseListView];
@@ -175,40 +176,29 @@ typedef enum {
 }
 
 - (void)expandListViewToPage:(int)page {
-    if (self.lvc.expaned) {
-        return;
-    }
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    self.lvc.scrollView.pagingEnabled = YES;
+    self.lvc.expaned = YES;
+    self.listViewYOffset.constant = - self.sectionView.frame.size.height;
+    self.lvc.pageControl.currentPage = page;
+    [self.view layoutIfNeeded];
     [UIView animateWithDuration:0.5 animations:^{
-        CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
         self.lvc.scrollView.contentOffset = CGPointMake(page * screenWidth, 0);
-        self.listViewYOffset.constant = - self.sectionView.frame.size.height;
-        [self.view layoutIfNeeded];
-        [self.lvc setFrame:self.listView.frame];
-        
-        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * screenWidth, screenHeight);
-        self.lvc.scrollView.pagingEnabled = YES;
-        
-        self.lvc.pageControl.currentPage = page;
-        self.lvc.expaned = YES;
+        [self.lvc setFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) preLayout:NO];
     }];
 }
 
 - (void)collapseListView {
-    if (!self.lvc.expaned) {
-        return;
-    }
+    self.lvc.scrollView.pagingEnabled = NO;
+    self.lvc.expaned = NO;
+    self.listViewYOffset.constant = 0;
+    [self.view layoutIfNeeded];
+    CGFloat sectionHeight = self.listView.frame.size.height;
+    CGFloat scale = sectionHeight / [[UIScreen mainScreen] bounds].size.height;
+    
     [UIView animateWithDuration:0.5 animations:^{
-        CGFloat sectionWidth = self.lvc.view.frame.size.height * DISHVIEW_ASPECTRATIO;
-        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
-//        self.lvc.scrollView.contentOffset = CGPointMake(0, 0);
-        self.listViewYOffset.constant = 0;
-        [self.view layoutIfNeeded];
-        [self.lvc setFrame:self.listView.frame];
-        
-        self.lvc.scrollView.contentSize = CGSizeMake(self.lvc.dishes.count * sectionWidth, screenHeight);
-        self.lvc.scrollView.pagingEnabled = NO;
-        self.lvc.expaned = NO;
+        self.lvc.scrollView.contentOffset = CGPointMake(self.lvc.scrollView.contentOffset.x * scale, 0);
+        [self.lvc setFrame:self.listView.frame preLayout:YES];
     }];
 }
 
@@ -225,9 +215,8 @@ typedef enum {
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if ([presented isKindOfClass:[RestaurantDetailViewController class]]) {
-        self.animationType = ANIMATION_TYPE_DOWNWARDEXPAND;
-    }
-    if([presented isKindOfClass:[SearchViewController class]]) {
+        self.animationType = ANIMATION_TYPE_FADEIN;
+    } else if([presented isKindOfClass:[SearchViewController class]]) {
         self.animationType = ANIMATION_TYPE_BUBBLE;
     } else {
         self.animationType = AMIATION_TYPE_FROMBELOW;
@@ -250,6 +239,9 @@ typedef enum {
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     switch (self.animationType) {
+        case ANIMATION_TYPE_FADEIN:
+            [self tansitionFadeInContext:transitionContext];
+            break;
         case ANIMATION_TYPE_DOWNWARDEXPAND:
             [self tansitionInDownwardExpandForContext:transitionContext];
             break;
@@ -429,6 +421,32 @@ typedef enum {
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             fromViewController.view.alpha = 0;
             fromViewController.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [fromViewController.view removeFromSuperview];
+        }];
+    }
+}
+
+- (void)tansitionFadeInContext:(id <UIViewControllerContextTransitioning>)transitionContext {
+    
+    UIView *containerView = [transitionContext containerView];
+    
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    
+    if (self.isPresenting) {
+        [containerView addSubview:toViewController.view];
+        toViewController.view.alpha = 0;
+        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            toViewController.view.alpha = 1;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    } else {
+        fromViewController.view.alpha = 1;
+        [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            fromViewController.view.alpha = 0;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
             [fromViewController.view removeFromSuperview];
