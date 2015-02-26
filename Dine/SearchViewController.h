@@ -14,6 +14,7 @@
 @protocol SearchViewControllerDelegate <NSObject>
 
 - (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index;
+- (void) searchViewController:(SearchViewController *) searchViewController hideText:(BOOL)hide;
 
 @end
 

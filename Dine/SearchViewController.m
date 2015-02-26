@@ -137,6 +137,11 @@
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         
+        if(translation.y > 40){
+            [self.delegate searchViewController:self hideText:NO];
+        }else{
+            [self.delegate searchViewController:self hideText:YES];
+        }
         self.view.center = CGPointMake(self.initialCenter.x, self.initialCenter.y + translation.y);
         
     } else if ( panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -153,6 +158,9 @@
         } completion:^(BOOL finished) {
             if (velocity.y > 0){
                 [self dismissViewControllerAnimated:YES completion:nil];
+                [self.delegate searchViewController:self hideText:NO];
+            }else{
+                [self.delegate searchViewController:self hideText:YES];
             }
         }];
         

@@ -26,5 +26,6 @@
 
 - (void)setFrame:(CGRect)frame;
 - (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index;
+- (void) hideRestaurantName: (BOOL) hide;
 
 @end

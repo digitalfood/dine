@@ -148,4 +148,16 @@ float const METERS_PER_MILE = 1609.344;
     
 }
 
+- (void) hideRestaurantName: (BOOL) hide {
+    if(hide){
+        for(RestaurantView *subview in [self.scrollView subviews]) {
+            [subview hideName];
+        }
+    }else{
+        for(RestaurantView *subview in [self.scrollView subviews]) {
+            [subview showName];
+        }
+    }
+}
+
 @end

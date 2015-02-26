@@ -22,7 +22,7 @@
 float const ANIMATION_DURATION = 0.5;
 float const LIST_VIEW_EXPAND_BUFFER = 10;
 
-@interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate, SearchViewControllerDelegate, UIGestureRecognizerDelegate>
+@interface MainViewController () <SectionViewControllerDelegate, ListViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FoodComposeViewControllerDelegate, SearchViewControllerDelegate, UIGestureRecognizerDelegate, CheckoutViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *sectionView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
@@ -261,10 +261,18 @@ typedef enum {
     CheckoutViewController *checkoutVC = [[CheckoutViewController alloc] init];
     checkoutVC.modalPresentationStyle = UIModalPresentationCustom;
     checkoutVC.transitioningDelegate = self;
+    checkoutVC.delegate = self;
+    [self.svc hideRestaurantName:YES];
     
     [self presentViewController:checkoutVC animated:YES completion:^{
         [self.customNavBar setAlpha: 0];
     }];
+}
+
+- (void) checkoutViewController:(SearchViewController *) checkoutViewController hideText:(BOOL)hide {
+    
+    [self.svc hideRestaurantName:hide];
+    
 }
 
 #pragma mark - Add Food Item
@@ -275,7 +283,7 @@ typedef enum {
     rdvc.transitioningDelegate = self;
     rdvc.delegate = self;
     rdvc.view.frame = self.view.frame;
-    //[self presentViewController:rdvc animated:YES completion:nil];
+    [self.svc hideRestaurantName:YES];
     
     [self presentViewController:rdvc animated:YES completion:^{
         [self.customNavBar setAlpha: 0];
@@ -285,6 +293,12 @@ typedef enum {
 
 - (void) searchViewController:(SearchViewController *) searchViewController didSearchRestaurant:(NSMutableArray *)restaurants index:(NSInteger) index {
     [self.svc reloadDataForResult:restaurants atRestaurant:index];
+}
+
+- (void) searchViewController:(SearchViewController *) searchViewController hideText:(BOOL)hide {
+    
+    [self.svc hideRestaurantName:hide];
+    
 }
 
 - (IBAction)onCameraButton:(id)sender {

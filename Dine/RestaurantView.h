@@ -19,5 +19,7 @@
 
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, weak) id<RestaurantViewDelegate> delegate;
+- (void) hideName;
+- (void) showName;
 
 @end

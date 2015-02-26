@@ -95,4 +95,19 @@
     [self.delegate tapOnRestaurant:self.restaurant withGesture:tapGestureRecognizer];
 }
 
+- (void) hideName {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.nameLabel.alpha = 0;
+    }];
+    
+}
+
+- (void) showName {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.nameLabel.alpha = 1;
+    }];
+}
+
 @end
