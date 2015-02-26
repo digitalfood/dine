@@ -68,6 +68,10 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
 /*
 #pragma mark - Navigation
 
