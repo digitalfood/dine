@@ -10,7 +10,7 @@
                 <outlet property="cameraButton" destination="ZHK-iQ-qF0" id="KGV-7c-Kor"/>
                 <outlet property="customNavBar" destination="uyp-0l-59t" id="zxn-C7-7nT"/>
                 <outlet property="listView" destination="7fn-eI-FpI" id="vjy-js-ryE"/>
-                <outlet property="listViewYOffset" destination="q8J-CK-Fng" id="yK7-66-hNq"/>
+                <outlet property="listViewYOffset" destination="wgI-Rb-1dE" id="JLx-H1-wcl"/>
                 <outlet property="searchButton" destination="WYd-VJ-zMn" id="Utx-Qt-iQy"/>
                 <outlet property="sectionView" destination="bXK-oP-VqT" id="I76-Ao-y9N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -37,7 +37,7 @@
                                 <constraint firstAttribute="width" constant="24" id="LxE-x2-wZ8"/>
                                 <constraint firstAttribute="height" constant="24" id="mjb-Vk-wKy"/>
                             </constraints>
-                            <state key="normal" image="magnify.png">
+                            <state key="normal" image="search">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -63,7 +63,7 @@
                                 <constraint firstAttribute="height" constant="30" id="W3C-P9-aKU"/>
                                 <constraint firstAttribute="width" constant="30" id="hBi-sA-Cz6"/>
                             </constraints>
-                            <state key="normal" image="dollar.png">
+                            <state key="normal" image="check.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -90,23 +90,23 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="uyp-0l-59t" secondAttribute="trailing" id="36z-ku-KoS"/>
-                <constraint firstAttribute="trailing" secondItem="7fn-eI-FpI" secondAttribute="trailing" id="4ry-K4-ePy"/>
+                <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5HU-hZ-5I2"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OEZ-So-qp3"/>
-                <constraint firstAttribute="bottom" secondItem="7fn-eI-FpI" secondAttribute="bottom" id="aaL-aq-byf"/>
-                <constraint firstItem="7fn-eI-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eEa-gx-j7k"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hjW-eG-Fl5"/>
                 <constraint firstItem="bXK-oP-VqT" firstAttribute="top" secondItem="uyp-0l-59t" secondAttribute="top" id="nMU-Qd-nxf"/>
-                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="q8J-CK-Fng"/>
+                <constraint firstAttribute="trailing" secondItem="7fn-eI-FpI" secondAttribute="trailing" id="sLT-wM-Env"/>
                 <constraint firstAttribute="trailing" secondItem="bXK-oP-VqT" secondAttribute="trailing" id="tW8-eC-zcf"/>
                 <constraint firstItem="uyp-0l-59t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="v4e-Oe-XCo"/>
+                <constraint firstItem="7fn-eI-FpI" firstAttribute="top" secondItem="bXK-oP-VqT" secondAttribute="bottom" id="wgI-Rb-1dE"/>
+                <constraint firstAttribute="bottom" secondItem="7fn-eI-FpI" secondAttribute="bottom" id="zT6-Xs-rZo"/>
             </constraints>
             <point key="canvasLocation" x="431" y="278"/>
         </view>
     </objects>
     <resources>
         <image name="camera.png" width="80" height="80"/>
-        <image name="dollar.png" width="80" height="80"/>
-        <image name="magnify.png" width="80" height="80"/>
+        <image name="check.png" width="128" height="128"/>
+        <image name="search" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

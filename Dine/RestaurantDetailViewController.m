@@ -18,8 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *restAddr;
 @property (weak, nonatomic) IBOutlet UILabel *restCate;
 @property (weak, nonatomic) IBOutlet UIView *detailShadow;
-
 @property (weak, nonatomic) IBOutlet UIView *detailView;
+
 @end
 
 @implementation RestaurantDetailViewController
@@ -43,7 +43,7 @@
     self.restDistance.text = [NSString stringWithFormat:@"%.2f mi", self.restaurant.distance];
     self.restAddr.text = self.restaurant.address;
     self.restCate.text = self.restaurant.categories;
-
+    
     self.view.userInteractionEnabled = YES;
     
     [self updateUI];
@@ -97,11 +97,11 @@
             [UIView animateWithDuration:0.5 animations:^{
                
                 CGRect frame = self.detailView.frame;
-                frame.origin.y = 467;
+                frame.origin.y = self.view.frame.size.height - 101;
                 self.detailView.frame = frame;
                 
                 CGRect sframe = self.detailShadow.frame;
-                sframe.origin.y = 467;
+                sframe.origin.y = self.view.frame.size.height - 101;
                 self.detailShadow.frame = sframe;
                 
             }];
