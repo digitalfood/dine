@@ -18,6 +18,7 @@
         self.comments = [object objectForKey:@"comments"];
         self.image = [object objectForKey:@"thumbnail"];
         self.ratings = [object objectForKey:@"ratings"];
+        self.userName = [object objectForKey:@"fullname"];
     }
     return self;
 }
@@ -30,6 +31,7 @@
         self.comments = dictionary[@"comments"];
         self.image = dictionary[@"thumbnail"];
         self.ratings = dictionary[@"ratings"];
+        self.userName = dictionary[@"fullname"];
     }
     return self;
 }

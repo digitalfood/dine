@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dishName;
 @property (strong, nonatomic) IBOutlet UIImageView *dishImage;
 @property (nonatomic, strong) NSLayoutConstraint *constraintHeight;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
 
 @property (weak, nonatomic) IBOutlet UIImageView *star1;
 @property (weak, nonatomic) IBOutlet UIImageView *star2;
@@ -31,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *star5Width;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *star5Height;
 
-@property (weak, nonatomic) IBOutlet UIView *descBg;
 @end
 
 
@@ -79,6 +79,7 @@
     _dish = dish;
     
     self.dishName.text = self.dish.name;
+    self.userName.text = [NSString stringWithFormat:@"By %@", self.dish.userName];
     self.dishComments.text = self.dish.comments;
     
     [self.dish.image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
@@ -124,7 +125,9 @@
     
     if(self.contentView.frame.size.height > 400){
         [self.dishName setFont:[UIFont systemFontOfSize:24]];
-        
+        [self.userName setFont:[UIFont systemFontOfSize:20]];
+        [self.dishComments setFont:[UIFont systemFontOfSize:20]];
+    
         self.star1Width.constant = 24;
         self.star1Height.constant = 24;
         
@@ -139,11 +142,13 @@
         
         self.star5Width.constant = 24;
         self.star5Height.constant = 24;
-        alpha = 0.5;
+        alpha = 1;
         
     }else if(self.contentView.frame.size.height < 400){
         [self.dishName setFont:[UIFont systemFontOfSize:15]];
-        
+        [self.userName setFont:[UIFont systemFontOfSize:10]];
+        [self.dishComments setFont:[UIFont systemFontOfSize:10]];
+      
         self.star1Width.constant = 16;
         self.star1Height.constant = 16;
         
@@ -171,7 +176,7 @@
     [self.contentView layoutIfNeeded];
     
     [UIView animateWithDuration:0.8 animations:^{
-        self.descBg.alpha = alpha;
+        self.dishComments.alpha = alpha;
     }];
     
 }
