@@ -67,7 +67,7 @@
     food[@"comments"] = self.commentsField.text;
     food[@"ratings"] = [self getRatings];
     food[@"restaurantId"] = self.restaurant.id;
-    food[@"username"] = user.username;
+    food[@"user"] = user;
     food[@"fullname"] = user[@"fullname"];
     
     NSData *imageData = UIImagePNGRepresentation(self.thumbnailImage);
