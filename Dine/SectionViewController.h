@@ -23,6 +23,7 @@
 @property (nonatomic, weak) id<SectionViewControllerDelegate> delegate;
 
 @property (nonatomic, strong) NSMutableArray *restaurants;
+@property (nonatomic, strong) NSString *searchTerm;
 
 - (void)setFrame:(CGRect)frame;
 - (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index;
