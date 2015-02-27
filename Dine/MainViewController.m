@@ -190,6 +190,7 @@ typedef enum {
 }
 
 - (void)expandListViewToPage:(int)page {
+    self.customNavBar.alpha = 1;
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     self.lvc.scrollView.pagingEnabled = YES;
     self.lvc.expaned = YES;
@@ -197,12 +198,14 @@ typedef enum {
     self.lvc.pageControl.currentPage = page;
     [self.view layoutIfNeeded];
     [UIView animateWithDuration:0.5 animations:^{
+        self.customNavBar.alpha = 0;
         self.lvc.scrollView.contentOffset = CGPointMake(page * screenWidth, 0);
         [self.lvc setFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height) preLayout:NO];
     }];
 }
 
 - (void)collapseListView {
+    self.customNavBar.alpha = 0;
     self.lvc.scrollView.pagingEnabled = NO;
     self.lvc.expaned = NO;
     self.listViewYOffset.constant = 0;
@@ -211,6 +214,7 @@ typedef enum {
     CGFloat scale = sectionHeight / [[UIScreen mainScreen] bounds].size.height;
     
     [UIView animateWithDuration:0.5 animations:^{
+        self.customNavBar.alpha = 1;
         self.lvc.scrollView.contentOffset = CGPointMake(self.lvc.scrollView.contentOffset.x * scale, 0);
         [self.lvc setFrame:self.listView.frame preLayout:YES];
     }];
