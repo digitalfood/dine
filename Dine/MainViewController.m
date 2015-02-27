@@ -117,7 +117,7 @@ typedef enum {
 - (void)swipeToRestaurant:(Restaurant *)restaurant rtl:(BOOL)rtl {
     self.restaurant = restaurant;
     NSString *restaurantId;
-    NSArray *whilteList = @[@"gochi-japanese-fusion-tapas-cupertino", @"ikes-lair-cupertino-2"];
+    NSArray *whilteList = @[@"gochi-japanese-fusion-tapas-cupertino", @"ikes-lair-cupertino-2", @"dish-n-dash-sunnyvale", @"gombei-bento-sunnyvale"];
     // THIS IS A TEMPORARY HACK TO SHOW DEFAULT DISHES WHEN THERE'S NO DISHES IN PARSE
     if ([whilteList containsObject:restaurant.id]) {
         restaurantId = restaurant.id;
