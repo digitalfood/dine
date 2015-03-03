@@ -62,6 +62,10 @@ typedef enum {
 - (void)viewWillAppear:(BOOL)animated {
     // hide status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    [self.view setFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
+    [self.view layoutIfNeeded];
 }
 
 - (void)viewDidLoad {

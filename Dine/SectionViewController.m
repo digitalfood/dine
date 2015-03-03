@@ -33,12 +33,16 @@
 
 @implementation SectionViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    [self.view setFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
+    [self.view layoutIfNeeded];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
     self.view.backgroundColor = [UIColor clearColor];
-//    self.view.opaque = NO;
     
     self.client = [YelpClient sharedInstance];
     self.locationManager = [LocationManager sharedInstance];
@@ -184,7 +188,6 @@
 - (void)reloadDataForResult: (NSMutableArray *) restaurants atRestaurant:(NSInteger) index {
     self.restaurants = restaurants;
     
-    // remove existing restua from
     for(UIView *subview in [self.scrollView subviews]) {
         [subview removeFromSuperview];
     }
