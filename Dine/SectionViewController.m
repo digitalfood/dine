@@ -88,6 +88,9 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     int page = floor((self.scrollView.contentOffset.x - self.sectionWidth / 2 ) / self.sectionWidth) + 1;
+    if (page < 0) {
+        page = 0;
+    }
     
     if (self.pageControl.currentPage != page) {
         [self.delegate swipeToRestaurant:self.restaurants[page] rtl:(self.pageControl.currentPage < page)];
@@ -149,7 +152,6 @@
             [self.restaurants addObjectsFromArray:restaurants];
             self.isInRefresh = NO;
             [self updateUI: self.pageControl.currentPage];
-            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error: %@", [error description]);
         }];
@@ -157,7 +159,10 @@
 }
 
 - (void)updateUI: (NSInteger) currentPage {
-    
+    if (currentPage < 0) {
+        currentPage = 0;
+        return;
+    }
     NSInteger numberOfViews = self.restaurants.count;
     
     self.pageControl.numberOfPages = numberOfViews;
