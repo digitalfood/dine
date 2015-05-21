@@ -4,8 +4,6 @@ In our group project, we seek to build one app you are ever going to need when y
 
 [Slides](Dine.key)
 
-This is the group project of "Introduction to iOS Programming" course provided by codepath.
-
 Time spent: 1 Week
 
 ### Team Members
