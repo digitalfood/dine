@@ -9,10 +9,10 @@ This is the group project of "Introduction to iOS Programming" course provided b
 Time spent: 1 Week
 
 ### Team Members
-Pythis Ting  (pinyaoting)
-Matt Ho      (mattho)
-Joanna Chan  (chanyash)
-Fabian Uribe (fabianuribe)
+* Pythis Ting  (pinyaoting)
+* Matt Ho      (mattho)
+* Joanna Chan  (chanyash)
+* Fabian Uribe (fabianuribe)
 
 ### Walkthrough
 
